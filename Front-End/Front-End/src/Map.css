@@ -1,0 +1,52 @@
+.Container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.LightMod {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  position: absolute ;
+  top: 25px;
+  right: 10px;
+  z-index: 1000;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px ;
+  background-color: white ;
+  border: none;
+  outline: none;
+}
+
+.DarkMod{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  position: absolute ;
+  top: 20px;
+  right: 10px;
+  z-index: 1000;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px ;
+  background-color: black ;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.Container img{
+  width: 20px;
+}
+
+.Container img[alt='moon']{
+  width: 20px;
+  color: white;
+  border-radius:50%;
+  border :none;
+
+}
