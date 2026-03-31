@@ -1,24 +1,42 @@
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import Data from './Data/ev_dataset.json'
 import { useState } from 'react';
 import './Map.css'
 import sunIcon from './assets/sun.svg';
 import moonIcon from './assets/moon.png';
+import trafic_electiric_charge_station from './assets/charging-station.png';
+import { Icon, DivIcon } from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
 export default function Map() {
-  const algiersCord = [36.7338, 2.9];
+  const algiersCord = [48.8566, 2.3522];
   const [isDarkMode, setIsDarkMode] = useState(false);
   const lightTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const darkTiles = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png";
 
-  const [path, setPath] = useState([
-    [36.7115, 2.8425],
-    [36.7189, 2.8525],
-    [36.7215, 2.8625],
-    [36.7315, 2.8725],
-    [36.7415, 2.8825],
-    [36.7535, 2.8912],
-  ]);
+  const customIcon = new Icon({
+    iconUrl: trafic_electiric_charge_station,
+    iconSize: [38, 38]
+  })
+
+  const customClusterIcon = (cluster) => {
+    return new DivIcon({
+      html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
+      iconSize: [40, 40]
+    })
+  }
+
+  const markers = Data.charging_stations.map((station) => {
+    return {
+      name: station.name,
+      charging_speed: station.power_kw,
+      position: {
+        lat: station.latitude,
+        long: station.longitude
+      }
+    }
+  })
 
   return (
     <div className='Container'>
@@ -31,7 +49,7 @@ export default function Map() {
 
       <MapContainer
         center={algiersCord}
-        zoom={13}
+        zoom={8}
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
@@ -39,18 +57,27 @@ export default function Map() {
           url={isDarkMode ? darkTiles : lightTiles}
         />
 
-        <Marker
-          position={[36.7115, 2.8425]}
-        >
-          <Popup>Start Node</Popup>
-        </Marker>
-        <Marker
-          position={[36.7535, 2.8912]}
-        >
-          <Popup>End Node</Popup>
-        </Marker>
 
-        <Polyline positions={path} color="blue" weight={5} opacity={0.7} />
+        <MarkerClusterGroup
+          style={{ position:'relative' ,borderRadius:'50%' , backgroundColor: 'transparent'}}
+          chunkedLoading
+          iconCreateFunction={customClusterIcon}
+        >
+          {markers.map((marker, index) => (
+            <Marker
+              key={index}
+              position={[marker.position.lat, marker.position.long]}
+              icon={customIcon}
+            >
+              <Popup>
+                <h3>{marker.name}</h3>
+                <p>Charging Speed: {marker.charging_speed} kW</p>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+
+
       </MapContainer>
     </div>
   )

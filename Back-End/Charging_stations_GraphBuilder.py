@@ -20,7 +20,7 @@ def build_graph(dataset_path, max_edge_distance_km=100):
     """
 
     # Load dataset
-    with open(dataset_path) as f:
+    with open('/Data/ev_dataset.json') as f:
         dataset = json.load(f)
 
     stations = dataset["charging_stations"]

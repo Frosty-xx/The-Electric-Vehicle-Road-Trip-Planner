@@ -5,5 +5,7 @@ class GeneralSearch:
         pass
     def setFrontier(self):
         pass
-    def serach(self):
+    def search(self):
         pass
+
+    
