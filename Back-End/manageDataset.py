@@ -62,7 +62,7 @@ final_dataset = {
     "charging_stations": cleaned_data
 }
 
-with open("ev_dataset.json", "w") as f:
+with open(f"ev_dataset({params['countrycode']}).json", "w") as f:
     json.dump(final_dataset, f, indent=4)
 
 print("Final dataset created!")

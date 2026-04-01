@@ -7,6 +7,12 @@
     },
     "charging_stations": [
         {
+            "name": "Fastned - Valence Sud",
+            "latitude": 44.906370578314466,
+            "longitude": 4.879961267922454,
+            "power_kw": 50
+        },
+        {
             "name": "Electra - Saran - Grand Frais",
             "latitude": 47.946127283985476,
             "longitude": 1.8919179229640122,
@@ -2999,12 +3005,6 @@
             "latitude": 47.238693067691315,
             "longitude": 2.0925673177187036,
             "power_kw": 22
-        },
-        {
-            "name": "PowerDot - Retail Park Grand Frais - Azay-le-Rideau",
-            "latitude": 47.26751371902432,
-            "longitude": 0.47395006306544474,
-            "power_kw": 120
         }
     ]
 }
