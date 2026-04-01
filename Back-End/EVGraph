@@ -18,6 +18,7 @@ Usage (in your Flask/FastAPI app):
 """
 
 import os
+from dotenv import load_dotenv
 import math
 import json
 import logging
@@ -25,14 +26,14 @@ import requests
 import osmnx as ox
 import networkx as nx
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
 log = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-
-
 
 
 # Average EV energy consumption in kWh per kilometre (adjustable)
@@ -41,13 +42,15 @@ DEFAULT_KWH_PER_KM = 0.20
 # OpenChargeMap free API – no key needed for small volumes, but add yours for
 # higher rate limits: https://openchargemap.org/site/developerinfo
 OPEN_CHARGE_MAP_URL = "https://api.openchargemap.io/v3/poi/"
-OCM_API_KEY = os.getenv("OCM_API_KEY", "")          # set in your environment
-#OpenChargeMap Country Code:
-COUNTRY_CODE="FR" 
+load_dotenv()
+OCM_API_KEY = os.getenv("OCM_API_KEY")  # set in your environment
+# OpenChargeMap Country Code:
+COUNTRY_CODE = "FR"
 
 # ---------------------------------------------------------------------------
 # 1. Build the road-network graph
 # ---------------------------------------------------------------------------
+
 
 def build_graph(
     place: str = "Lyon, France",
@@ -78,31 +81,32 @@ def build_graph(
         length (metres), travel_time (seconds), kwh_cost
     """
     log.info(f"Downloading road network for '{place}' ...")
-    G = ox.graph_from_place(place, network_type=network_type,simplify=simplify)
-
+    G = ox.graph_from_place(place, network_type=network_type, simplify=simplify)
 
     if add_speeds:
         log.info("Adding speed data ...")
-        G = ox.add_edge_speeds(G)       # imputes missing maxspeed tags
+        G = ox.add_edge_speeds(G)  # imputes missing maxspeed tags
 
     if add_travel_times:
         log.info("Adding travel times ...")
-        G = ox.add_edge_travel_times(G) # travel_time in seconds
+        G = ox.add_edge_travel_times(G)  # travel_time in seconds
 
     # Add energy-cost attribute to every edge
     _add_energy_cost(G)
 
     # Initialise charging-station flags on every node
     nx.set_node_attributes(G, False, "is_charging_station")
-    nx.set_node_attributes(G, 0,     "charger_kw")
+    nx.set_node_attributes(G, 0, "charger_kw")
 
     # Pull and tag charging stations
     _tag_charging_stations(G, place)
 
     node_count = G.number_of_nodes()
     edge_count = G.number_of_edges()
-    cs_count   = sum(1 for _, d in G.nodes(data=True) if d.get("is_charging_station"))
-    log.info(f"Graph ready: {node_count} nodes, {edge_count} edges, {cs_count} charging stations.")
+    cs_count = sum(1 for _, d in G.nodes(data=True) if d.get("is_charging_station"))
+    log.info(
+        f"Graph ready: {node_count} nodes, {edge_count} edges, {cs_count} charging stations."
+    )
 
     return G
 
@@ -111,19 +115,23 @@ def build_graph(
 # 2. Energy cost on edges
 # ---------------------------------------------------------------------------
 
-def _add_energy_cost(G: nx.MultiDiGraph, kwh_per_km: float = DEFAULT_KWH_PER_KM) -> None:
+
+def _add_energy_cost(
+    G: nx.MultiDiGraph, kwh_per_km: float = DEFAULT_KWH_PER_KM
+) -> None:
     """
     Add `kwh_cost` attribute to every edge.
     kwh_cost = distance_km * kwh_per_km
     """
     for u, v, key, data in G.edges(keys=True, data=True):
-        dist_km = data.get("length", 0) / 1000.0   # OSMnx stores length in metres
+        dist_km = data.get("length", 0) / 1000.0  # OSMnx stores length in metres
         G[u][v][key]["kwh_cost"] = round(dist_km * kwh_per_km, 4)
 
 
 # ---------------------------------------------------------------------------
 # 3. Fetch & tag charging stations
 # ---------------------------------------------------------------------------
+
 
 def _tag_charging_stations(G: nx.MultiDiGraph, place: str) -> None:
     """
@@ -159,30 +167,31 @@ def _fetch_charging_stations(place: str) -> list[dict]:
     """
     # Derive a bounding box from the place name
     try:
-        bbox = _get_place_bbox(place)           # (north, south, east, west)
+        bbox = _get_place_bbox(place)  # (north, south, east, west)
     except Exception as e:
         log.warning(f"Could not determine bounding box for '{place}': {e}")
         return []
 
     north, south, east, west = bbox
     params = {
-        "output":        "json",
-        "maxresults":    2000,
-        "compact":       True,
-        "verbose":       False,
-        "countrycode":   COUNTRY_CODE,                  
-        "latitude":      (north + south) / 2,
-        "longitude":     (east  + west)  / 2,
-        "distance":      _bbox_radius_km(north, south, east, west),
-        "distanceunit":  "KM",
-        "levelid":       3,                     # Level 3 = DC fast chargers
+        "output": "json",
+        "maxresults": 2000,
+        "compact": True,
+        "verbose": False,
+        "countrycode": COUNTRY_CODE,
+        "latitude": (north + south) / 2,
+        "longitude": (east + west) / 2,
+        "distance": _bbox_radius_km(north, south, east, west),
+        "distanceunit": "KM",
+        "levelid": 3,  # Level 3 = DC fast chargers
     }
-    if OCM_API_KEY:
-        params["key"] = OCM_API_KEY
+    headers = {"X-API-Key": "e9bf02f0-1b99-4f5c-bd93-487fe7779998"}
 
     try:
         log.info("Fetching charging stations from OpenChargeMap ...")
-        resp = requests.get(OPEN_CHARGE_MAP_URL, params=params, timeout=15)
+        resp = requests.get(
+            OPEN_CHARGE_MAP_URL, params=params, headers=headers, timeout=15
+        )
         resp.raise_for_status()
         raw = resp.json()
     except Exception as e:
@@ -192,8 +201,8 @@ def _fetch_charging_stations(place: str) -> list[dict]:
     stations = []
     for poi in raw:
         addr = poi.get("AddressInfo", {})
-        lat  = addr.get("Latitude")
-        lon  = addr.get("Longitude")
+        lat = addr.get("Latitude")
+        lon = addr.get("Longitude")
         if lat is None or lon is None:
             continue
 
@@ -213,21 +222,22 @@ def _fetch_charging_stations(place: str) -> list[dict]:
 def _get_place_bbox(place: str) -> tuple[float, float, float, float]:
     """Return (north, south, east, west) bounding box for a place name."""
     gdf = ox.geocode_to_gdf(place)
-    bounds = gdf.geometry.total_bounds   # (minx, miny, maxx, maxy)
+    bounds = gdf.geometry.total_bounds  # (minx, miny, maxx, maxy)
     west, south, east, north = bounds
     return north, south, east, west
 
 
 def _bbox_radius_km(north: float, south: float, east: float, west: float) -> float:
     """Approximate radius (km) of a bounding box – used for OpenChargeMap query."""
-    lat_km  = (north - south) * 111
-    lon_km  = (east  - west)  * 111 * math.cos(math.radians((north + south) / 2))
+    lat_km = (north - south) * 111
+    lon_km = (east - west) * 111 * math.cos(math.radians((north + south) / 2))
     return round(math.sqrt((lat_km / 2) ** 2 + (lon_km / 2) ** 2), 1)
 
 
 # ---------------------------------------------------------------------------
 # 4. Helper functions for the search algorithms
 # ---------------------------------------------------------------------------
+
 
 def nearest_node(G: nx.MultiDiGraph, lat: float, lon: float) -> int:
     """
@@ -255,7 +265,7 @@ def get_edge_kwh_cost(G: nx.MultiDiGraph, u: int, v: int) -> float:
 def get_node_coords(G: nx.MultiDiGraph, node_id: int) -> tuple[float, float]:
     """Return (lat, lon) of a node."""
     data = G.nodes[node_id]
-    return data["y"], data["x"]     # OSMnx stores lat as 'y', lon as 'x'
+    return data["y"], data["x"]  # OSMnx stores lat as 'y', lon as 'x'
 
 
 def is_charging_station(G: nx.MultiDiGraph, node_id: int) -> bool:
@@ -270,15 +280,19 @@ def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """
     R = 6371.0
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
-    dphi  = math.radians(lat2 - lat1)
-    dlam  = math.radians(lon2 - lon1)
-    a = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlam / 2) ** 2
+    dphi = math.radians(lat2 - lat1)
+    dlam = math.radians(lon2 - lon1)
+    a = (
+        math.sin(dphi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dlam / 2) ** 2
+    )
     return R * 2 * math.asin(math.sqrt(a))
 
 
 # ---------------------------------------------------------------------------
 # 5. Persistence  (save / load to avoid re-downloading)
 # ---------------------------------------------------------------------------
+
 
 def save_graph(G: nx.MultiDiGraph, filepath: str) -> None:
     """
@@ -329,7 +343,7 @@ if __name__ == "__main__":
 
     G = get_or_build_graph(
         cache_path="lyon_test_cache.graphml",
-        place="1st arrondissement, Lyon, France",   # small area – fast!
+        place="Lyon, France",  # small area – fast!
     )
 
     # Print a few stats
