@@ -5,8 +5,8 @@ url = "https://api.openchargemap.io/v3/poi/"
 
 params = {
     "output": "json",
-    "countrycode": "FR",
-    "maxresults": 500,     
+    "countrycode": "TN",
+    "maxresults": 30,     
 }
 
 headers = {

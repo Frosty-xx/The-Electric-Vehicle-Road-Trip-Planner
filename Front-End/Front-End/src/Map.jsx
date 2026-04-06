@@ -10,7 +10,7 @@ import { Icon, DivIcon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 
 export default function Map() {
-  const algiersCord = [48.8566, 2.3522];
+  const tunisiaCord = [36.705, 10.15];
   const [isDarkMode, setIsDarkMode] = useState(false);
   const lightTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const darkTiles = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png";
@@ -48,8 +48,8 @@ export default function Map() {
       </button>
 
       <MapContainer
-        center={algiersCord}
-        zoom={8}
+        center={tunisiaCord}
+        zoom={10}
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
