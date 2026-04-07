@@ -25,6 +25,7 @@ import logging
 import requests
 import osmnx as ox
 import networkx as nx
+from networkx import MultiDiGraph
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
@@ -331,6 +332,14 @@ def get_or_build_graph(
     G = build_graph(place)
     save_graph(G, cache_path)
     return G
+
+def get_node_id_from_address(address: str, G:MultiDiGraph) -> int:
+    """Convert a human-readable address to the nearest graph node ID."""
+    location = ox.geocode(address)  # returns (lat, lon)
+    lat, lon = location
+    node_id = nearest_node(G, lat=lat, lon=lon)
+    print(f"'{address}' → lat={lat:.5f}, lon={lon:.5f} → node_id={node_id}")
+    return node_id
 
 
 # ---------------------------------------------------------------------------
