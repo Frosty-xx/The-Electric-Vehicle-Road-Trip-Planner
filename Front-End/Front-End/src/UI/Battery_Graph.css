@@ -1,0 +1,141 @@
+.battery-graph-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    background: rgba(240, 240, 240, 0.199);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.battery-graph-container:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+.graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.733);
+    border-radius: 0.625;
+}
+
+.graph-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+    letter-spacing: 0.5px;
+}
+
+.graph-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.current-battery {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a90e2;
+    text-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+/* Recharts customization */
+.recharts-wrapper {
+    animation: fadeIn 0.8s ease-out 0.2s backwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.recharts-surface {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+.custom-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(74, 144, 226, 0.5);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.tooltip-distance,
+.tooltip-battery {
+    margin: 4px 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.3px;
+}
+
+.tooltip-distance span,
+.tooltip-battery span {
+    font-weight: 600;
+    color: #4a90e2;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .battery-graph-container {
+        bottom: 10px;
+        left: 10px;
+        width: 350px;
+        padding: 16px;
+    }
+
+    .graph-title {
+        font-size: 14px;
+    }
+
+    .current-battery {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .battery-graph-container {
+        bottom: 10px;
+        left: 10px;
+        width: 300px;
+        padding: 12px;
+    }
+
+    .graph-title {
+        font-size: 13px;
+    }
+
+    .current-battery {
+        font-size: 14px;
+    }
+
+    .recharts-wrapper {
+        height: 250px !important;
+    }
+}
