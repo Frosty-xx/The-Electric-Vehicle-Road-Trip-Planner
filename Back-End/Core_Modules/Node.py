@@ -1,5 +1,3 @@
-
-
 class Node:
     def __init__(self, state_id,battery_kwh, parent=None, action=None, g=0, f=0):
         self.state_id = state_id
@@ -16,12 +14,14 @@ class Node:
             self.depth = parent.depth + 1
             
     def __hash__(self):
-        return hash((self.state_id))
-    
-    def __eq__(self,other):
-        #Add Battery !important
-        return isinstance(other, Node) and self.state_id==other.state_id 
-    
+        # Bucket battery into 5 kWh bands so nearby states are still merged
+        battery_bucket = round(self.battery_kwh / 5)
+        return hash((self.state_id, battery_bucket))
+
+    def __eq__(self, other):
+        return  (isinstance(other, Node) and
+                self.state_id == other.state_id and
+                round(self.battery_kwh / 5) == round(other.battery_kwh / 5))
     def __gt__(self,other):
         return isinstance(other,Node) and self.f > other.f
 
