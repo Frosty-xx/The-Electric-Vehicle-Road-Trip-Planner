@@ -13,7 +13,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import queue
 from Core_Modules.Node import Node
 from Core_Modules.EV_Porblem import EV_Problem
-
+from Core_Modules.EVGraph import is_charging_station
 
 
 
@@ -155,6 +155,15 @@ class GeneralSearch:
             coords.extend(points)
 
         return coords
+    def chargers_in_path(self,G, solution_node):
+        """Walk parent chain and collect any charging station nodes visited."""
+        chargers = []
+        cur = solution_node
+        while cur is not None:
+            if is_charging_station(G, cur.state_id):
+                chargers.append((cur.state_id, G.nodes[cur.state_id].get("charger_kw", 0)))
+            cur = cur.parent
+        return chargers
 
 
 

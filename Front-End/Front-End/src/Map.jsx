@@ -317,6 +317,20 @@ export default function Map() {
 
 
         )}
+        {!showClusters && (
+            markers.map((marker, index) => (
+              <Marker
+                key={index}
+                position={[marker.position.lat, marker.position.long]}
+                icon={customIcon}
+              >
+                <Popup>
+                  <h3>{marker.name}</h3>
+                  <p>Charging Speed: {marker.charging_speed} kW</p>
+                </Popup>
+              </Marker>
+            ))
+        )}
 
         {path && path.length > 0 && (
           <>

@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 from networkx import MultiDiGraph
-from Core_Modules.EVGraph import get_edge_distance_km, get_node_coords, haversine_km, get_edge_kwh_cost,is_charging_station
+from Core_Modules.EVGraph import get_edge_distance_km, get_node_coords, haversine_km, get_edge_kwh_cost
 from Core_Modules.Node import Node
 
 LOW_BATTERY_THRESHOLD_KWH = 10.0
@@ -82,40 +82,6 @@ class EV_Problem:
              if use_heuristic else 0)
         )
 
-    # ------------------------------------------------------------------
-
-    LOW_BATTERY_KWH = 5.0   # tune to your use case
-
-    # def _nearest_reachable_charger(self, from_node, battery_kwh):
-    #     """
-    #     BFS outward from from_node, tracking cumulative energy cost.
-    #     Returns the first charging station node reachable within battery_kwh.
-    #     Returns None if no charger is reachable.
-    #     """
-    #     from collections import deque
-
-    #     # (node, energy_spent_so_far)
-    #     queue   = deque([(from_node, 0.0)])
-    #     visited = {from_node: 0.0}
-
-    #     while queue:
-    #         current, energy_used = queue.popleft()
-
-    #         # Check if this node is a charger (skip the start node itself)
-    #         if current != from_node and self._parse_bool(
-    #                 self.Graph.nodes[current].get("is_charging_station", False)):
-    #             return current
-
-    #         # Expand neighbours within remaining battery budget
-    #         for neighbour in self.Graph.successors(current):
-    #             edge_cost = get_edge_kwh_cost(self.Graph, current, neighbour)
-    #             total_cost = energy_used + edge_cost
-    #             if total_cost <= battery_kwh and (
-    #                     neighbour not in visited or visited[neighbour] > total_cost):
-    #                 visited[neighbour] = total_cost
-    #                 queue.append((neighbour, total_cost))
-
-    #     return None  # no charger reachable within battery
 
 
     def _nearest_reachable_charger(self, from_node, battery_kwh):

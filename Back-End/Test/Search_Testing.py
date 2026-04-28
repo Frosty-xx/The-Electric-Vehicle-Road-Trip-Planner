@@ -31,7 +31,7 @@ if __name__ == "__main__":
     goal_state = get_nearest_node_from_address(G,GOAL_ADRESS)
     print(goal_state)
     print(initial_state)
-    strategy = "A*"
+    strategy = "Greedy"
     
 
     problem = EV_Problem(initial_state,goal_state,INIT_BATTERY_LEVEL_PERCENTAGE,DEFAULT_BATTERY_CAPACITY_KWH,G)
@@ -41,10 +41,12 @@ if __name__ == "__main__":
     solution_node = serach_instance.search(search_strategy=strategy)[0]
 
     Path = serach_instance.get_solution_path(solution_node)
+    charging_stations= serach_instance.chargers_in_path(G,solution_node)
     
 
     print(f"\n========================= path from {INITIAL_ADRESS} to {GOAL_ADRESS} ({strategy}):=========================")
     print()
     print(f"Constructed Path: {Path}")
     print(f"Distance Traveled: {solution_node.g} KM , Batter_Level:{solution_node.battery_kwh / problem.battery_capacity * 100:.2f}%")
+    print(f"chargers in path:{charging_stations}")
 
