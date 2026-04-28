@@ -3,8 +3,12 @@ import { faBattery, faEnvelope, faLocationCrosshairs, faLocationDot } from '@for
 import { useState } from 'react';
 import Nav_Bar from './Nav_Bar';
 import './Search_Box.css';
+import AddressAutocomplete from './autocomplete';
 
-export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPaths, setStrategy, setDistance}) {
+
+
+export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPaths, setStrategy, setDistance , setLoadingScreen,setBattery_data}) {
+
     const [startAddress, setStartAddress] = useState('');
     const [destinationAddress, setDestinationAddress] = useState('');
     const [battery_level, setBattery_level] = useState('');
@@ -46,9 +50,9 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
     };
 
     const handleInputChange = (field, value) => {
+        if (field === 'battery_level') setBattery_level(value);
         if (field === 'startAddress') setStartAddress(value);
         if (field === 'destinationAddress') setDestinationAddress(value);
-        if (field === 'battery_level') setBattery_level(value);
         
         // Clear error for this field when user starts typing
         if (errors[field]) {
@@ -65,7 +69,7 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
         if (!validateForm()) {
             return;
         }
-
+        setLoadingScreen(true);
         const payload = {
             start: startAddress,
             end: destinationAddress,
@@ -74,29 +78,43 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
         };
         console.log('Searching route:', payload);
         // run App.py before request
-        const response = await fetch('http://localhost:5000/api/route', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        if (!response.ok){
+        try {
+            
+            const response = await fetch('http://localhost:5000/api/route', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            if (!response.ok){
             alert('No route found!')
+            setLoadingScreen(false);
             return;
         }
-        const data = await response.json();
-        console.log(data)
-        setStrategy(activeSearch);
-        setExploredPaths([]); // Clear old explored paths first
-        setPath([]); // Clear old path first
-        setTimeout(() => {
-          // Set new data after a brief delay to ensure cleanup
-          setExploredPaths(data.explored_paths);
-          setMapCenter(data.path[0]);
-          setPath(data.path);
-          if (data.distance) {
-            setDistance(data.distance);
-          }
-        }, 100);
+
+            const data = await response.json();
+            console.log(data)
+            setStrategy(activeSearch);
+            setExploredPaths([]); // Clear old explored paths first
+            setPath([]); // Clear old path first
+            setTimeout(() => {
+              // Set new data after a brief delay to ensure cleanup
+              setExploredPaths(data.explored_paths || []); 
+              setMapCenter(data.path[0]);
+              setPath(data.path.filter(coord =>  !isNaN(coord[0]) && !isNaN(coord[1])));
+              if (data.distance) {
+                setDistance(data.distance);
+              }
+              setBattery_data(data.Battery_Distance_Graph)
+
+            }, 100);
+            setLoadingScreen(false);
+
+        } catch (error) {
+            setLoadingScreen(false);
+            console.error('Network Error:', error);
+            alert("Connection Failed: The server is unreachable. Please check your internet or try again later.");
+        }
+
     }
 
     return (
@@ -108,13 +126,13 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
                             <FontAwesomeIcon icon={faLocationCrosshairs} color='red' fontSize={18}></FontAwesomeIcon>
                         </label>
                         <div className="input-wrapper">
-                            <input
-                                id="start-address"
-                                type="text"
-                                className={`search-input ${errors.startAddress ? 'input-error' : ''}`}
-                                placeholder="Enter starting location..."
-                                value={startAddress}
-                                onChange={(e) => handleInputChange('startAddress', e.target.value)}
+                            <AddressAutocomplete
+                                id="startAddress"
+                                onSelect={(place) => setStartAddress(place.display_name)}
+                                onChange={(value) => handleInputChange('startAddress', value)}
+                                countrycodes='TN'
+                                errors={errors}
+                                setErrors={setErrors}
                             />
                             {errors.startAddress && <span className="error-message">{errors.startAddress}</span>}
                         </div>
@@ -125,13 +143,13 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
                             <FontAwesomeIcon icon={faLocationDot} color='black' fontSize={18}></FontAwesomeIcon>
                         </label>
                         <div className="input-wrapper">
-                            <input
-                                id="destination-address"
-                                type="text"
-                                className={`search-input ${errors.destinationAddress ? 'input-error' : ''}`}
-                                placeholder="Enter destination..."
-                                value={destinationAddress}
-                                onChange={(e) => handleInputChange('destinationAddress', e.target.value)}
+                            <AddressAutocomplete
+                                id="destinationAddress"
+                                onSelect={(place) => setDestinationAddress(place.display_name)}
+                                onChange={(value) => handleInputChange('destinationAddress', value)}
+                                countrycodes='TN'
+                                errors={errors}
+                                setErrors={setErrors}
                             />
                             {errors.destinationAddress && <span className="error-message">{errors.destinationAddress}</span>}
                         </div>

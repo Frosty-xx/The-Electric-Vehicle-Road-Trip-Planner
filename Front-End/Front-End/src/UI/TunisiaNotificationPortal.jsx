@@ -31,7 +31,7 @@ function TunisiaNotificationPortal() {
         
         <div className="notification-content">
           <p className="notification-text">
-            The current search functionality is <strong>only available in <span style={{color:"tomato"}}>Tunisia</span></strong>.
+            The current search functionality is <strong>only available in <span style={{color:"red"}}>Tunisia</span></strong>.
           </p>
           <p className="notification-subtext">
             We're working on expanding to other regions soon. Thank you for your patience!

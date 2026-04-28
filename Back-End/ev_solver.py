@@ -7,7 +7,7 @@ DEFAULT_BATTERY_CAPACITY_KWH = 77.4  # Adjust based on the EV model you want to 
 DEFAULT_SPEED = 30  # km/h for travel time estimation on edges without speed data
 
 
-MAXIMUM_EXPLORED_PATHES_VISUAL=800
+MAXIMUM_EXPLORED_PATHES_VISUAL=500
 
 
 def solve(start_address, goal_address, strategy, battery_info,Graph):
@@ -33,9 +33,11 @@ def solve(start_address, goal_address, strategy, battery_info,Graph):
         return None
     
     print(f"Path found! Nodes explored: {len(explored_nodes)}")
-    successful_path = search_engine.get_solution_path(solution_node)
+    successful_path,battery_distance_graph = search_engine.get_solution_path_battery_graph(solution_node)
     explored_paths =  get_explored_paths(G,explored_nodes,MAXIMUM_EXPLORED_PATHES_VISUAL)
     battery_used_kwh = DEFAULT_BATTERY_CAPACITY_KWH - solution_node.battery_kwh
+    
+    formatted_battery_distance_graph =  [{"battery_level": item[1], "distance": item[0]} for item in battery_distance_graph]
     
     return{
         
@@ -43,6 +45,7 @@ def solve(start_address, goal_address, strategy, battery_info,Graph):
         'explored_paths':explored_paths,
         'total_ditance_km': solution_node.g,
         'total_kwh_used': battery_used_kwh,
+        'Battery_Distance_Graph':formatted_battery_distance_graph,
         'Charging_stations' :[],
         'Battery_percentage':battery_info - battery_used_kwh *100 / DEFAULT_BATTERY_CAPACITY_KWH
         } # for now

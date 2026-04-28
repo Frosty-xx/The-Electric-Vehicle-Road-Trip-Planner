@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 from networkx import MultiDiGraph
-from Core_Modules.EVGraph import get_edge_distance_km, get_node_coords, haversine_km, get_edge_kwh_cost
+from Core_Modules.EVGraph import get_edge_distance_km, get_node_coords, haversine_km, get_edge_kwh_cost,is_charging_station
 from Core_Modules.Node import Node
 
 LOW_BATTERY_THRESHOLD_KWH = 10.0
@@ -82,6 +82,9 @@ class EV_Problem:
              if use_heuristic else 0)
         )
 
+    # ------------------------------------------------------------------
+
+    LOW_BATTERY_KWH = 5.0   # tune to your use case
 
 
     def _nearest_reachable_charger(self, from_node, battery_kwh):
