@@ -10,7 +10,7 @@ from Search_Algorithms.General_Search import GeneralSearch
 
 # Directory of the current file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-GRAPH_PATH = os.path.join(BASE_DIR, "..", "Data", "tunisia.graphml")
+GRAPH_PATH = os.path.join(BASE_DIR, "..", "Data", "tunisia_major.graphml")
 
 DEFAULT_BATTERY_CAPACITY_KWH = 77.4  # Adjust based on the EV model you want to simulate
 DEFAULT_SPEED = 30  # km/h for travel time estimation on edges without speed data
