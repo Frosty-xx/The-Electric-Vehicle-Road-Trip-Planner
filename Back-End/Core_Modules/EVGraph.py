@@ -239,9 +239,12 @@ def get_node_coords(G: nx.MultiDiGraph, node_id: int) -> tuple[float, float]:
     return data["y"], data["x"]  # 'y'=lat, 'x'=lon — set during build
 
 
-def is_charging_station(G: nx.MultiDiGraph, node_id: int) -> bool:
-    """True if the node has a tagged charging station."""
-    return G.nodes[node_id].get("is_charging_station", False)
+def is_charging_station(G, node_id):
+    val = G.nodes[node_id].get("is_charging_station", False)
+    # GraphML returns the string "True" or "False", not a bool
+    if isinstance(val, str):
+        return val.strip().lower() == "true"
+    return bool(val)
 
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:

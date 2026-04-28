@@ -13,6 +13,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import queue
 from Core_Modules.Node import Node
 from Core_Modules.EV_Porblem import EV_Problem
+DEFAULT_BATTERY_CAPACITY_KWH = 77.4 
 
 
 
@@ -121,15 +122,18 @@ class GeneralSearch:
 
         return None,explored  # No path found
 
-    def get_solution_path(self, solution_node: Node) -> list[list[float, float]]:
+    def get_solution_path_battery_graph(self, solution_node: Node) -> tuple[list[list[float, float]],list[tuple[float,float]]]:
         # Collect nodes from goal to start
         nodes = []
+        battery_distance_graph=[]
         current = solution_node
         while current is not None:
             nodes.append(current.state_id)
+            battery_percentage = current.battery_kwh*100/DEFAULT_BATTERY_CAPACITY_KWH
+            battery_distance_graph.append((current.g,battery_percentage))
             current = current.parent
         nodes.reverse()  # now start → goal
-
+        battery_distance_graph.reverse() # Battery_distance graph over distance
         # Build coordinate list using edge geometry
         G = self.problem.Graph
         coords = []
@@ -154,7 +158,17 @@ class GeneralSearch:
 
             coords.extend(points)
 
-        return coords
+        return coords,battery_distance_graph
+
+    def chargers_in_path(self,G, solution_node):
+        """Walk parent chain and collect any charging station nodes visited."""
+        chargers = []
+        cur = solution_node
+        while cur is not None:
+            if is_charging_station(G, cur.state_id):
+                chargers.append((cur.state_id, G.nodes[cur.state_id].get("charger_kw", 0)))
+            cur = cur.parent
+        return chargers
 
 
 

@@ -19,7 +19,8 @@ import { faMagic } from '@fortawesome/free-solid-svg-icons';
 //Soundes
 import searchSound from './assets/Audio/serach_sound.mp3'
 import successSound from './assets/Audio/success.mp3'
-
+import AddressAutocomplete from './UI/autocomplete';
+import LoadingScreen from './UI/Loading_screen/Loading_screen';
 // Component to handle map zoom when path changes
 function MapUpdater({ path }) {
   const map = useMap();
@@ -27,7 +28,7 @@ function MapUpdater({ path }) {
   useEffect(() => {
     if (path && path.length > 0) {
       // Zoom to the first coordinate and set a higher zoom level
-      map.flyTo(path[0], 8, { duration: 1 });
+      map.flyTo(path[0], 7, { duration: 1 });
     }
   }, [path, map]);
 
@@ -71,11 +72,10 @@ const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 
       if (line && line._path) {
         line._path.style.zIndex = zIndex;
       }
-
       // Calculate animation duration and call onAnimationComplete when done
       if (onAnimationComplete) {
         const pathLength = getPathDistance(positions);
-        const animationDuration = (pathLength * 1000) / speed;
+        const animationDuration = (pathLength * 100) / speed;
         const completeTimer = setTimeout(() => {
           onAnimationComplete();
         }, animationDuration);
@@ -125,6 +125,13 @@ export default function Map() {
 
   const tunisiaCord = [36.8065, 10.1815];
   const lyonCord = [45.76, 4.8357];
+  // Loading Screen:
+  const [loading_screen, setLoadingScreen] = useState(false);
+
+  //Battery Graph:
+  const [batteryData, setBatteryData] = useState([]);
+
+  // State variables
   const [loading, setLoading] = useState(false);
   const [mapCenter, setMapCenter] = useState(tunisiaCord)
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -168,7 +175,7 @@ export default function Map() {
     if (exploredPaths.length > 0) {
       setShowFinalPath(false);
       // Calculate total animation time: last path delay + animation time
-      const totalAnimationTime = (exploredPaths.length - 1) * (strategy == "BFS" ? STAGGER_DELAY / 10 : STAGGER_DELAY) + 2000; //  stagger delay + 1.5s for animation
+      const totalAnimationTime = (exploredPaths.length - 1) * (strategy == "BFS" ? STAGGER_DELAY / 10 : STAGGER_DELAY) + 1500; //  stagger delay + 1.5s for animation
       const timer = setTimeout(() => {
         setShowFinalPath(true);
       }, totalAnimationTime);
@@ -274,9 +281,11 @@ export default function Map() {
   })
 
   return (
+    
     <div className='Container'>
-      <Search_Box mapCenter={mapCenter} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} />
-      <Battery_Graph />
+      <LoadingScreen isLoading={loading_screen} />
+      <Search_Box mapCenter={mapCenter} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} setLoadingScreen={setLoadingScreen} setBattery_data={setBatteryData}/>
+      <Battery_Graph data={batteryData}/>
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
 
@@ -294,9 +303,8 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={isDarkMode ? darkTiles : lightTiles}
         />
-        {showClusters && (
 
-          <MarkerClusterGroup
+        {showClusters && (          <MarkerClusterGroup
             style={{ position: 'relative', borderRadius: '50%', backgroundColor: 'transparent' }}
             chunkedLoading
             iconCreateFunction={customClusterIcon}
@@ -314,12 +322,26 @@ export default function Map() {
               </Marker>
             ))}
           </MarkerClusterGroup>
-
-
         )}
+        {!showClusters && (
+            markers.map((marker, index) => (
+              <Marker
+                key={index}
+                position={[marker.position.lat, marker.position.long]}
+                icon={customIcon}
+              >
+                <Popup>
+                  <h3>{marker.name}</h3>
+                  <p>Charging Speed: {marker.charging_speed} kW</p>
+                </Popup>
+              </Marker>
+            ))
+        )}
+
 
         {path && path.length > 0 && (
           <>
+            setShowClusters(false); // Hide clusters when a path is displayed
             {/* Start point marker */}
             <ZoomableMarker
               position={path[0]}
@@ -372,7 +394,6 @@ export default function Map() {
               }
 
               const delayTime = index * (strategy == "BFS" ? STAGGER_DELAY / 10 : STAGGER_DELAY); // Stagger animations by 300ms each
-              console.log(exploredPaths.length)
               return (
                 <SnakeLine
                   key={`explored-${index}`}
