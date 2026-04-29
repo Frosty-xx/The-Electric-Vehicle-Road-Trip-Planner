@@ -4,4 +4,4 @@ osmnx
 networkx
 dotenv
 requests
-
+gunicorn
