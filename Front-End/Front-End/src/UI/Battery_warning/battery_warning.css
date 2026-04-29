@@ -1,0 +1,14 @@
+/* Define the animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply it to a class */
+.fade-in-element {
+  animation: fadeIn 0.2s ease-in forwards;
+}

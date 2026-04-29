@@ -1,10 +1,9 @@
 .search-box-container {
     position: absolute;
-    top: 28px;
+    top: 10px;
     left: 50px;
     z-index: 1000;
     animation: slideInDown 0.6s ease-out;
-    
 
 }
 
