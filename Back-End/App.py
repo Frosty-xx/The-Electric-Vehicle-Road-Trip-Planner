@@ -4,29 +4,32 @@ import osmnx as ox
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ev_solver import solve
-app = Flask(__name__)
+from google.cloud import storage
+import tempfile
 
-# Configure CORS to allow requests from frontend
-CORS(app)
-
-
-# For development, you can also use:
-# CORS(app, supports_credentials=True)  # Allow all origins (only for development)
-# --- Graph Loading Logic ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-GRAPH_PATH = os.path.join(BASE_DIR, "Data", "tunisia_major.graphml")
-
+# # --- Graph Loading Logic ---
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# GRAPH_PATH = os.path.join(BASE_DIR, "Data", "tunisia_major.graphml")
+def download_graph():
+    client = storage.Client()
+    bucket = client.bucket('ev-planner-data')
+    blob = bucket.blob('tunisia_major.graphml')
+    
+    tmp_path = '/tmp/tunisia_major.graphml'
+    blob.download_to_filename(tmp_path)
+    return ox.load_graphml(tmp_path)
 print("Loading graph data... Please wait.")
 try:
-    # Load the graph once when the script starts
-    # If using osmnx: G = ox.load_graphml(GRAPH_PATH)
-
-    G = ox.load_graphml(GRAPH_PATH) 
+    G = download_graph()
     print("Graph loaded successfully!")
 except Exception as e:
     print(f"Error loading graph: {e}")
     G = None
 # ---------------------------
+app = Flask(__name__)
+# Configure CORS to allow requests from frontend
+CORS(app)
+
 
 @app.route('/api/route', methods=['POST', 'OPTIONS'])
 def get_route():
@@ -78,6 +81,8 @@ def get_route():
             return jsonify({'error': 'Battery level must be a number'}), 400
         print("================================================================")
         print(f'Route request: {start_address} -> {end_address}, Strategy: {search_strategy}, Battery: {battery_pct}%')
+
+
 
         result = solve(start_address,end_address,search_strategy,float(battery_level),G)
         if result is None:
