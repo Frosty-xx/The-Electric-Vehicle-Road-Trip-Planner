@@ -5,4 +5,4 @@ networkx
 dotenv
 requests
 gunicorn
-google
+google-cloud-storage
