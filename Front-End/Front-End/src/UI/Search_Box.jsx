@@ -78,10 +78,9 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
         console.log('Searching route:', payload);
         // run App.py before request
         const API_URL = import.meta.env.VITE_API_URL;
-        console.log('API URL:', API_URL);
         try {
             
-            const response = await fetch($`{API_URL}/api/route`, {
+            const response = await fetch(`${API_URL}/api/route`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
