@@ -35,20 +35,16 @@ CORS(app)
 def get_route():
     """
     Route planning endpoint.
-    
-    Expected JSON payload from frontend:
-    {
-        "start": "start address string",
-        "end": "destination address string",
-        "battery_level": battery percentage (0-100),
-        "search_strategy": "greedy" | "bfs" | "astar"
-    }
     """
+    print("=== Request received ===")  
+    print("Method:", request.method)
+    print("Headers:", dict(request.headers))
     if request.method =='OPTIONS':
         return jsonify({}), 200
     
     try:
         data = request.get_json()
+        print("Raw body:", data)  # see exactly what's coming in
 
         # Validate required fields
         if not data:
