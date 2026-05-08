@@ -6,10 +6,15 @@ from flask_cors import CORS
 from ev_solver import solve
 from google.cloud import storage
 import tempfile
+app = Flask(__name__)
+# Configure CORS to allow requests from frontend
+CORS(app)
 
 # # --- Graph Loading Logic ---
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # GRAPH_PATH = os.path.join(BASE_DIR, "Data", "tunisia_major.graphml")
+
+print("Request Received")
 def download_graph():
     client = storage.Client()
     bucket = client.bucket('ev-planner-data')
@@ -26,9 +31,6 @@ except Exception as e:
     print(f"Error loading graph: {e}")
     G = None
 # ---------------------------
-app = Flask(__name__)
-# Configure CORS to allow requests from frontend
-CORS(app)
 
 
 @app.route('/api/route', methods=['POST', 'OPTIONS'])
