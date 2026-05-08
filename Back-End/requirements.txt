@@ -6,3 +6,4 @@ dotenv
 requests
 gunicorn
 google-cloud-storage
+scikit-learn
