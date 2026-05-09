@@ -10,11 +10,6 @@ app = Flask(__name__)
 # Configure CORS to allow requests from frontend
 CORS(app)
 
-def is_local():
-    """Detect if running locally or in the cloud."""
-    # Option 1: Explicit env variable (most reliable)
-    env = os.getenv("APP_ENV", "local")  # default to local if not set
-    return env == "local"
 
 # --- Graph Loading Logic ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -33,12 +28,12 @@ def download_graph():
     return ox.load_graphml(tmp_path)
 print("Loading graph data... Please wait.")
 try:
-    if is_local():
-        print("Local environment detected → loading from disk.")
-        G = load_graph()
-    else:
-        print("Cloud environment detected → downloading from GCS.")
-        G = download_graph()
+    # for local dev
+    # print("Local environment detected → loading from disk.")
+    # G = load_graph()
+
+    print("Cloud environment detected → downloading from GCS.")
+    G = download_graph()
     print("Graph loaded successfully!")
 except Exception as e:
     print(f"Error loading graph: {e}")
