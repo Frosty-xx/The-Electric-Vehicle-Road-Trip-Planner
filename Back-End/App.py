@@ -4,48 +4,49 @@ import osmnx as ox
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ev_solver import solve
+from google.cloud import storage
+import tempfile
 app = Flask(__name__)
-
 # Configure CORS to allow requests from frontend
 CORS(app)
 
+# # --- Graph Loading Logic ---
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# GRAPH_PATH = os.path.join(BASE_DIR, "Data", "tunisia_major.graphml")
 
-# For development, you can also use:
-# CORS(app, supports_credentials=True)  # Allow all origins (only for development)
-# --- Graph Loading Logic ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-GRAPH_PATH = os.path.join(BASE_DIR, "Data", "tunisia_major.graphml")
-
+print("Request Received")
+def download_graph():
+    client = storage.Client()
+    bucket = client.bucket('ev-planner-data')
+    blob = bucket.blob('tunisia_major.graphml')
+    
+    tmp_path = '/tmp/tunisia_major.graphml'
+    blob.download_to_filename(tmp_path)
+    return ox.load_graphml(tmp_path)
 print("Loading graph data... Please wait.")
 try:
-    # Load the graph once when the script starts
-    # If using osmnx: G = ox.load_graphml(GRAPH_PATH)
-
-    G = ox.load_graphml(GRAPH_PATH) 
+    G = download_graph()
     print("Graph loaded successfully!")
 except Exception as e:
     print(f"Error loading graph: {e}")
     G = None
 # ---------------------------
 
+
 @app.route('/api/route', methods=['POST', 'OPTIONS'])
 def get_route():
     """
     Route planning endpoint.
-    
-    Expected JSON payload from frontend:
-    {
-        "start": "start address string",
-        "end": "destination address string",
-        "battery_level": battery percentage (0-100),
-        "search_strategy": "greedy" | "bfs" | "astar"
-    }
     """
+    print("=== Request received ===")  
+    print("Method:", request.method)
+    print("Headers:", dict(request.headers))
     if request.method =='OPTIONS':
         return jsonify({}), 200
     
     try:
         data = request.get_json()
+        print("Raw body:", data)  # see exactly what's coming in
 
         # Validate required fields
         if not data:
@@ -78,6 +79,8 @@ def get_route():
             return jsonify({'error': 'Battery level must be a number'}), 400
         print("================================================================")
         print(f'Route request: {start_address} -> {end_address}, Strategy: {search_strategy}, Battery: {battery_pct}%')
+
+
 
         result = solve(start_address,end_address,search_strategy,float(battery_level),G)
         if result is None:

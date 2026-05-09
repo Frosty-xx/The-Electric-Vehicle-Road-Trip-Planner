@@ -65,7 +65,6 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
 
     async function handleSearch(e) {
         e.preventDefault();
-        
         if (!validateForm()) {
             return;
         }
@@ -78,9 +77,11 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
         };
         console.log('Searching route:', payload);
         // run App.py before request
+        const API_URL = import.meta.env.VITE_API_URL;
+        console.log('API URL:', API_URL + '/api/route');
         try {
             
-            const response = await fetch('http://localhost:5000/api/route', {
+            const response = await fetch(`${API_URL}/api/route`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -130,7 +131,7 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
                                 id="startAddress"
                                 onSelect={(place) => setStartAddress(place.display_name)}
                                 onChange={(value) => handleInputChange('startAddress', value)}
-                                countrycodes='TN'
+                                countrycodes='DZ'
                                 errors={errors}
                                 setErrors={setErrors}
                             />
@@ -147,7 +148,7 @@ export default function Search_Box({mapCenter,setMapCenter,setPath,setExploredPa
                                 id="destinationAddress"
                                 onSelect={(place) => setDestinationAddress(place.display_name)}
                                 onChange={(value) => handleInputChange('destinationAddress', value)}
-                                countrycodes='TN'
+                                countrycodes='DZ'
                                 errors={errors}
                                 setErrors={setErrors}
                             />

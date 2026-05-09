@@ -15,12 +15,15 @@ import MarkerClusterGroup from 'react-leaflet-cluster';
 import Search_Box from './UI/Search_Box';
 import Battery_Graph from './UI/Battery_Graph';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagic } from '@fortawesome/free-solid-svg-icons';
+import { faMagic, faMoon, faSatellite, faSun } from '@fortawesome/free-solid-svg-icons';
 //Soundes
 import searchSound from './assets/Audio/serach_sound.mp3'
 import successSound from './assets/Audio/success.mp3'
+//-----------------
 import AddressAutocomplete from './UI/autocomplete';
 import LoadingScreen from './UI/Loading_screen/Loading_screen';
+import Battery_warning from './UI/Battery_warning/battery_warning';
+
 // Component to handle map zoom when path changes
 function MapUpdater({ path }) {
   const map = useMap();
@@ -132,9 +135,7 @@ export default function Map() {
   const [batteryData, setBatteryData] = useState([]);
 
   // State variables
-  const [loading, setLoading] = useState(false);
   const [mapCenter, setMapCenter] = useState(tunisiaCord)
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [path, setPath] = useState(null); // State to hold the path data from the backend
   const [exploredPaths, setExploredPaths] = useState([]); // State to hold explored paths
   const [showFinalPath, setShowFinalPath] = useState(false); // State to show final path after explored paths are done
@@ -143,6 +144,7 @@ export default function Map() {
   const [pathDistance, setPathDistance] = useState(0); // Distance of the current path in km
   const lightTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const darkTiles = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png";
+  const satteliteTiles = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
   // delay Function
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const STAGGER_DELAY = 2; // 50ms delay between each explored path animation
@@ -151,8 +153,12 @@ export default function Map() {
   const successAudioRef = useRef(new Audio(successSound));
   const animationCompletionCountRef = useRef(0);
 
-  // Cluster Group Hadling:
+  // Control States:
+  const [tileLayerUrl, setTileLayerUrl] = useState(lightTiles);
+  const [loading, setLoading] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [showClusters, setShowClusters] = useState(true);
+  const [isBatteryWarningOpen, setIsBatteryWarningOpen] = useState(false);
 
 
   useEffect(() => {
@@ -283,16 +289,27 @@ export default function Map() {
   return (
     
     <div className='Container'>
+      <Battery_warning isOpen={isBatteryWarningOpen} setIsOpen={setIsBatteryWarningOpen} /> 
       <LoadingScreen isLoading={loading_screen} />
-      <Search_Box mapCenter={mapCenter} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} setLoadingScreen={setLoadingScreen} setBattery_data={setBatteryData}/>
+      <Search_Box mapCenter={mapCenter} setBattery_warning_open={setIsBatteryWarningOpen} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} setLoadingScreen={setLoadingScreen} setBattery_data={setBatteryData}/>
       <Battery_Graph data={batteryData}/>
-      <button
-        onClick={() => setIsDarkMode(!isDarkMode)}
+      <div className='views_container'>
+          <button
+            onClick={() => {
+              setIsDarkMode(!isDarkMode) 
+              setTileLayerUrl(isDarkMode ? lightTiles : darkTiles)
+            }}
+            className={`ThemeButton ${isDarkMode ? 'LightMode' : 'DarkMode'}`}
+          >
+            {isDarkMode ? <FontAwesomeIcon icon={faSun}/> :<FontAwesomeIcon icon={faMoon}/>}
+          </button>
+      <button className='SatteliteButton'
+       onClick={()=>setTileLayerUrl(tileLayerUrl==satteliteTiles && isDarkMode? darkTiles:tileLayerUrl==satteliteTiles && !isDarkMode? lightTiles:satteliteTiles)}
+       style={tileLayerUrl==satteliteTiles? {backgroundColor: '#000000b3',color:"white"} : {}}>
+        <FontAwesomeIcon icon={faSatellite}></FontAwesomeIcon>
+       </button>
 
-      >
-        {isDarkMode ? <div className='LightMod'><img src={sunIcon} alt="moon" /> Light</div> : <div className='DarkMod'><img src={moonIcon} alt="moon" /> Dark</div>}
-      </button>
-
+      </div>
       <MapContainer
         center={mapCenter}
         zoom={11}
@@ -301,7 +318,7 @@ export default function Map() {
         <MapUpdater path={path} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url={isDarkMode ? darkTiles : lightTiles}
+          url={tileLayerUrl === satteliteTiles ? satteliteTiles : (isDarkMode ? darkTiles : lightTiles)}
         />
 
         {showClusters && (          <MarkerClusterGroup

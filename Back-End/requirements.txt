@@ -1,0 +1,9 @@
+flask
+flask-cors
+osmnx
+networkx
+dotenv
+requests
+gunicorn
+google-cloud-storage
+scikit-learn
