@@ -1,15 +1,12 @@
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap,useMapEvents} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import 'leaflet.polyline.snakeanim';
-import Data from './Data/ev_dataset.json'
-import France_CS from './Data/ev_dataset(FR).json'
+import DZ_Charging_Stations from './Data/Algeria_charging_stations.json'
 import { useState, useEffect, useRef } from 'react';
 import './Map.css'
-import sunIcon from './assets/sun.svg';
-import moonIcon from './assets/moon.png';
 import goal_marker from './assets/goal_marker.svg';
-import trafic_electiric_charge_station from './assets/charging-station.png';
+import trafic_electiric_charge_station from './assets/bolt-circle.svg';
 import { Icon, DivIcon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import Search_Box from './UI/Search_Box';
@@ -60,7 +57,7 @@ const getPathDistance = (positions) => {
 };
 
 //Snake line component to animate the path drawing
-const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 300, delay = 0, onAnimationComplete, zIndex = 1 }) => {
+const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 300, delay = 0, onAnimationComplete, zIndex = 9999 }) => {
   const map = useMap();
 
   useEffect(() => {
@@ -120,45 +117,48 @@ function ZoomableMarker({ position, icon, popupContent, label }) {
     </Marker>
   );
 }
-
-
+// Component to handle map events (e.g., zoom)
+function MapEvents({ onZoom }) {
+  const map = useMapEvents({
+    zoomend: () => onZoom(map.getZoom())
+  });
+  return null;
+}
 
 export default function Map() {
 
 
-  const tunisiaCord = [36.8065, 10.1815];
-  const lyonCord = [45.76, 4.8357];
-  // Loading Screen:
+  const algeriaCord = [30, 1.6596];
+  // Loading Screen============================================================================================================
   const [loading_screen, setLoadingScreen] = useState(false);
-
-  //Battery Graph:
+  //Battery Graph============================================================================================================
   const [batteryData, setBatteryData] = useState([]);
-
-  // State variables
-  const [mapCenter, setMapCenter] = useState(tunisiaCord)
+  // State variables============================================================================================================
+  const [mapCenter, setMapCenter] = useState(algeriaCord)
   const [path, setPath] = useState(null); // State to hold the path data from the backend
   const [exploredPaths, setExploredPaths] = useState([]); // State to hold explored paths
   const [showFinalPath, setShowFinalPath] = useState(false); // State to show final path after explored paths are done
   const [strategy, setStrategy] = useState(null); // State to hold the selected strategy
   const [allAnimationsComplete, setAllAnimationsComplete] = useState(false); // Track when all animations complete
   const [pathDistance, setPathDistance] = useState(0); // Distance of the current path in km
+  // Map tile URLs===================================================================================================
   const lightTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const darkTiles = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png";
   const satteliteTiles = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
-  // delay Function
+  // delay Function============================================================================================================
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const STAGGER_DELAY = 2; // 50ms delay between each explored path animation
-  // Audio refs
+  // Audio refs=======================================================================================================================================
   const searchAudioRef = useRef(new Audio(searchSound));
   const successAudioRef = useRef(new Audio(successSound));
   const animationCompletionCountRef = useRef(0);
 
-  // Control States:
+  // Control States:=======================================================================================================================================
   const [tileLayerUrl, setTileLayerUrl] = useState(lightTiles);
   const [loading, setLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [showClusters, setShowClusters] = useState(true);
   const [isBatteryWarningOpen, setIsBatteryWarningOpen] = useState(false);
+  const [zoom, setZoom] = useState(5);
 
 
   useEffect(() => {
@@ -170,12 +170,10 @@ export default function Map() {
       // Calculate the distance of the main path
       const dist = getPathDistance(path);
       setPathDistance(dist);
-      setShowClusters(false); // Hide clusters when a path is displayed
       delay(1500).then(() => setLoading(false)); // Simulate a 1.5-second loading time
     }
 
   }, [path]);
-
   // Show final path after all explored paths finish animating
   useEffect(() => {
     if (exploredPaths.length > 0) {
@@ -190,7 +188,6 @@ export default function Map() {
       setShowFinalPath(true); // Show immediately if no explored paths
     }
   }, [exploredPaths]);
-
   // Play search sound while explored paths are active
   useEffect(() => {
     const searchAudio = searchAudioRef.current;
@@ -211,7 +208,6 @@ export default function Map() {
       searchAudio.currentTime = 0;
     };
   }, [exploredPaths, showFinalPath, loading]);
-
   // Play success sound when final path is shown
   useEffect(() => {
     const successAudio = successAudioRef.current;
@@ -233,17 +229,13 @@ export default function Map() {
     };
   }, [showFinalPath, path]);
 
-
-
-
-
-
-
-  const customIcon = new Icon({
+// ====================================== UI ICONS =======================================================
+  // Custom icon for charging stations with dynamic size based on zoom level
+  const customIcon =(size)=>  new Icon({
     iconUrl: trafic_electiric_charge_station,
-    iconSize: [38, 38]
+    iconSize: [size, size]
   })
-
+  const getIconSize = (zoom) => Math.max(15, zoom * 3);
   // Create a glowing blue dot for the start point
   const startPointIcon = new DivIcon({
     html: `<div style="
@@ -258,7 +250,6 @@ export default function Map() {
     iconSize: [20, 20],
     popupAnchor: [0, -10]
   })
-
   // Create a red FontAwesome marker for the goal
   const goalPointIcon = new Icon({
     iconUrl: goal_marker,
@@ -266,16 +257,12 @@ export default function Map() {
     iconAnchor: [26, 50],
     popupAnchor: [0, -15]
   })
-
-  const customClusterIcon = (cluster) => {
-    return new DivIcon({
-      html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
-      iconSize: [40, 40]
-    })
-  }
+// ======================================================================================================
 
 
-  const markers = Data.charging_stations.map((station) => {
+
+
+  const markers = DZ_Charging_Stations.charging_stations.map((station) => {
     return {
       name: station.name,
       charging_speed: station.power_kw,
@@ -287,78 +274,60 @@ export default function Map() {
   })
 
   return (
-    
+
     <div className='Container'>
-      <Battery_warning isOpen={isBatteryWarningOpen} setIsOpen={setIsBatteryWarningOpen} /> 
+      <Battery_warning isOpen={isBatteryWarningOpen} setIsOpen={setIsBatteryWarningOpen} />
       <LoadingScreen isLoading={loading_screen} />
-      <Search_Box mapCenter={mapCenter} setBattery_warning_open={setIsBatteryWarningOpen} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} setLoadingScreen={setLoadingScreen} setBattery_data={setBatteryData}/>
-      <Battery_Graph data={batteryData}/>
+      <Search_Box  mapCenter={mapCenter} setBattery_warning_open={setIsBatteryWarningOpen} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} setLoadingScreen={setLoadingScreen} setBattery_data={setBatteryData} />
+      <Battery_Graph data={batteryData} />
       <div className='views_container'>
-          <button
-            onClick={() => {
-              setIsDarkMode(!isDarkMode) 
-              setTileLayerUrl(isDarkMode ? lightTiles : darkTiles)
-            }}
-            className={`ThemeButton ${isDarkMode ? 'LightMode' : 'DarkMode'}`}
-          >
-            {isDarkMode ? <FontAwesomeIcon icon={faSun}/> :<FontAwesomeIcon icon={faMoon}/>}
-          </button>
-      <button className='SatteliteButton'
-       onClick={()=>setTileLayerUrl(tileLayerUrl==satteliteTiles && isDarkMode? darkTiles:tileLayerUrl==satteliteTiles && !isDarkMode? lightTiles:satteliteTiles)}
-       style={tileLayerUrl==satteliteTiles? {backgroundColor: '#000000b3',color:"white"} : {}}>
-        <FontAwesomeIcon icon={faSatellite}></FontAwesomeIcon>
-       </button>
+        <button
+          onClick={() => {
+            setIsDarkMode(!isDarkMode)
+            setTileLayerUrl(isDarkMode ? lightTiles : darkTiles)
+          }}
+          className={`ThemeButton ${isDarkMode ? 'LightMode' : 'DarkMode'}`}
+        >
+          {isDarkMode ? <FontAwesomeIcon icon={faSun} /> : <FontAwesomeIcon icon={faMoon} />}
+        </button>
+        <button className='SatteliteButton'
+          onClick={() => setTileLayerUrl(tileLayerUrl == satteliteTiles && isDarkMode ? darkTiles : tileLayerUrl == satteliteTiles && !isDarkMode ? lightTiles : satteliteTiles)}
+          style={tileLayerUrl == satteliteTiles ? { backgroundColor: '#000000b3', color: "white" } : {}}>
+          <FontAwesomeIcon icon={faSatellite}></FontAwesomeIcon>
+        </button>
 
       </div>
       <MapContainer
         center={mapCenter}
-        zoom={11}
+        zoom={zoom}
         style={{ height: '100%', width: '100%' }}
+        zoomControl={false}
       >
         <MapUpdater path={path} />
+        <MapEvents onZoom={setZoom} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={tileLayerUrl === satteliteTiles ? satteliteTiles : (isDarkMode ? darkTiles : lightTiles)}
         />
 
-        {showClusters && (          <MarkerClusterGroup
-            style={{ position: 'relative', borderRadius: '50%', backgroundColor: 'transparent' }}
-            chunkedLoading
-            iconCreateFunction={customClusterIcon}
-          >
-            {markers.map((marker, index) => (
-              <Marker
-                key={index}
-                position={[marker.position.lat, marker.position.long]}
-                icon={customIcon}
-              >
-                <Popup>
-                  <h3>{marker.name}</h3>
-                  <p>Charging Speed: {marker.charging_speed} kW</p>
-                </Popup>
-              </Marker>
-            ))}
-          </MarkerClusterGroup>
-        )}
-        {!showClusters && (
-            markers.map((marker, index) => (
-              <Marker
-                key={index}
-                position={[marker.position.lat, marker.position.long]}
-                icon={customIcon}
-              >
-                <Popup>
-                  <h3>{marker.name}</h3>
-                  <p>Charging Speed: {marker.charging_speed} kW</p>
-                </Popup>
-              </Marker>
-            ))
-        )}
+          {markers.map((marker, index) => (
+            <Marker
+              key={index}
+              position={[marker.position.lat, marker.position.long]}
+              icon={customIcon(getIconSize(zoom))}
+            >
+              <Popup>
+                <h3>{marker.name}</h3>
+                <p>Charging Speed: {marker.charging_speed} kW</p>
+              </Popup>
+            </Marker>
+          ))}
+
+
 
 
         {path && path.length > 0 && (
           <>
-            setShowClusters(false); // Hide clusters when a path is displayed
             {/* Start point marker */}
             <ZoomableMarker
               position={path[0]}
@@ -393,12 +362,8 @@ export default function Map() {
 
         {path && !loading && showFinalPath && ( // Only render the path after explored paths finish
           <>
-            {/* <Polyline pathOptions={{ color: 'darkblue', weight: 8, opacity: 0.5, lineJoin: 'round' }} positions={path} /> */}
-
-            <SnakeLine positions={path} color="#1022caa2" weight={8} speed={200 + pathDistance} opacity={0.5} zIndex={100} /> {/* Add a second line with different style for the explored path */}
-            <SnakeLine positions={path} color='#4a90e2' weight={5} speed={200 + pathDistance} zIndex={100} />
-
-            {/* <Polyline pathOptions={{ color: '#4a90e2', weight: 8, opacity: 1, lineJoin: 'round', className: 'animated-polyline' }} positions={path} /> */}
+            <SnakeLine positions={path} color="#1022caa2" weight={8} speed={200 + pathDistance} opacity={0.5} zIndex={999999} /> {/* Add a second line with different style for the explored path */}
+            <SnakeLine positions={path} color='#4a90e2' weight={5} speed={200 + pathDistance} zIndex={999999} />
           </>
         )}
 

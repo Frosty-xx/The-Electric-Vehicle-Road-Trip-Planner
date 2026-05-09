@@ -1,0 +1,346 @@
+/* ===========================
+   Cars_menu.css — EV Fleet Panel
+   Dark tech, electric blue accents
+   =========================== */
+
+
+/* ---------- Overlay ---------- */
+.cm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 8, 20, 0.82);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999777;
+    animation: cm-fade-in 0.2s ease;
+}
+
+@keyframes cm-fade-in {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* ---------- Panel ---------- */
+.cm-panel {
+    width: min(50%, 95vw);
+    max-height: 88vh;
+    background: #1b1e1f;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow:
+        0 0 0 1px rgba(0, 198, 255, 0.05),
+        0 32px 80px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(0, 198, 255, 0.04);
+    animation: cm-slide-up 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cm-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+    }
+}
+
+/* ---------- Header ---------- */
+.cm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: #121314;
+}
+
+
+.cm-icon {
+    font-size: 26px;
+    filter: drop-shadow(0 0 10px rgba(0, 198, 255, 0.6));
+}
+
+.cm-title {   font-size: 20px;
+    font-weight: 800;
+    color: #e8f4ff;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.cm-subtitle {
+    font-size: 11px;
+    color: rgba(245, 245, 245, 0.6);
+    margin: 2px 0 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.cm-close {
+    border: none;
+    font-size: 2em;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.cm-close:hover {
+    color: #ff6060;
+}
+
+/* ---------- Search ---------- */
+.cm-search-wrapper {
+    position: relative;
+    padding: 16px 20px 8px;
+}
+
+
+.cm-search {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 11px 40px 11px 11px;
+    font-size: 13px;
+    color: #e0eeff;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.cm-search::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.cm-search:focus {
+    border-color: rgba(0, 200, 255, 0.192);
+    background: rgba(0, 198, 255, 0.04);
+}
+
+.cm-search-clear {
+    position: absolute;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.45);
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.cm-search-clear:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* ---------- Count ---------- */
+.cm-count {
+    padding: 4px 22px 10px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.3px;
+}
+
+.cm-count-query {
+    color: rgba(0, 198, 255, 0.55);
+}
+
+/* ---------- List ---------- */
+.cm-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 4px 14px 16px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 198, 255, 0.2) transparent;
+}
+
+.cm-list::-webkit-scrollbar {
+    width: 4px
+}
+
+.cm-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 198, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* ---------- Card ---------- */
+.cm-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 14px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.cm-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+.cm-card--active {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* ---------- Badge (Label) ---------- */
+.cm-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--badge-color) 18%, #0a1428);
+    border: 1px solid color-mix(in srgb, var(--badge-color) 35%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;   font-weight: 800;
+    font-size: 12px;
+    color: var(--badge-color);
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+/* ---------- Card Main ---------- */
+.cm-card-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.cm-car-name {   font-size: 14px;
+    font-weight: 700;
+    color: #d8ecff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cm-car-tag {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+/* ---------- Stats ---------- */
+.cm-stats {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.cm-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 9px;
+    padding: 6px 10px;
+    min-width: 44px;
+}
+
+.cm-stat-val {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    line-height: 1;
+}
+
+.cm-stat-lbl {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+}
+
+/* ---------- Expanded Detail ---------- */
+.cm-detail {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: rgba(0, 198, 255, 0.04);
+    border: 1px solid rgba(0, 198, 255, 0.12);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: cm-expand 0.18s ease;
+}
+
+@keyframes cm-expand {
+    from {
+        opacity: 0;
+        transform: translateY(-6px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.cm-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cm-detail-key {
+    
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cm-detail-val {
+    
+    font-size: 12px;
+    color: #7de0ff;
+    font-weight: 500;
+}
+
+/* ---------- Empty State ---------- */
+.cm-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.25);
+       font-size: 14px;
+}
+
+.cm-empty-icon {
+    font-size: 36px;
+    opacity: 0.4;
+}

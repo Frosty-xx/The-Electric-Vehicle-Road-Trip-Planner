@@ -213,6 +213,7 @@ export default function AddressAutocomplete({
                                 style={{
                                     padding: "9px 12px",
                                     cursor: "pointer",
+                                    color: i === activeIdx ? "#3085e6" : "#333",
                                     background: i === activeIdx ? "#f5f5f5" : "transparent",
                                     borderBottom: i < results.length - 1 ? "1px solid #f0f0f0" : "none",
                                     display: "flex",

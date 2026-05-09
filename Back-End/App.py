@@ -10,22 +10,35 @@ app = Flask(__name__)
 # Configure CORS to allow requests from frontend
 CORS(app)
 
-# # --- Graph Loading Logic ---
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# GRAPH_PATH = os.path.join(BASE_DIR, "Data", "tunisia_major.graphml")
+def is_local():
+    """Detect if running locally or in the cloud."""
+    # Option 1: Explicit env variable (most reliable)
+    env = os.getenv("APP_ENV", "local")  # default to local if not set
+    return env == "local"
 
-print("Request Received")
+# --- Graph Loading Logic ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+GRAPH_PATH = os.path.join(BASE_DIR, "Data", "algeria_roads.graphml")
+
+def load_graph():
+    return ox.load_graphml(GRAPH_PATH)
+
 def download_graph():
     client = storage.Client()
     bucket = client.bucket('ev-planner-data')
-    blob = bucket.blob('tunisia_major.graphml')
+    blob = bucket.blob('algeria_roads.graphml')
     
     tmp_path = '/tmp/tunisia_major.graphml'
     blob.download_to_filename(tmp_path)
     return ox.load_graphml(tmp_path)
 print("Loading graph data... Please wait.")
 try:
-    G = download_graph()
+    if is_local():
+        print("Local environment detected → loading from disk.")
+        G = load_graph()
+    else:
+        print("Cloud environment detected → downloading from GCS.")
+        G = download_graph()
     print("Graph loaded successfully!")
 except Exception as e:
     print(f"Error loading graph: {e}")
@@ -82,7 +95,7 @@ def get_route():
 
 
 
-        result = solve(start_address,end_address,search_strategy,float(battery_level),G)
+        result = solve(start_address,end_address,search_strategy,float(battery_level),G,0.16125)
         if result is None:
             return jsonify({'error': 'No path found'}), 404
 
