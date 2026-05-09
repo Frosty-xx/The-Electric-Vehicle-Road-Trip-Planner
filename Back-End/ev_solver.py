@@ -7,7 +7,7 @@ DEFAULT_BATTERY_CAPACITY_KWH = 77.4  # Adjust based on the EV model you want to 
 DEFAULT_SPEED = 30  # km/h for travel time estimation on edges without speed data
 
 
-MAXIMUM_EXPLORED_PATHES_VISUAL=500
+MAXIMUM_EXPLORED_PATHES_VISUAL=100
 
 
 def solve(start_address, goal_address, strategy, battery_info,Graph,kwh_per_km):
