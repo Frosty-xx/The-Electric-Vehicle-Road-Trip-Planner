@@ -2,3 +2,11 @@ cache
 __pycache__
 *.o5m
 *.osm.pbf
+*.osm
+*.pbf
+*.log
+*.txt
+*.env
+node_modules/
+*.env.development
+*.env.production

@@ -1,0 +1,2674 @@
+{
+    "charging_stations": [
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.8430008,
+            "longitude": -1.7166325,
+            "power_kw": 324
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.9523386,
+            "longitude": -0.9156755999999999,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.4989088,
+            "longitude": -0.8123651,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.127149,
+            "longitude": -0.7988989999999999,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.129276,
+            "longitude": -0.8005314,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.7745695,
+            "longitude": -0.5741225,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.214185,
+            "longitude": -0.6145415,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.4329916,
+            "longitude": -0.4568134,
+            "power_kw": 35
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.944249,
+            "longitude": 0.09851349999999999,
+            "power_kw": 150
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.9810311,
+            "longitude": 0.1094791,
+            "power_kw": 150
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.9518974,
+            "longitude": 0.0987972,
+            "power_kw": 150
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.9325495,
+            "longitude": 0.0848612,
+            "power_kw": 50
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.6712777,
+            "longitude": -0.635304,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.4314222,
+            "longitude": -0.4572425,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.3942231,
+            "longitude": 3.9948014,
+            "power_kw": 380
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.6427383,
+            "longitude": 3.1855954,
+            "power_kw": 60
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.3731284,
+            "longitude": 3.9052508,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1490648,
+            "longitude": 5.265205799999999,
+            "power_kw": 60
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7480875,
+            "longitude": 3.7331156,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7547777,
+            "longitude": 3.0012407,
+            "power_kw": 60
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.258637,
+            "longitude": 3.590151,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7876881,
+            "longitude": 2.901956,
+            "power_kw": 55
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.3103647,
+            "longitude": 4.0615017,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.646509,
+            "longitude": 3.182871,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7564022,
+            "longitude": 3.4805169,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7364622,
+            "longitude": 2.9492901,
+            "power_kw": 12
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1269625,
+            "longitude": 5.082218699999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.77193889999999,
+            "longitude": 2.9586673,
+            "power_kw": 10
+        },
+        {
+            "name": "شاحن كهربائي",
+            "latitude": 36.7037123,
+            "longitude": 3.1248553,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.4482501,
+            "longitude": 2.6623608,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1534227,
+            "longitude": 5.2659854,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.740756,
+            "longitude": 3.1179522,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7452546,
+            "longitude": 3.0980208,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.6289536,
+            "longitude": 5.3347472,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.064217,
+            "longitude": 4.8377082,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.4509723,
+            "longitude": 2.6574992,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7254538,
+            "longitude": 3.1818926,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1296413,
+            "longitude": 2.9214926,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1954416,
+            "longitude": 2.057705,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1925978,
+            "longitude": 2.0578234,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7001487,
+            "longitude": 2.8199996,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.728641,
+            "longitude": 4.549155799999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.75396509999999,
+            "longitude": 3.0020006,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.4590219,
+            "longitude": 2.9076071,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.6854771,
+            "longitude": 4.529115099999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.069182,
+            "longitude": 4.739711,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7422118,
+            "longitude": 3.1236904,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7405842,
+            "longitude": 2.8750098,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.6990195,
+            "longitude": 2.8202994,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.18284149999999,
+            "longitude": 5.4474254,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.1985374,
+            "longitude": 4.1573727,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.0644021,
+            "longitude": 4.8345755,
+            "power_kw": 150
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.7493434,
+            "longitude": 3.195974,
+            "power_kw": 15
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.5271733,
+            "longitude": 6.1961952,
+            "power_kw": 50
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.2626579,
+            "longitude": 6.1033491,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.284603,
+            "longitude": 6.5230383,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1852194,
+            "longitude": 6.2512051,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1813752,
+            "longitude": 6.2515734,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.636655,
+            "longitude": 6.847497,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.9567117,
+            "longitude": 5.0375865,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.5812647,
+            "longitude": 6.194894499999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.2619069,
+            "longitude": 1.956507,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.222752,
+            "longitude": 1.659229,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.6591285,
+            "longitude": 3.2641933,
+            "power_kw": 240
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.6575069,
+            "longitude": 3.262909,
+            "power_kw": 322
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.6792892,
+            "longitude": 3.2661949,
+            "power_kw": 240
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.4500157,
+            "longitude": 2.5198166,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.627673,
+            "longitude": 2.8054491,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.3330999,
+            "longitude": 3.205911,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.628279,
+            "longitude": 3.2509077,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.6656537,
+            "longitude": 3.2621209,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.8925927,
+            "longitude": 3.4824008,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.4559733,
+            "longitude": 2.5311611,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.0807012,
+            "longitude": 3.0239666,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.861548,
+            "longitude": 7.713064999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.326783,
+            "longitude": 6.580026999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1157454,
+            "longitude": 7.527487499999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.4408231,
+            "longitude": 6.625978099999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.2482,
+            "longitude": 6.712206999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.6450724,
+            "longitude": 6.8267734,
+            "power_kw": 10
+        },
+        {
+            "name": "محطة شحن السيارات الكهربائية hybride",
+            "latitude": 35.6027968,
+            "longitude": 1.7964708,
+            "power_kw": 10
+        },
+        {
+            "name": "محطة شحن السيارات الكهربائية",
+            "latitude": 35.6639751,
+            "longitude": 1.9556073,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.8954372,
+            "longitude": 3.4900927,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 31.5863849,
+            "longitude": -2.2253748,
+            "power_kw": 10
+        },
+        {
+            "name": "Borne de recharge voiture électrique",
+            "latitude": 31.6756398,
+            "longitude": -2.1533902,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.8056992,
+            "longitude": -0.2763285,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.8436779,
+            "longitude": 5.746405999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.8495804,
+            "longitude": 5.74195,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.3846875,
+            "longitude": 1.3456094,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.1653356,
+            "longitude": 0.9778536999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.7455625,
+            "longitude": 0.5612031,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.8485686,
+            "longitude": 6.8890945,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.8474984,
+            "longitude": 6.8912874,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.4103213,
+            "longitude": 8.1058566,
+            "power_kw": 10
+        },
+        {
+            "name": "Alma béni zmenzer",
+            "latitude": 36.63305039999999,
+            "longitude": 4.040805199999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricien auto (Rachid)",
+            "latitude": 36.70191519999999,
+            "longitude": 4.061793199999999,
+            "power_kw": 10
+        },
+        {
+            "name": "électricité auto",
+            "latitude": 36.7280511,
+            "longitude": 4.0234172,
+            "power_kw": 10
+        },
+        {
+            "name": "Vag-Tizi Automotive Solution",
+            "latitude": 36.6965037,
+            "longitude": 4.038526099999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 36.8571589,
+            "longitude": 6.9037247,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.8542656,
+            "longitude": -0.3118359,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.9268,
+            "longitude": 7.328203999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.59135,
+            "longitude": 7.368518,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.46453,
+            "longitude": 7.316374,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 32.10477,
+            "longitude": 7.418667999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.42418,
+            "longitude": 7.308871,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 34.730161,
+            "longitude": 5.39906,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.6084298,
+            "longitude": -0.0258051,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.9605365,
+            "longitude": 0.0999349,
+            "power_kw": 10
+        },
+        {
+            "name": "Electric Vehicle Charging Station",
+            "latitude": 35.9156266,
+            "longitude": 0.1088119,
+            "power_kw": 10
+        },
+        {
+            "name": "Parking auto zouaghi",
+            "latitude": 36.307763,
+            "longitude": 6.620945799999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 33.5600902,
+            "longitude": 6.9907127,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 33.44914,
+            "longitude": 7.222348999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "باكيني لتصليح السكوترات الكهربائية",
+            "latitude": 33.3730346,
+            "longitude": 6.862882399999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 33.3725627,
+            "longitude": 7.6882495,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 33.70793,
+            "longitude": 7.30498,
+            "power_kw": 10
+        },
+        {
+            "name": "Power plant",
+            "latitude": 33.9522903,
+            "longitude": 5.896296899999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 33.54042,
+            "longitude": 7.311741,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 32.47827,
+            "longitude": 7.439991999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 34.53322,
+            "longitude": 7.334765,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 26.24204,
+            "longitude": 6.841428,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 30.29408,
+            "longitude": 7.150239,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.00426,
+            "longitude": 7.382727999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.17184,
+            "longitude": 7.392214999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Stade Ighil Bouzel",
+            "latitude": 36.7494302,
+            "longitude": 4.3601338,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 26.60172,
+            "longitude": 6.898288,
+            "power_kw": 10
+        },
+        {
+            "name": "Messali Hadj Airport - Tlemcen",
+            "latitude": 35.0123044,
+            "longitude": -1.4479374,
+            "power_kw": 10
+        },
+        {
+            "name": "Alma Aissi",
+            "latitude": 36.8187494,
+            "longitude": 4.3727299,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 24.84463,
+            "longitude": 6.699453,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 24.84918,
+            "longitude": 6.702808,
+            "power_kw": 10
+        },
+        {
+            "name": "Volta Charging Station",
+            "latitude": 25.0,
+            "longitude": 5.0,
+            "power_kw": 10
+        },
+        {
+            "name": "Cité Diar El Khaloua",
+            "latitude": 36.8001301,
+            "longitude": 3.0370327,
+            "power_kw": 10
+        },
+        {
+            "name": "Domo elec",
+            "latitude": 36.7304709,
+            "longitude": 3.2328196,
+            "power_kw": 10
+        },
+        {
+            "name": "Speed light",
+            "latitude": 36.7295797,
+            "longitude": 3.2315207,
+            "power_kw": 10
+        },
+        {
+            "name": "Ighil-Ouberouak",
+            "latitude": 36.6664378,
+            "longitude": 4.0080516,
+            "power_kw": 10
+        },
+        {
+            "name": "Tahouna takdimt",
+            "latitude": 36.5956167,
+            "longitude": 4.5096889,
+            "power_kw": 10
+        },
+        {
+            "name": "Annaba",
+            "latitude": 36.897375,
+            "longitude": 7.7500122,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 32.52052,
+            "longitude": 7.407532,
+            "power_kw": 10
+        },
+        {
+            "name": "Station service Aberkane",
+            "latitude": 36.68774519999999,
+            "longitude": 4.0842617,
+            "power_kw": 10
+        },
+        {
+            "name": "Naftal",
+            "latitude": 36.710703,
+            "longitude": 4.073617899999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Scanner électricité auto ets BOUSSAA chez RACHID",
+            "latitude": 36.7071808,
+            "longitude": 4.044120299999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricité générale",
+            "latitude": 36.700225,
+            "longitude": 4.0724083,
+            "power_kw": 10
+        },
+        {
+            "name": "Electricite auto",
+            "latitude": 36.5117961,
+            "longitude": 3.8984944,
+            "power_kw": 10
+        },
+        {
+            "name": "ENIEM",
+            "latitude": 36.6995508,
+            "longitude": 4.1425565,
+            "power_kw": 10
+        },
+        {
+            "name": "Stade El kalaa Supérieure",
+            "latitude": 34.8685151,
+            "longitude": -1.3001445,
+            "power_kw": 10
+        },
+        {
+            "name": "Garage EUROREPAR BELARBI BENALI SERVICES",
+            "latitude": 34.9193333,
+            "longitude": -1.2952706,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricien automobile Les lauriers",
+            "latitude": 34.9046191,
+            "longitude": -1.3257242,
+            "power_kw": 10
+        },
+        {
+            "name": "INSTALLATION ET REPARATION DES KITS GPL (AGENT AGREE AL BURAQ)",
+            "latitude": 36.7076505,
+            "longitude": 4.095454699999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 28.48633,
+            "longitude": 7.023306,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 28.22569,
+            "longitude": 6.991173,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 28.1450906,
+            "longitude": 6.8237554,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 28.04454,
+            "longitude": 6.940797,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 28.20018,
+            "longitude": 6.985488999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricité auto",
+            "latitude": 36.7353483,
+            "longitude": 5.047151899999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Cité la montagne",
+            "latitude": 36.7152739,
+            "longitude": 3.1159351,
+            "power_kw": 10
+        },
+        {
+            "name": "Tissegouine",
+            "latitude": 36.800598,
+            "longitude": 4.1171875,
+            "power_kw": 10
+        },
+        {
+            "name": "Tizi Tronic",
+            "latitude": 36.7001101,
+            "longitude": 4.0531578,
+            "power_kw": 10
+        },
+        {
+            "name": "Iquemmoudhen \"KEMMOUDA\"",
+            "latitude": 36.6671453,
+            "longitude": 3.9983797,
+            "power_kw": 10
+        },
+        {
+            "name": "Ben smara",
+            "latitude": 32.4981366,
+            "longitude": 3.66171,
+            "power_kw": 10
+        },
+        {
+            "name": "كهرباء السيارات",
+            "latitude": 32.4950796,
+            "longitude": 3.6779077,
+            "power_kw": 10
+        },
+        {
+            "name": "Workshop 47 Scanner Auto",
+            "latitude": 32.4885185,
+            "longitude": 3.6592753,
+            "power_kw": 10
+        },
+        {
+            "name": "ENERGICAL",
+            "latitude": 32.4463696,
+            "longitude": 3.6967499,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 24.89025,
+            "longitude": 7.114739999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 24.89025,
+            "longitude": 6.711474,
+            "power_kw": 10
+        },
+        {
+            "name": "ⵥ جمهورية القبائل الأمازيغية المستقلة",
+            "latitude": 36.3628247,
+            "longitude": 6.623970799999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Colonel Lotfi Stadium",
+            "latitude": 34.8775346,
+            "longitude": -1.3011289,
+            "power_kw": 10
+        },
+        {
+            "name": "Scanner Et Électricité Automobile (déplacement)",
+            "latitude": 36.7535625,
+            "longitude": 3.4579375,
+            "power_kw": 10
+        },
+        {
+            "name": "Maison Bachir Ouled Larbi Alger",
+            "latitude": 36.68125819999999,
+            "longitude": 3.3371557,
+            "power_kw": 10
+        },
+        {
+            "name": "Amine auto",
+            "latitude": 36.753045,
+            "longitude": 3.4593439,
+            "power_kw": 10
+        },
+        {
+            "name": "Sarl EMS",
+            "latitude": 36.7560592,
+            "longitude": 3.4579173,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricité auto",
+            "latitude": 36.7203319,
+            "longitude": 3.4987036,
+            "power_kw": 10
+        },
+        {
+            "name": "Clim Auto (Ets Niege)",
+            "latitude": 36.7545549,
+            "longitude": 3.4379385,
+            "power_kw": 10
+        },
+        {
+            "name": "Sonalgaz Boumerdes",
+            "latitude": 36.7538673,
+            "longitude": 3.4820901,
+            "power_kw": 10
+        },
+        {
+            "name": "Station Service Sidi El Kbir",
+            "latitude": 36.6425296,
+            "longitude": 3.1849475,
+            "power_kw": 10
+        },
+        {
+            "name": "HALILOU ELECTRIC SHCNEIDER BOUMERDES",
+            "latitude": 36.74757,
+            "longitude": 3.4610912,
+            "power_kw": 10
+        },
+        {
+            "name": "Station De Bus 04 routes",
+            "latitude": 36.8761333,
+            "longitude": 6.8901849,
+            "power_kw": 10
+        },
+        {
+            "name": "ERYACAR location de véhicules",
+            "latitude": 36.8774124,
+            "longitude": 6.890863299999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Agence adem location de voiture",
+            "latitude": 36.8657539,
+            "longitude": 6.9139903,
+            "power_kw": 10
+        },
+        {
+            "name": "School Khiar Ahmed",
+            "latitude": 36.6835731,
+            "longitude": 4.0379444,
+            "power_kw": 10
+        },
+        {
+            "name": "Alarme auto",
+            "latitude": 36.6994514,
+            "longitude": 4.1046213,
+            "power_kw": 10
+        },
+        {
+            "name": "El-hanachir",
+            "latitude": 36.52713019999999,
+            "longitude": 8.211880299999999,
+            "power_kw": 10
+        },
+        {
+            "name": "TIKIDOUNT",
+            "latitude": 36.5309672,
+            "longitude": 4.2173338,
+            "power_kw": 10
+        },
+        {
+            "name": "Institute of Electrical & Electronic Engineering",
+            "latitude": 36.7588157,
+            "longitude": 3.4727183,
+            "power_kw": 10
+        },
+        {
+            "name": "Ets KECHABIA",
+            "latitude": 36.7205456,
+            "longitude": 3.4741218,
+            "power_kw": 10
+        },
+        {
+            "name": "el minzah",
+            "latitude": 35.747611,
+            "longitude": -0.5659312,
+            "power_kw": 10
+        },
+        {
+            "name": "BMW Destination Charging Station",
+            "latitude": 31.52273,
+            "longitude": 7.435633999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "ait ali ouharzoune",
+            "latitude": 36.527097,
+            "longitude": 4.238706,
+            "power_kw": 10
+        },
+        {
+            "name": "Oum El Bouaghi",
+            "latitude": 35.8688789,
+            "longitude": 7.110826599999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Alarme Auto",
+            "latitude": 36.7833798,
+            "longitude": 3.5950453,
+            "power_kw": 10
+        },
+        {
+            "name": "Pharmacie Aït-Ameur",
+            "latitude": 36.7501439,
+            "longitude": 3.4762542,
+            "power_kw": 10
+        },
+        {
+            "name": "Electricite Auto Malti",
+            "latitude": 34.9181385,
+            "longitude": -1.3358823,
+            "power_kw": 10
+        },
+        {
+            "name": "Tizi T'zougart",
+            "latitude": 36.6139795,
+            "longitude": 3.9472127,
+            "power_kw": 10
+        },
+        {
+            "name": "scanner automobile",
+            "latitude": 36.604875,
+            "longitude": 3.98439,
+            "power_kw": 10
+        },
+        {
+            "name": "Pharmacie sidi chaker",
+            "latitude": 34.8729159,
+            "longitude": -1.3117103,
+            "power_kw": 10
+        },
+        {
+            "name": "Service auto",
+            "latitude": 34.9151812,
+            "longitude": -1.321853,
+            "power_kw": 10
+        },
+        {
+            "name": "IGHIL OUMCHEDAL",
+            "latitude": 36.6691002,
+            "longitude": 4.206615,
+            "power_kw": 10
+        },
+        {
+            "name": "Smail oukaci",
+            "latitude": 36.6608447,
+            "longitude": 3.9830078,
+            "power_kw": 10
+        },
+        {
+            "name": "Ifighou",
+            "latitude": 36.88874,
+            "longitude": 4.1073327,
+            "power_kw": 10
+        },
+        {
+            "name": "Mécanique auto",
+            "latitude": 36.7309875,
+            "longitude": 4.0517656,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel El Djazair",
+            "latitude": 36.7539677,
+            "longitude": 3.0462679,
+            "power_kw": 10
+        },
+        {
+            "name": "فندق سويسرا",
+            "latitude": 36.7676807,
+            "longitude": 3.0528687,
+            "power_kw": 10
+        },
+        {
+            "name": "Golden Tulip Opera Alger",
+            "latitude": 36.7318422,
+            "longitude": 2.9563747,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Welcome",
+            "latitude": 36.7190625,
+            "longitude": 3.2053125,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Audin",
+            "latitude": 36.7686374,
+            "longitude": 3.0540299,
+            "power_kw": 10
+        },
+        {
+            "name": "RÉSIDENCE EL SCHEMS",
+            "latitude": 36.7516352,
+            "longitude": 3.2010471,
+            "power_kw": 10
+        },
+        {
+            "name": "AD Hotel, Hydra",
+            "latitude": 36.7506706,
+            "longitude": 3.0229354,
+            "power_kw": 10
+        },
+        {
+            "name": "HOTEL HNR",
+            "latitude": 36.7552844,
+            "longitude": 3.0589298,
+            "power_kw": 10
+        },
+        {
+            "name": "Ferdi Lilly",
+            "latitude": 36.7593421,
+            "longitude": 3.0092601,
+            "power_kw": 10
+        },
+        {
+            "name": "Atlantis Hotel - Algiers",
+            "latitude": 36.7753121,
+            "longitude": 3.0112195,
+            "power_kw": 10
+        },
+        {
+            "name": "Sidi Yahia Hotel",
+            "latitude": 36.7393836,
+            "longitude": 3.0367565,
+            "power_kw": 10
+        },
+        {
+            "name": "Atlantis Alger Aéroport ex Ibis",
+            "latitude": 36.7148003,
+            "longitude": 3.1979105,
+            "power_kw": 10
+        },
+        {
+            "name": "Bournissa Hotel",
+            "latitude": 36.7387211,
+            "longitude": 3.2831115,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Sidi Thameur",
+            "latitude": 36.8022074,
+            "longitude": 3.0477804,
+            "power_kw": 10
+        },
+        {
+            "name": "Ghazelle Oasis",
+            "latitude": 36.7666389,
+            "longitude": 3.0354651,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Saint Eugène",
+            "latitude": 36.7967618,
+            "longitude": 3.0477978,
+            "power_kw": 10
+        },
+        {
+            "name": "ABC Hotel",
+            "latitude": 36.7665792,
+            "longitude": 3.0502929,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Oumaya Safa",
+            "latitude": 36.7544566,
+            "longitude": 2.9732986,
+            "power_kw": 10
+        },
+        {
+            "name": "Luxury Hotel Appart Hotel",
+            "latitude": 36.7455979,
+            "longitude": 3.1873568,
+            "power_kw": 10
+        },
+        {
+            "name": "Le Coin D'Or - Hostel",
+            "latitude": 36.7475062,
+            "longitude": 3.2016104,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Ikram Bab Ezzouar",
+            "latitude": 36.7393893,
+            "longitude": 3.1857439,
+            "power_kw": 10
+        },
+        {
+            "name": "Grand Hôtel Adghir - Bordj El Kifan",
+            "latitude": 36.7453194,
+            "longitude": 3.1781895,
+            "power_kw": 10
+        },
+        {
+            "name": "Holiday Inn Algiers - Cheraga Tower by IHG",
+            "latitude": 36.748589,
+            "longitude": 2.950633,
+            "power_kw": 10
+        },
+        {
+            "name": "Hyatt Regency Algiers Airport",
+            "latitude": 36.7042939,
+            "longitude": 3.2054075,
+            "power_kw": 10
+        },
+        {
+            "name": "Jardy Hotel",
+            "latitude": 36.7250399,
+            "longitude": 3.1930917,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel SA",
+            "latitude": 36.7312832,
+            "longitude": 3.1854587,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel STAR INN",
+            "latitude": 36.7213283,
+            "longitude": 3.2017165,
+            "power_kw": 10
+        },
+        {
+            "name": "Algiers Marriott Hotel Bab Ezzouar",
+            "latitude": 36.7126325,
+            "longitude": 3.194152,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Amsterdam",
+            "latitude": 36.7357686,
+            "longitude": 3.2811334,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Bay Diab",
+            "latitude": 36.7079275,
+            "longitude": 3.1829912,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Zinou ZM",
+            "latitude": 36.7933808,
+            "longitude": 3.289549,
+            "power_kw": 10
+        },
+        {
+            "name": "AZ Old Kouba Hotel",
+            "latitude": 36.7286771,
+            "longitude": 3.0768897,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Des Beaux Arts",
+            "latitude": 36.7630865,
+            "longitude": 3.0442442,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Hani",
+            "latitude": 36.7302924,
+            "longitude": 3.1779303,
+            "power_kw": 10
+        },
+        {
+            "name": "Soltane Hotel",
+            "latitude": 36.7430139,
+            "longitude": 3.0930923,
+            "power_kw": 10
+        },
+        {
+            "name": "Space Telemly Hotel",
+            "latitude": 36.7697274,
+            "longitude": 3.0506393,
+            "power_kw": 10
+        },
+        {
+            "name": "La Madeleine",
+            "latitude": 36.7507284,
+            "longitude": 3.0225709,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel les 2B Salsabil",
+            "latitude": 36.7636929,
+            "longitude": 2.9834864,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Le Lido",
+            "latitude": 36.7362443,
+            "longitude": 3.1787524,
+            "power_kw": 10
+        },
+        {
+            "name": "Lalla Doudja",
+            "latitude": 36.7383179,
+            "longitude": 3.0318658,
+            "power_kw": 10
+        },
+        {
+            "name": "HOTEL BEST DAY",
+            "latitude": 36.7390248,
+            "longitude": 3.1854307,
+            "power_kw": 10
+        },
+        {
+            "name": "Verte Rive Motel",
+            "latitude": 36.7497647,
+            "longitude": 3.1974196,
+            "power_kw": 10
+        },
+        {
+            "name": "فندق الحديقة",
+            "latitude": 36.7135732,
+            "longitude": 3.2111306,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Niagara",
+            "latitude": 36.7241389,
+            "longitude": 3.1673372,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Ain benian",
+            "latitude": 36.8071107,
+            "longitude": 2.9439116,
+            "power_kw": 10
+        },
+        {
+            "name": "Naya Hotel",
+            "latitude": 36.7149055,
+            "longitude": 3.1956289,
+            "power_kw": 10
+        },
+        {
+            "name": "Kingdom Luxury Cheraga",
+            "latitude": 36.7567478,
+            "longitude": 2.9653353,
+            "power_kw": 10
+        },
+        {
+            "name": "Lamaraz Hotels",
+            "latitude": 36.7364993,
+            "longitude": 3.0920713,
+            "power_kw": 10
+        },
+        {
+            "name": "Hostel Family lounge aéroport",
+            "latitude": 36.713341,
+            "longitude": 3.2272588,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel",
+            "latitude": 36.6954088,
+            "longitude": 3.1618192,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Hydra Ouled Fayet",
+            "latitude": 36.7384028,
+            "longitude": 2.950144,
+            "power_kw": 10
+        },
+        {
+            "name": "Rais Hotel",
+            "latitude": 36.8097114,
+            "longitude": 3.255651,
+            "power_kw": 10
+        },
+        {
+            "name": "Alger center",
+            "latitude": 36.7538482,
+            "longitude": 3.058715,
+            "power_kw": 10
+        },
+        {
+            "name": "The Post Hotel",
+            "latitude": 36.7802054,
+            "longitude": 3.0605697,
+            "power_kw": 10
+        },
+        {
+            "name": "Dortoir ADAM",
+            "latitude": 36.7465413,
+            "longitude": 3.1912443,
+            "power_kw": 10
+        },
+        {
+            "name": "Hostel Appart",
+            "latitude": 36.7134816,
+            "longitude": 3.2267311,
+            "power_kw": 10
+        },
+        {
+            "name": "Residence Inn by Marriott Algiers Bab Ezzouar",
+            "latitude": 36.7126469,
+            "longitude": 3.1940727,
+            "power_kw": 10
+        },
+        {
+            "name": "El Aurassi Hotel",
+            "latitude": 36.7764399,
+            "longitude": 3.0509035,
+            "power_kw": 10
+        },
+        {
+            "name": "Samir Hotel",
+            "latitude": 36.7655556,
+            "longitude": 3.0502778,
+            "power_kw": 10
+        },
+        {
+            "name": "Regina Hotel",
+            "latitude": 36.7752346,
+            "longitude": 3.059351,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Les Capuccines - Said Hamdine",
+            "latitude": 36.7269735,
+            "longitude": 3.0307777,
+            "power_kw": 10
+        },
+        {
+            "name": "Kyriad Prestige Le Patio",
+            "latitude": 36.8003899,
+            "longitude": 2.9132136,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Le Beau Rivage Bleu",
+            "latitude": 36.7992261,
+            "longitude": 2.9014555,
+            "power_kw": 10
+        },
+        {
+            "name": "Moulin Hotel",
+            "latitude": 36.765141,
+            "longitude": 3.0557517,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Best Night 2 - Dar El Bieda Aéroport - Alger",
+            "latitude": 36.7242851,
+            "longitude": 3.220358,
+            "power_kw": 10
+        },
+        {
+            "name": "Miraa Hotel Chéraga",
+            "latitude": 36.7666911,
+            "longitude": 2.9467308,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Darna Family",
+            "latitude": 36.7513542,
+            "longitude": 2.8867161,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Malik Alger-centre فند مليك الجزائر الوسطى",
+            "latitude": 36.76861239999999,
+            "longitude": 3.0552922,
+            "power_kw": 10
+        },
+        {
+            "name": "Hana Hôtel",
+            "latitude": 36.7193308,
+            "longitude": 3.1403703,
+            "power_kw": 10
+        },
+        {
+            "name": "British Hotel",
+            "latitude": 36.7683022,
+            "longitude": 3.0545694,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel du Val",
+            "latitude": 36.7585526,
+            "longitude": 3.0258206,
+            "power_kw": 10
+        },
+        {
+            "name": "Sheraton Club des Pins Resort",
+            "latitude": 36.7630063,
+            "longitude": 2.8737041,
+            "power_kw": 10
+        },
+        {
+            "name": "El Forssane Hotel",
+            "latitude": 36.6743184,
+            "longitude": 3.0903874,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Albert 1er",
+            "latitude": 36.7734297,
+            "longitude": 3.0581262,
+            "power_kw": 10
+        },
+        {
+            "name": "AZ Hotel Kouba",
+            "latitude": 36.7369725,
+            "longitude": 3.0904668,
+            "power_kw": 10
+        },
+        {
+            "name": "Es-Safir Hotel",
+            "latitude": 36.7772952,
+            "longitude": 3.0593288,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel L'Olympic - Dely Brahim",
+            "latitude": 36.7506939,
+            "longitude": 2.986633,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel de l'Aéroport",
+            "latitude": 36.7108841,
+            "longitude": 3.207723,
+            "power_kw": 10
+        },
+        {
+            "name": "OstelLight",
+            "latitude": 36.731822,
+            "longitude": 3.0714861,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Emir",
+            "latitude": 36.7571017,
+            "longitude": 2.9656025,
+            "power_kw": 10
+        },
+        {
+            "name": "Hostel les Bananiers ex: les pins",
+            "latitude": 36.7323362,
+            "longitude": 3.1668484,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel El Dey 2",
+            "latitude": 36.7360051,
+            "longitude": 3.0538653,
+            "power_kw": 10
+        },
+        {
+            "name": "Sweet Hotel",
+            "latitude": 36.7392641,
+            "longitude": 3.2814671,
+            "power_kw": 10
+        },
+        {
+            "name": "Grand Hôtel Moderne",
+            "latitude": 36.7799548,
+            "longitude": 3.060522,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel El Badr",
+            "latitude": 36.7829314,
+            "longitude": 3.061025,
+            "power_kw": 10
+        },
+        {
+            "name": "Garden residence Ben Aknoun",
+            "latitude": 36.7546324,
+            "longitude": 3.0157646,
+            "power_kw": 10
+        },
+        {
+            "name": "Aramca",
+            "latitude": 36.7238887,
+            "longitude": 3.1669602,
+            "power_kw": 10
+        },
+        {
+            "name": "Nelson Hotel",
+            "latitude": 36.7900927,
+            "longitude": 3.0601361,
+            "power_kw": 10
+        },
+        {
+            "name": "Sofiane Hotel - Algiers",
+            "latitude": 36.7777945,
+            "longitude": 3.0590517,
+            "power_kw": 10
+        },
+        {
+            "name": "Selma Appart Hôtel",
+            "latitude": 36.7394763,
+            "longitude": 3.1923652,
+            "power_kw": 10
+        },
+        {
+            "name": "Dar Tlidjene Hotel",
+            "latitude": 36.7921519,
+            "longitude": 3.2964038,
+            "power_kw": 10
+        },
+        {
+            "name": "Dar El Ikram",
+            "latitude": 36.7641779,
+            "longitude": 3.0455767,
+            "power_kw": 10
+        },
+        {
+            "name": "Hostel Alaa - El Harrach",
+            "latitude": 36.7250923,
+            "longitude": 3.1487246,
+            "power_kw": 10
+        },
+        {
+            "name": "Dar El Ikram - Dely Brahim",
+            "latitude": 36.7607523,
+            "longitude": 2.9913205,
+            "power_kw": 10
+        },
+        {
+            "name": "Mouflon d'Or Hotel",
+            "latitude": 36.72755799999999,
+            "longitude": 3.0230976,
+            "power_kw": 10
+        },
+        {
+            "name": "Lido Hotel Algiers",
+            "latitude": 36.7453076,
+            "longitude": 3.1784158,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Nazef",
+            "latitude": 36.6756435,
+            "longitude": 3.0945436,
+            "power_kw": 10
+        },
+        {
+            "name": "Alfa-b travel",
+            "latitude": 36.7712246,
+            "longitude": 3.0612244,
+            "power_kw": 10
+        },
+        {
+            "name": "El Dey Hotel",
+            "latitude": 36.7421265,
+            "longitude": 3.0936201,
+            "power_kw": 10
+        },
+        {
+            "name": "Birkhadem Openspace",
+            "latitude": 36.7170929,
+            "longitude": 3.0400959,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel al zahra",
+            "latitude": 36.736676,
+            "longitude": 3.1820513,
+            "power_kw": 10
+        },
+        {
+            "name": "L'HIRONDELLE Hotel",
+            "latitude": 36.7506864,
+            "longitude": 3.1947181,
+            "power_kw": 10
+        },
+        {
+            "name": "Dar Diaf - Chéraga",
+            "latitude": 36.77033,
+            "longitude": 2.966097,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Reghaïa",
+            "latitude": 36.7373099,
+            "longitude": 3.3426973,
+            "power_kw": 10
+        },
+        {
+            "name": "Golden Room El Biar",
+            "latitude": 36.762313,
+            "longitude": 3.0280083,
+            "power_kw": 10
+        },
+        {
+            "name": "La Turquoise Hotel Restaurant",
+            "latitude": 36.7922563,
+            "longitude": 3.3066554,
+            "power_kw": 10
+        },
+        {
+            "name": "HOSTEL BORDJ ELKIFFAN",
+            "latitude": 36.7435306,
+            "longitude": 3.1879152,
+            "power_kw": 10
+        },
+        {
+            "name": "Dz Club",
+            "latitude": 36.758689,
+            "longitude": 2.953993,
+            "power_kw": 10
+        },
+        {
+            "name": "HOSTEL BORDJ EL KIFFAN 02",
+            "latitude": 36.7428047,
+            "longitude": 3.186779,
+            "power_kw": 10
+        },
+        {
+            "name": "Palais Familial Hotel",
+            "latitude": 36.7357989,
+            "longitude": 3.179603,
+            "power_kw": 10
+        },
+        {
+            "name": "le petit hotel Bordj el kiffan الفندق الصغير برج الكيفان",
+            "latitude": 36.7608739,
+            "longitude": 3.2313918,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel home stay",
+            "latitude": 36.7245656,
+            "longitude": 3.1715103,
+            "power_kw": 10
+        },
+        {
+            "name": "National Army Club",
+            "latitude": 36.7725365,
+            "longitude": 2.9962789,
+            "power_kw": 10
+        },
+        {
+            "name": "DAR FATIMA",
+            "latitude": 36.7216362,
+            "longitude": 3.129796,
+            "power_kw": 10
+        },
+        {
+            "name": "RESIDENCE Paradise",
+            "latitude": 36.7496924,
+            "longitude": 3.2143358,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Fort De L'eau",
+            "latitude": 36.747528,
+            "longitude": 3.19005,
+            "power_kw": 10
+        },
+        {
+            "name": "Nour El Houda Khadamate",
+            "latitude": 36.7736928,
+            "longitude": 3.2550638,
+            "power_kw": 10
+        },
+        {
+            "name": "hostelapartfamily",
+            "latitude": 36.7124527,
+            "longitude": 3.2266278,
+            "power_kw": 10
+        },
+        {
+            "name": "Bilton Residence",
+            "latitude": 36.7322239,
+            "longitude": 3.1636926,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôstel NR",
+            "latitude": 36.7500696,
+            "longitude": 3.2148593,
+            "power_kw": 10
+        },
+        {
+            "name": "Abd el Malek inn zohr",
+            "latitude": 36.725432,
+            "longitude": 3.10231,
+            "power_kw": 10
+        },
+        {
+            "name": "فندق الدويرة Hotel Douéra",
+            "latitude": 36.6657775,
+            "longitude": 2.950558,
+            "power_kw": 10
+        },
+        {
+            "name": "Cygnes Appart Hotel",
+            "latitude": 36.7804756,
+            "longitude": 2.9721861,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel El Sahel",
+            "latitude": 36.6695298,
+            "longitude": 2.9415437,
+            "power_kw": 10
+        },
+        {
+            "name": "فندق ملكي",
+            "latitude": 36.7468743,
+            "longitude": 3.1826232,
+            "power_kw": 10
+        },
+        {
+            "name": "Delybrahim chambre",
+            "latitude": 36.7634931,
+            "longitude": 2.9867212,
+            "power_kw": 10
+        },
+        {
+            "name": "Drarya",
+            "latitude": 36.7199801,
+            "longitude": 2.9951425,
+            "power_kw": 10
+        },
+        {
+            "name": "Chambre D'hôtes Marhaba",
+            "latitude": 36.737912,
+            "longitude": 3.045812,
+            "power_kw": 10
+        },
+        {
+            "name": "costa-aya appart hotel",
+            "latitude": 36.7511145,
+            "longitude": 3.2127307,
+            "power_kw": 10
+        },
+        {
+            "name": "alfab travel",
+            "latitude": 36.7474739,
+            "longitude": 3.1920847,
+            "power_kw": 10
+        },
+        {
+            "name": "فندق اخليجن رويبة",
+            "latitude": 36.7358641,
+            "longitude": 3.2815435,
+            "power_kw": 10
+        },
+        {
+            "name": "Motel Abdelhamid",
+            "latitude": 36.683465,
+            "longitude": 3.3578055,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Dortoir Dar Essalem",
+            "latitude": 36.7788491,
+            "longitude": 3.2494442,
+            "power_kw": 10
+        },
+        {
+            "name": "Ain Benian",
+            "latitude": 36.800402,
+            "longitude": 2.9181427,
+            "power_kw": 10
+        },
+        {
+            "name": "\"Le Beau Fayet\" Hotel",
+            "latitude": 36.7327182,
+            "longitude": 2.9239572,
+            "power_kw": 10
+        },
+        {
+            "name": "Kama hotel",
+            "latitude": 36.7255004,
+            "longitude": 3.1505913,
+            "power_kw": 10
+        },
+        {
+            "name": "Hotel Nour El Badr - Staoueli",
+            "latitude": 36.7536182,
+            "longitude": 2.886363,
+            "power_kw": 10
+        },
+        {
+            "name": "HÔTEL DAR DIAF BOUCHAOUI",
+            "latitude": 36.76026239999999,
+            "longitude": 2.9189696,
+            "power_kw": 10
+        },
+        {
+            "name": "Caravansérail Ghardaïa",
+            "latitude": 36.7847267,
+            "longitude": 3.2407031,
+            "power_kw": 10
+        },
+        {
+            "name": "DAR DIAF SAADA",
+            "latitude": 36.7610458,
+            "longitude": 2.9188384,
+            "power_kw": 10
+        },
+        {
+            "name": "Complexe sportif menasria",
+            "latitude": 36.7941964,
+            "longitude": 2.9071771,
+            "power_kw": 10
+        },
+        {
+            "name": "Villa neige blanche",
+            "latitude": 36.7712823,
+            "longitude": 3.0461574,
+            "power_kw": 10
+        },
+        {
+            "name": "Medina Park Hotel",
+            "latitude": 36.69248,
+            "longitude": 2.874651,
+            "power_kw": 10
+        },
+        {
+            "name": "Hôtel Adounia Ouled Moussa",
+            "latitude": 36.6816044,
+            "longitude": 3.3710028,
+            "power_kw": 10
+        },
+        {
+            "name": "Africa Nova Hotel",
+            "latitude": 36.7409885,
+            "longitude": 3.1023197,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricité auto",
+            "latitude": 35.1851939,
+            "longitude": -0.6239492,
+            "power_kw": 10
+        },
+        {
+            "name": "Eléctricité auto",
+            "latitude": 35.2086638,
+            "longitude": -0.6252930999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Entreprise transport urbain et suburbain ETUS SBA المؤسسة العمومية للنقل الحضري و شبه الحضري سيدي بلعباس",
+            "latitude": 35.18387,
+            "longitude": -0.6124797,
+            "power_kw": 10
+        },
+        {
+            "name": "Électricité auto",
+            "latitude": 35.1799539,
+            "longitude": -0.6384491,
+            "power_kw": 10
+        },
+        {
+            "name": "EEGM",
+            "latitude": 35.1830189,
+            "longitude": -0.6013504,
+            "power_kw": 10
+        },
+        {
+            "name": "Khenteur Composants Automobile",
+            "latitude": 35.1826489,
+            "longitude": -0.5865627999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Tizi Ouzou",
+            "latitude": 36.7096459,
+            "longitude": 4.0342527,
+            "power_kw": 10
+        },
+        {
+            "name": "AutoLedBlida",
+            "latitude": 36.5125581,
+            "longitude": 2.8618081,
+            "power_kw": 10
+        },
+        {
+            "name": "BENDOUHA ELECTRIC",
+            "latitude": 36.4797689,
+            "longitude": 2.8198091,
+            "power_kw": 10
+        },
+        {
+            "name": "CHINA CAR GO",
+            "latitude": 36.5107748,
+            "longitude": 2.8548211,
+            "power_kw": 10
+        },
+        {
+            "name": "Electricien auto",
+            "latitude": 36.2739468,
+            "longitude": 2.7605598,
+            "power_kw": 10
+        },
+        {
+            "name": "Hadj-ameur électricité auto",
+            "latitude": 36.2547858,
+            "longitude": 2.757654,
+            "power_kw": 10
+        },
+        {
+            "name": "Tipaza",
+            "latitude": 36.5906719,
+            "longitude": 2.4433723,
+            "power_kw": 10
+        },
+        {
+            "name": "Ighil Ouguemoune",
+            "latitude": 36.670356,
+            "longitude": 3.9567163,
+            "power_kw": 10
+        },
+        {
+            "name": "GPL TIZI ouzou",
+            "latitude": 36.7169175,
+            "longitude": 4.0298573,
+            "power_kw": 10
+        },
+        {
+            "name": "IMLEL AZAZGA",
+            "latitude": 36.7494302,
+            "longitude": 4.3601338,
+            "power_kw": 10
+        },
+        {
+            "name": "ENIEM Électroménager",
+            "latitude": 36.7135868,
+            "longitude": 4.0440376,
+            "power_kw": 10
+        },
+        {
+            "name": "Hammam Sidi Djaballah",
+            "latitude": 36.7423973,
+            "longitude": 8.158007399999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Gare de Ath Douala",
+            "latitude": 36.6961134,
+            "longitude": 4.0742004,
+            "power_kw": 10
+        },
+        {
+            "name": "Centre des Colis Postaux Constantine",
+            "latitude": 36.3676152,
+            "longitude": 6.6188237,
+            "power_kw": 10
+        },
+        {
+            "name": "Sonelgaz Constantine",
+            "latitude": 36.3705585,
+            "longitude": 6.6206849,
+            "power_kw": 10
+        },
+        {
+            "name": "UPS Constantine (EURL Conexlog)",
+            "latitude": 36.3524618,
+            "longitude": 6.6085895,
+            "power_kw": 10
+        },
+        {
+            "name": "RP CONSTANTINE algerie poste",
+            "latitude": 36.3652527,
+            "longitude": 6.609851799999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Areex delivery",
+            "latitude": 36.3565183,
+            "longitude": 6.6306373,
+            "power_kw": 10
+        },
+        {
+            "name": "SARL SERVICES 24H ALGERIE",
+            "latitude": 36.3382746,
+            "longitude": 6.5986407,
+            "power_kw": 10
+        },
+        {
+            "name": "Naftal",
+            "latitude": 36.3263913,
+            "longitude": 6.580132099999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Gare Routière SNTV",
+            "latitude": 36.165471,
+            "longitude": 1.3277096,
+            "power_kw": 10
+        },
+        {
+            "name": "EURL ELECTRO GEN SET GROUPES ELECTROGENES",
+            "latitude": 36.1640257,
+            "longitude": 1.3197987,
+            "power_kw": 10
+        },
+        {
+            "name": "Lahcen Scanner Auto",
+            "latitude": 36.1619325,
+            "longitude": 1.3577518,
+            "power_kw": 10
+        },
+        {
+            "name": "HAMIDI ENERGIE CHLEF GROUPE ÉLECTROGÈNE",
+            "latitude": 36.1896844,
+            "longitude": 1.3276516,
+            "power_kw": 10
+        },
+        {
+            "name": "Hay nasr, Electrogenset fabrication groupes électrogènes",
+            "latitude": 36.1462635,
+            "longitude": 1.383359,
+            "power_kw": 10
+        },
+        {
+            "name": "الشرفه",
+            "latitude": 36.1455463,
+            "longitude": 1.3090861,
+            "power_kw": 10
+        },
+        {
+            "name": "GPL Chlef Naas Autogas",
+            "latitude": 36.155068,
+            "longitude": 1.3051746,
+            "power_kw": 10
+        },
+        {
+            "name": "زاوية سيدي علي موسى",
+            "latitude": 36.592253,
+            "longitude": 3.9989467,
+            "power_kw": 10
+        },
+        {
+            "name": "TIMEZGUIDA",
+            "latitude": 36.5576718,
+            "longitude": 4.3840825,
+            "power_kw": 10
+        },
+        {
+            "name": "Café Tamliht",
+            "latitude": 36.7413828,
+            "longitude": 4.486642199999999,
+            "power_kw": 10
+        },
+        {
+            "name": "AIN NEKROUF",
+            "latitude": 35.0350019,
+            "longitude": -0.9807216,
+            "power_kw": 10
+        },
+        {
+            "name": "Post Office Essalem - 44013",
+            "latitude": 36.2532992,
+            "longitude": 2.219991,
+            "power_kw": 10
+        },
+        {
+            "name": "Tizi Menous",
+            "latitude": 36.6301039,
+            "longitude": 3.9742018,
+            "power_kw": 10
+        },
+        {
+            "name": "sahnoun aziz piece atoumobile",
+            "latitude": 35.5919096,
+            "longitude": 0.06541999999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Tighilt oumezir",
+            "latitude": 36.579837,
+            "longitude": 4.053935,
+            "power_kw": 10
+        },
+        {
+            "name": "CYBER OUED MAIZ",
+            "latitude": 36.4469554,
+            "longitude": 7.4415836,
+            "power_kw": 10
+        },
+        {
+            "name": "Led Auto Guelma",
+            "latitude": 36.4539463,
+            "longitude": 7.425260499999999,
+            "power_kw": 10
+        },
+        {
+            "name": "محطة نقل المسافرين",
+            "latitude": 36.4726886,
+            "longitude": 7.4332166,
+            "power_kw": 10
+        },
+        {
+            "name": "chebirdou",
+            "latitude": 36.6272319,
+            "longitude": 4.684641,
+            "power_kw": 10
+        },
+        {
+            "name": "School Azounene",
+            "latitude": 36.5100004,
+            "longitude": 4.0980295,
+            "power_kw": 10
+        },
+        {
+            "name": "Pièces électriques auto Électricité et scanner auto",
+            "latitude": 36.6945205,
+            "longitude": 4.0476703,
+            "power_kw": 10
+        },
+        {
+            "name": "Ighil Ighes",
+            "latitude": 36.8627527,
+            "longitude": 4.1928057,
+            "power_kw": 10
+        },
+        {
+            "name": "Arrêt Beni Mendes",
+            "latitude": 36.541674,
+            "longitude": 3.9539543,
+            "power_kw": 10
+        },
+        {
+            "name": "Hai el Badr",
+            "latitude": 36.7254317,
+            "longitude": 3.1023101,
+            "power_kw": 10
+        },
+        {
+            "name": "Parking Haï El Badr",
+            "latitude": 36.7260125,
+            "longitude": 3.1017658,
+            "power_kw": 10
+        },
+        {
+            "name": "électricité Auto 34 Bilal",
+            "latitude": 36.066013,
+            "longitude": 4.7547824,
+            "power_kw": 10
+        },
+        {
+            "name": "BAGHLI ELECTRIC",
+            "latitude": 34.8898917,
+            "longitude": -1.3263389,
+            "power_kw": 10
+        },
+        {
+            "name": "باب الخميس",
+            "latitude": 34.8741167,
+            "longitude": -1.324793,
+            "power_kw": 10
+        },
+        {
+            "name": "ETS. BAGHLI",
+            "latitude": 34.8894292,
+            "longitude": -1.3231723,
+            "power_kw": 10
+        },
+        {
+            "name": "Dr El-Kechai",
+            "latitude": 36.7110825,
+            "longitude": 4.0417021,
+            "power_kw": 10
+        },
+        {
+            "name": "TALA TOULMOUTS",
+            "latitude": 36.6983484,
+            "longitude": 4.1489894,
+            "power_kw": 10
+        },
+        {
+            "name": "Ferme bahlouli",
+            "latitude": 36.1641127,
+            "longitude": 4.6973972,
+            "power_kw": 10
+        },
+        {
+            "name": "Tighilt ouhamza",
+            "latitude": 36.6666861,
+            "longitude": 4.0055222,
+            "power_kw": 10
+        },
+        {
+            "name": "Bouilef",
+            "latitude": 36.699976,
+            "longitude": 4.1424755,
+            "power_kw": 10
+        },
+        {
+            "name": "Peoples Palace",
+            "latitude": 36.7590059,
+            "longitude": 3.0461181,
+            "power_kw": 10
+        },
+        {
+            "name": "Ighil boussouel / Iɣil beswel",
+            "latitude": 36.8653555,
+            "longitude": 4.230938,
+            "power_kw": 10
+        },
+        {
+            "name": "Taourirt issoulas",
+            "latitude": 36.5867882,
+            "longitude": 4.1875911,
+            "power_kw": 10
+        },
+        {
+            "name": "Solarlight",
+            "latitude": 36.7150774,
+            "longitude": 4.0359673,
+            "power_kw": 10
+        },
+        {
+            "name": "Ighil Ouantar",
+            "latitude": 36.5460531,
+            "longitude": 4.7213708,
+            "power_kw": 10
+        },
+        {
+            "name": "Faculté de technologie",
+            "latitude": 36.2651784,
+            "longitude": 2.7958703,
+            "power_kw": 10
+        },
+        {
+            "name": "Mascara",
+            "latitude": 35.4020988,
+            "longitude": 0.1400257,
+            "power_kw": 10
+        },
+        {
+            "name": "تصليح كهرباء السيارات برج بوعريريج بلال",
+            "latitude": 36.0637628,
+            "longitude": 4.7590538,
+            "power_kw": 10
+        },
+        {
+            "name": "محطة خدمات",
+            "latitude": 36.1142509,
+            "longitude": 4.7830066,
+            "power_kw": 10
+        },
+        {
+            "name": "Eniem Space",
+            "latitude": 36.0689391,
+            "longitude": 4.771505599999999,
+            "power_kw": 10
+        },
+        {
+            "name": "DHD Livraison express BBA",
+            "latitude": 36.0693125,
+            "longitude": 4.7725781,
+            "power_kw": 10
+        },
+        {
+            "name": "MG Électroménager",
+            "latitude": 36.0785854,
+            "longitude": 4.7739121,
+            "power_kw": 10
+        },
+        {
+            "name": "برج",
+            "latitude": 36.0831667,
+            "longitude": 4.7523611,
+            "power_kw": 10
+        },
+        {
+            "name": "DHD Bordj Bou Arriridj",
+            "latitude": 36.0707427,
+            "longitude": 4.7695463,
+            "power_kw": 10
+        },
+        {
+            "name": "MAXTOR",
+            "latitude": 36.0531555,
+            "longitude": 4.7386585,
+            "power_kw": 10
+        },
+        {
+            "name": "و",
+            "latitude": 36.0892661,
+            "longitude": 4.7211402,
+            "power_kw": 10
+        },
+        {
+            "name": "Tizi Ouzou",
+            "latitude": 36.713548,
+            "longitude": 4.0473075,
+            "power_kw": 10
+        },
+        {
+            "name": "Réparation électrique automobile",
+            "latitude": 36.5878136,
+            "longitude": 2.4458058,
+            "power_kw": 10
+        },
+        {
+            "name": "Nadji auto",
+            "latitude": 35.197125,
+            "longitude": -0.6207288999999999,
+            "power_kw": 10
+        },
+        {
+            "name": "Scanner automobile",
+            "latitude": 35.1915113,
+            "longitude": -0.6154851,
+            "power_kw": 10
+        },
+        {
+            "name": "legrand Powerelec",
+            "latitude": 35.181099,
+            "longitude": -0.6325668,
+            "power_kw": 10
+        },
+        {
+            "name": "Scanner auto",
+            "latitude": 36.3884661,
+            "longitude": 6.6126882,
+            "power_kw": 10
+        },
+        {
+            "name": "Seddiki batterie",
+            "latitude": 36.7361784,
+            "longitude": 3.9657829,
+            "power_kw": 10
+        },
+        {
+            "name": "At-Semlal (Ait Semlal)",
+            "latitude": 36.6022044,
+            "longitude": 4.4994271,
+            "power_kw": 10
+        },
+        {
+            "name": "Ouled bentafat",
+            "latitude": 36.6760969,
+            "longitude": 3.7112851,
+            "power_kw": 10
+        },
+        {
+            "name": "Village ouatouba",
+            "latitude": 36.86037049999999,
+            "longitude": 4.0573101,
+            "power_kw": 10
+        },
+        {
+            "name": "bir louhichi",
+            "latitude": 36.2085937,
+            "longitude": 8.2780335,
+            "power_kw": 10
+        },
+        {
+            "name": "Tassadort",
+            "latitude": 36.6937367,
+            "longitude": 4.0063017,
+            "power_kw": 10
+        },
+        {
+            "name": "Annexe de l'APC de Sidi M'hamed",
+            "latitude": 36.7610529,
+            "longitude": 3.050948,
+            "power_kw": 10
+        },
+        {
+            "name": "Annexe APC SIDI M'HAMED",
+            "latitude": 36.7520168,
+            "longitude": 3.0539779,
+            "power_kw": 10
+        },
+        {
+            "name": "Mairie de Sidi M'Hamed",
+            "latitude": 36.7578828,
+            "longitude": 3.0575305,
+            "power_kw": 10
+        },
+        {
+            "name": "APC Alger centre",
+            "latitude": 36.7765284,
+            "longitude": 3.0574519,
+            "power_kw": 10
+        },
+        {
+            "name": "IGUER ADLOUNE",
+            "latitude": 36.5221458,
+            "longitude": 4.1805419,
+            "power_kw": 10
+        },
+        {
+            "name": "oum zelfane",
+            "latitude": 33.65813869999999,
+            "longitude": 1.0203224,
+            "power_kw": 10
+        },
+        {
+            "name": "BOUMELAL",
+            "latitude": 36.5917292,
+            "longitude": 4.6302217,
+            "power_kw": 10
+        },
+        {
+            "name": "Béjaïa",
+            "latitude": 36.7514502,
+            "longitude": 5.0557713,
+            "power_kw": 10
+        },
+        {
+            "name": "Village kef lahmar",
+            "latitude": 36.713548,
+            "longitude": 4.0473075,
+            "power_kw": 10
+        },
+        {
+            "name": "Domaine ben dada",
+            "latitude": 36.7399196,
+            "longitude": 2.8964248,
+            "power_kw": 10
+        },
+        {
+            "name": "Riat El Hammar",
+            "latitude": 34.8814862,
+            "longitude": -1.3008404,
+            "power_kw": 10
+        },
+        {
+            "name": "Mechta mezdoura",
+            "latitude": 36.1581857,
+            "longitude": 6.178840399999999,
+            "power_kw": 10
+        },
+        {
+            "name": "IGHIL TAZERT",
+            "latitude": 36.6531851,
+            "longitude": 4.2092833,
+            "power_kw": 10
+        },
+        {
+            "name": "Scanner Auto Boumerdes HAKIM AOUALI",
+            "latitude": 36.7476091,
+            "longitude": 3.4847008,
+            "power_kw": 10
+        }
+    ]
+}

@@ -34,9 +34,9 @@ function Battery_warning({isOpen=false, setIsOpen}) {
                 </button>
                 <img src={battery_warning} alt="Loading..." style={{ width: 160, marginBottom: 10 }} />
                 <p style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>
-                    Insufficient battery level!
+                    No Route Found!
                 </p>
-                <small style={{ color: "gray" }}>Please charge your battery</small>
+                <small style={{ color: "gray" }}>Please consider charging your battery externally</small>
                 <button
                     className="notification-action-btn"
                     onClick={() => setIsOpen(false)}

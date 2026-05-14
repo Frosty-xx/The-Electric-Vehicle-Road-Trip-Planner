@@ -41,19 +41,19 @@ export default function Battery_Graph({ data }) {
                             <stop offset="95%" stopColor="#4a90e2" stopOpacity={0.1} />
                         </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(14, 6, 6, 0.19)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.19)" />
                     <XAxis
                         dataKey="distance"
                         domain={['dataMin', 'dataMax']} // Starts at 0 and ends at your max distance                       
                         tickFormatter={(value) => `${Math.round(value)}`} // Rounds 58.48... to 58
-                        stroke="rgb(0, 0, 0)"
+                        stroke="rgb(252, 252, 252)"
                         label={{ value: 'Distance (km)', position: 'insideBottom', offset: -5 }}
                     />
                     <YAxis
                         dataKey="battery_level"
                         domain={[0, 100]}
                         label={{ value: 'Battery %', angle: -90, position: 'insideLeft' }}
-                        stroke="rgb(0, 0, 0)"
+                        stroke="rgb(255, 255, 255)"
                         tickCount={20}
                     />
                     <Tooltip content={<CustomTooltip />} />

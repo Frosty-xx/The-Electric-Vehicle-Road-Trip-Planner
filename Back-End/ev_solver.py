@@ -1,5 +1,5 @@
 import osmnx as ox
-from Core_Modules.EVGraph import get_nearest_node_from_address
+from Core_Modules.EVGraph import get_nearest_node_from_address , _add_energy_cost
 from Core_Modules.EV_Porblem import EV_Problem
 from Search_Algorithms.General_Search import GeneralSearch 
 
@@ -7,13 +7,14 @@ DEFAULT_BATTERY_CAPACITY_KWH = 77.4  # Adjust based on the EV model you want to 
 DEFAULT_SPEED = 30  # km/h for travel time estimation on edges without speed data
 
 
-MAXIMUM_EXPLORED_PATHES_VISUAL=500
+MAXIMUM_EXPLORED_PATHES_VISUAL=100
 
 
-def solve(start_address, goal_address, strategy, battery_info,Graph):
+def solve(start_address, goal_address, strategy, battery_info,Graph,kwh_per_km):
     
     G = Graph
-    
+    print(f"Adding Energy costs : kwh_per_km = {kwh_per_km} ")
+    _add_energy_cost(G,kwh_per_km)
     
     print(f"Resolving start: {start_address}")
     initial_state = get_nearest_node_from_address(G,start_address)

@@ -1,126 +1,15 @@
 """
-graph_builder.py
-================
-Builds and manages the road network graph for the EV route planner.
-
-Uses a locally saved OSM PBF file (tunisia_osm.pbf) via pyrosm.
-The full network is loaded once, then filtered to the bounding box of the
-origin–destination pair. Road type is also filtered based on distance.
-
-NOTE: pyrosm's bounding_box constructor parameter is broken in current versions
-(KeyError on 'id' in pbfreader). We work around this by filtering the returned
-GeoDataFrames manually after get_network().
-
-Usage:
-    from graph_builder import build_graph
-
-    G, orig_node, dest_node = build_graph("Tunis, Tunisia", "Sfax, Tunisia")
-    # or with raw coordinates:
-    G, orig_node, dest_node = build_graph((36.80, 10.18), (34.74, 10.76))
+Helper Function To manupulate the Graph
 """
-
-import os
-from dotenv import load_dotenv
 import math
-import logging
-import requests
 import osmnx as ox
 import networkx as nx
-
-import pandas as pd
-pd.options.mode.chained_assignment = None
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-log = logging.getLogger(__name__)
-
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-
-PBF_PATH = "graphs/tunisia_osm.pbf"
-
-# Average EV energy consumption in kWh/km (Hyundai Ioniq 5: 77.4 kWh / 480 km WLTP)
-DEFAULT_KWH_PER_KM = 0.16125
-
-OPEN_CHARGE_MAP_URL = "https://api.openchargemap.io/v3/poi/"
-load_dotenv()
-OCM_API_KEY = os.getenv("OCM_API_KEY")
-COUNTRY_CODE = "TN"  # Tunisia
-
-# ---------------------------------------------------------------------------
-# Type alias
-# ---------------------------------------------------------------------------
-
-Location = str | tuple[float, float]  # address string OR (lat, lon) tuple
-
-# ---------------------------------------------------------------------------
-# 1. Build the road-network graph
-# ---------------------------------------------------------------------------
-
-
-
-
-def build_and_save_graph(
-    add_speeds: bool = True,
-    add_travel_times: bool = True,
-):
-    # Load the XML file locally
-    print("Processing XML... this may take 1-2 minutes.")
-    G = ox.graph_from_xml("graphs/tunisia_refined.osm")
-    # log.info("Loading Graph...")
-    # G = ox.load_graphml("graphs/tunisia.graphml")
-    for u, v, k, data in G.edges(data=True, keys=True):
-        if "length" in data:
-            data["length"] = float(data["length"])
-        
-        # Ensure any existing speed tags are also numbers
-        if "speed_kph" in data and data["speed_kph"] is not None:
-            data["speed_kph"] = float(data["speed_kph"])
-
-
-    if add_speeds:
-        log.info("Adding speed data with fallbacks...")
-        G = ox.add_edge_speeds(G)
-
-    # Remove edges without length or speed, and add default speed to any remaining edges
-    edges_to_remove = []
-    for u, v, k, data in G.edges(data=True, keys=True):
-        if data.get("length") is None:
-            edges_to_remove.append((u, v, k))
-        elif data.get("speed_kph") is None:
-            # Set a default speed for edges missing speed_kph
-            G[u][v][k]["speed_kph"] = 50.0
-    
-    for u, v, k in edges_to_remove:
-        G.remove_edge(u, v, k)
-    
-    if edges_to_remove:
-        log.warning(f"Removed {len(edges_to_remove)} edges without length attribute")
-
-    if add_travel_times:
-        log.info("Adding travel times ...")
-        G = ox.add_edge_travel_times(G)
-
-    _add_energy_cost(G)
-
-    nx.set_node_attributes(G, False, "is_charging_station")
-    nx.set_node_attributes(G, 0, "charger_kw")
-    _tag_charging_stations(G)
-
-    log.info(
-        f"Graph ready: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges."
-    )
-    ox.save_graphml(G, "graphs/tunisia.graphml")
-    print("Done! You now have a .graphml file.")
-
 
 # ---------------------------------------------------------------------------
 # 2. Energy cost on edges
 # ---------------------------------------------------------------------------
-
-
 def _add_energy_cost(
-    G: nx.MultiDiGraph, kwh_per_km: float = DEFAULT_KWH_PER_KM
+    G: nx.MultiDiGraph, kwh_per_km
 ) -> None:
     """
     Add `kwh_cost` attribute to every edge.
@@ -129,64 +18,6 @@ def _add_energy_cost(
     for u, v, key, data in G.edges(keys=True, data=True):
         dist_km = data.get("length", 0) / 1000.0  # OSMnx stores length in metres
         G[u][v][key]["kwh_cost"] = round(dist_km * kwh_per_km, 4)
-
-
-# ---------------------------------------------------------------------------
-# 3. Fetch & tag charging stations
-# ---------------------------------------------------------------------------
-
-
-def _tag_charging_stations(G: nx.MultiDiGraph)-> None:
-    """Snap OpenChargeMap stations to their nearest graph node."""
-    stations = _fetch_charging_stations()
-    if not stations:
-        log.warning("No charging stations fetched – graph will have none tagged.")
-        return
-
-    lons = [s["lon"] for s in stations]
-    lats = [s["lat"] for s in stations]
-
-    log.info(f"Snapping {len(stations)} charging stations to graph nodes ...")
-    node_ids = ox.distance.nearest_nodes(G, lons, lats)
-
-    for node_id, station in zip(node_ids, stations):
-        G.nodes[node_id]["is_charging_station"] = True
-        existing_kw = G.nodes[node_id].get("charger_kw", 0)
-        G.nodes[node_id]["charger_kw"] = max(existing_kw, station.get("max_kw", 50))
-
-
-def _fetch_charging_stations()-> list[dict]:
-
-    params = {
-        "output": "json",
-        "maxresults": 2000,
-        "compact": True,
-        "verbose": False,
-        "countrycode": COUNTRY_CODE,
-        "distanceunit": "KM",
-    }
-    headers = {"X-API-Key": OCM_API_KEY} if OCM_API_KEY else {}
-
-    try:
-        log.info("Fetching charging stations from OpenChargeMap ...")
-        resp = requests.get(OPEN_CHARGE_MAP_URL, params=params, headers=headers, timeout=15)
-        resp.raise_for_status()
-        raw = resp.json()
-    except Exception as e:
-        log.warning(f"OpenChargeMap request failed: {e}")
-        return []
-
-    stations = []
-    for poi in raw:
-        addr = poi.get("AddressInfo", {})
-        lat, lon = addr.get("Latitude"), addr.get("Longitude")
-        if lat is None or lon is None:
-            continue
-        max_kw = max((c.get("PowerKW") or 0 for c in poi.get("Connections", [])), default=0)
-        stations.append({"lat": lat, "lon": lon, "max_kw": max_kw or 50})
-
-    log.info(f"Found {len(stations)} charging stations.")
-    return stations
 
 
 
@@ -268,12 +99,5 @@ def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    print("=== Test 1 (Tunis) ===")
-    # build_and_save_graph()
-    G=ox.load_graphml("graphs/tunisia.graphml")
-    G=ox.add_edge_travel_times(G)
-    ox.save_graphml(G, "graphs/tunisia_final.graphml")
-
-
     d = haversine_km(36.8065, 10.1616, 34.7406, 10.7603)
     print(f"\nHaversine Tunis→Sfax: {d:.1f} km  (expect ~250 km)")
