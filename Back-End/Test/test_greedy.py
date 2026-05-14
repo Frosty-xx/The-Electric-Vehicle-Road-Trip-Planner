@@ -76,8 +76,8 @@ def chargers_in_path(G, solution_node):
     return chargers
 
 def path_length(solution_node):
-    """Return total distance (km) of the solution."""
-    return solution_node.distance_km if solution_node else None
+    """Return total g-cost (km) of the solution."""
+    return solution_node.g if solution_node else None
 
 def battery_at_goal(solution_node):
     return solution_node.battery_kwh if solution_node else None
@@ -308,7 +308,7 @@ for gname, gnode in goals.items():
     sol, explored, _ = run_greedy(G, start, gnode, DEFAULT_BATTERY_KWH,
                                   f"  goal={gname}")
     n_explored = len(explored)
-    dist = f"{sol.distance_km:.2f} km ({sol.g:.2f} h)" if sol else "NO PATH"
+    dist = f"{sol.g:.2f} km" if sol else "NO PATH"
     print(f"       explored={n_explored:5d} nodes   dist={dist}")
     if sol is None:
         test6_ok = False

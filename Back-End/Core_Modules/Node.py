@@ -1,13 +1,12 @@
 class Node:
-    def __init__(self, state_id,battery_kwh, parent=None, action=None, g=0, f=0, distance_km=0):
+    def __init__(self, state_id,battery_kwh, parent=None, action=None, g=0, f=0):
         self.state_id = state_id
         self.battery_kwh=battery_kwh 
 
         self.parent = parent
         self.action = action
-        self.g = g  # Cumulative cost from start to this node (now in hours)
+        self.g = g  # Cumulative cost from start to this node
         self.f = f  # Evaluation cost (g + heuristic if applicable)
-        self.distance_km = distance_km  # Cumulative distance in km (for display)
         
         if parent is None:
             self.depth = 0

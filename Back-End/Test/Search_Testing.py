@@ -47,6 +47,6 @@ if __name__ == "__main__":
     print(f"\n========================= path from {INITIAL_ADRESS} to {GOAL_ADRESS} ({strategy}):=========================")
     print()
     print(f"Constructed Path: {Path}")
-    print(f"Distance Traveled: {solution_node.distance_km} KM , Batter_Level:{solution_node.battery_kwh / problem.battery_capacity * 100:.2f}%")
+    print(f"Distance Traveled: {solution_node.g} KM , Batter_Level:{solution_node.battery_kwh / problem.battery_capacity * 100:.2f}%")
     print(f"chargers in path:{charging_stations}")
 
