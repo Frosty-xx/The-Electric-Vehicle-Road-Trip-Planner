@@ -166,8 +166,7 @@ class EV_Problem:
             cumulative_cost = current_cost + step_time_h
             cumulative_distance = current_distance + step_dist_km
 
-            # Choose heuristic target: goal or nearest charger
-            if new_battery < self.LOW_BATTERY_KWH:
+            if node_to_expand.battery_kwh < self.LOW_BATTERY_KWH:
                 target_node = self._nearest_reachable_charger(child_id, new_battery)
                 if target_node is None:
                     continue  # truly stranded — prune this branch
