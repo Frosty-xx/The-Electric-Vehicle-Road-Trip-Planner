@@ -44,7 +44,8 @@ def solve(start_address, goal_address, strategy, battery_info,Graph,kwh_per_km):
         
         'path': successful_path,
         'explored_paths':explored_paths,
-        'total_ditance_km': solution_node.g,
+        'total_travel_time_h': solution_node.g,
+        'total_distance_km': solution_node.distance_km,
         'total_kwh_used': battery_used_kwh,
         'Battery_Distance_Graph':formatted_battery_distance_graph,
         'Charging_stations' :[],
@@ -103,10 +104,11 @@ def get_explored_paths(G,explored_nodes,max_paths) -> list[list[list[float, floa
     return explored_paths
 if __name__ == "__main__":
     G= ox.load_graphml("Data/tunisia_major.graphml")
-    result = solve("Avenue Habib Bourguiba, Tunis, Tunisia","Sidi Mansour, Sfax, Tunisia","A*",100,)
+    result = solve("Avenue Habib Bourguiba, Tunis, Tunisia","Sidi Mansour, Sfax, Tunisia","A*",100,G,0.16125)
     if result:
         print(f"Path: {len(result['path'])} nodes")
-        print(f"Distance: {result['total_ditance_km']:.2f} km")
+        print(f"Travel Time: {result['total_travel_time_h']:.2f} h")
+        print(f"Distance: {result['total_distance_km']:.2f} km")
         print(f"Energy: {result['total_kwh_used']:.2f} kWh")
         print(f"Battery: {result['Battery_percentage']:.1f}%")
     else:
