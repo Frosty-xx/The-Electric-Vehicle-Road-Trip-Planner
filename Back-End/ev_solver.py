@@ -49,21 +49,12 @@ def solve(start_address, goal_address, strategy, battery_info,Graph,kwh_per_km):
         
         'path': data.get("solution_path", []),
         'explored_paths':explored_paths,
-<<<<<<< Updated upstream
-        'total_travel_time_h': solution_node.g,
-        'total_distance_km': solution_node.distance_km,
-        'total_kwh_used': battery_used_kwh,
-        'Battery_Distance_Graph':formatted_battery_distance_graph,
-        'Charging_stations' :[],
-        'Battery_percentage':battery_info - battery_used_kwh *100 / DEFAULT_BATTERY_CAPACITY_KWH
-=======
         'total_ditance_km': data.get("distance_traveled_km", 0.0),
         'Battery_Time_Graph':formatted_battery_time_graph,
         'Battery_Distance_Graph': formatted_battery_distance_graph,
         'Charging_stations' :data.get("chargers_in_path", []),
         'total_kwh_used': total_battery_consumed_kwh,
 
->>>>>>> Stashed changes
         } # for now
 
 
@@ -117,15 +108,10 @@ def get_explored_paths(G,explored_nodes,max_paths) -> list[list[list[float, floa
 
     return explored_paths
 if __name__ == "__main__":
-<<<<<<< Updated upstream
-    G= ox.load_graphml("Data/tunisia_major.graphml")
-    result = solve("Avenue Habib Bourguiba, Tunis, Tunisia","Sidi Mansour, Sfax, Tunisia","A*",100,G,0.16125)
-=======
     print("Loading graph...")
     G= ox.load_graphml("Data/algeria_roads.graphml")
     print("Graph loaded.")
     result = solve("Algiers, Sidi M'Hamed District, Algiers, 16000, Algeria","Annaba, Annaba District, Annaba, 23000, Algeria","A*",100,G,DEFAULT_KWH_PER_KM)
->>>>>>> Stashed changes
     if result:
         print(f"Path: {len(result['path'])} nodes")
         print(f"Travel Time: {result['total_travel_time_h']:.2f} h")

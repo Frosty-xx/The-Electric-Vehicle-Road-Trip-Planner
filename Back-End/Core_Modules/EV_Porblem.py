@@ -93,18 +93,6 @@ class EV_Problem:
     def get_valid_actions(self, state):
         moves = []
         for action in self.Graph.successors(state):
-<<<<<<< Updated upstream
-            # Compute travel time in hours: distance / speed
-            dist_km = get_edge_distance_km(self.Graph, state, action)
-            speed_kph = self._edge_speed_kph(state, action)
-            travel_time_h = dist_km / speed_kph if speed_kph > 0 else float('inf')
-            moves.append((action, travel_time_h, dist_km))
-        return moves
-
-    def get_total_cost(self, g, coordinates, use_cost, use_heuristic,
-                       override_target=None):
-        MAX_SPEED_KPH = 110.0  # Conservative upper bound for time heuristic
-=======
             travel_time = get_edge_trvel_time(self.Graph, state, action)
             kws_cost = get_edge_kwh_cost(self.Graph, state, action)
             moves.append((action, travel_time, kws_cost))
@@ -120,35 +108,20 @@ class EV_Problem:
     def get_total_cost(
         self, g, coordinates, use_cost, use_heuristic, override_target=None
     ):
->>>>>>> Stashed changes
         if override_target:
             goal_coords = override_target
         else:
             goal_coords = get_node_coords(self.Graph, self.goal_state)
-<<<<<<< Updated upstream
-        return (
-            (g if use_cost else 0) +
-            (haversine_km(coordinates[0], coordinates[1],
-                          goal_coords[0], goal_coords[1]) / MAX_SPEED_KPH
-             if use_heuristic else 0)
-=======
         return (g if use_cost else 0) + (
             self.heuristic(
                 coordinates[0], coordinates[1], goal_coords[0], goal_coords[1]
             )
             if use_heuristic
             else 0
->>>>>>> Stashed changes
         )
 
     # ------------------------------------------------------------------
 
-<<<<<<< Updated upstream
-    LOW_BATTERY_KWH = 30.0   # Start looking for chargers at 30 kWh
-
-
-=======
->>>>>>> Stashed changes
     def _nearest_reachable_charger(self, from_node, battery_kwh):
         """Return best charger reachable within remaining battery.
 
@@ -214,29 +187,16 @@ class EV_Problem:
         current_distance = node_to_expand.distance_km
         children = []
 
-<<<<<<< Updated upstream
-        for (child_id, step_time_h, step_dist_km) in self.get_valid_actions(
-                state=node_to_expand.state_id):
-
-            battery_consumed = get_edge_kwh_cost(
-                self.Graph, node_to_expand.state_id, child_id)
-=======
         for child_id, step_cost, battery_consumed in self.get_valid_actions(
             state=node_to_expand.state_id
         ):
             # 1. Calculate battery after travel
->>>>>>> Stashed changes
             new_battery = node_to_expand.battery_kwh - battery_consumed
 
             # Hard constraint — prune dead-battery moves
             if new_battery <= 0:
                 continue
 
-<<<<<<< Updated upstream
-            child_coords = get_node_coords(self.Graph, child_id)
-            cumulative_cost = current_cost + step_time_h
-            cumulative_distance = current_distance + step_dist_km
-=======
             cumulative_cost = current_cost + step_cost
             
             # 2. Handle Charging Logic BEFORE final f_score
@@ -245,7 +205,6 @@ class EV_Problem:
                 self.Graph.nodes[child_id].get("is_charging_station", False)
             )
             threshold = LOW_BATTERY_THRESHOLD_KWH if not is_greedy else 3.7
->>>>>>> Stashed changes
 
             # Apply charging if at a station and battery is low (or constraints off)
             if is_charger and (new_battery < threshold or not use_constraints):
@@ -302,16 +261,4 @@ class EV_Problem:
                 )
             )
 
-<<<<<<< Updated upstream
-                # Soft constraint: slow charger adds a time penalty to f-score
-                if use_heuristic and charger_kw < 50:
-                    charging_time_h = energy_needed / max(charger_kw, 0.1)
-                    f_score += charging_time_h  # Add actual charging time in hours
-
-            children.append(Node(child_id, new_battery, node_to_expand,
-                                 child_id, cumulative_cost, f_score, cumulative_distance))
-
         return children
-=======
-        return children
->>>>>>> Stashed changes

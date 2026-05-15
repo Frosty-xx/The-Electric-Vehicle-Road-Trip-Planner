@@ -33,7 +33,7 @@ try:
     # G = load_graph()
 
     print("Cloud environment detected → downloading from GCS.")
-    G = load_graph()
+    G = download_graph()
     print("Graph loaded successfully!")
 except Exception as e:
     print(f"Error loading graph: {e}")
