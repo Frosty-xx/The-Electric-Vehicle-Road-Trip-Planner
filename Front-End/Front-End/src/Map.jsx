@@ -365,7 +365,7 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={tileLayerUrl === satteliteTiles ? satteliteTiles : (isDarkMode ? darkTiles : lightTiles)}
         />
-        {!path && markers && markers.length > 0 && (
+        {!path && (
           <MarkerClusterGroup 
             iconCreateFunction={createClusterCustomIcon}
             maxClusterRadius={80}

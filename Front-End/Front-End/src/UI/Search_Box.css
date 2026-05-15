@@ -20,7 +20,7 @@
     padding: 10px;
     position: absolute;
     right:0;
-    translate: 120%;
+    translate: 140%;
 }
 
 @keyframes slideInRight {
@@ -229,7 +229,7 @@
     height: 40px;
     font-size: 1.3em;
     border: none;
-    box-shadow: 5px 5px black;
+    box-shadow: -5px 5px black;
 }
 
 .stats-button:hover {

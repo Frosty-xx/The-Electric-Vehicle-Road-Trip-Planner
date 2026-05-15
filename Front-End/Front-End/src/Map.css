@@ -21,11 +21,20 @@
   border: none;
   outline: none;
   font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
   background-color: #ffffff;
+  box-shadow: 5px 5px black;
+  transition: box-shadow 0.3s;
 
 }
-.ThemeButton, .SatteliteButton :hover{
-  transition:0.1
+.SatteliteButton:hover , .ThemeButton:hover{
+  transition:0.1;
+  box-shadow: 0 0 black;
+
 }
 
 

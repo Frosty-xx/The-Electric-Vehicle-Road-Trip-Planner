@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faBattery, faEnvelope, faHamburger, faLocationCrosshairs, faLocationDot, faX, faChartLine, faMagic, faMagnet, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBattery, faEnvelope, faHamburger, faLocationCrosshairs, faLocationDot, faX, faChartLine, faMagic, faMagnet, faMagnifyingGlass, faEraser } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import Nav_Bar from './Search_Selection_Bar';
 import './Search_Box.css';
@@ -23,21 +23,21 @@ const BatteryIcon = ({ width }) =>
 
 
 export default function Search_Box({
-     mapCenter,
-     setMapCenter, 
-     setPath, 
-     setExploredPaths, 
-     setStrategy, 
-     setLoadingScreen, 
-     setBattery_data,
-     setBatteryDistanceData,
-      setBattery_warning_open, 
-      setIsStatisticsOpen, 
-      isStatisticsOpen ,
-     setChargingStationsInPath,
-     setTotalBatteryConsumed
+    mapCenter,
+    setMapCenter,
+    setPath,
+    setExploredPaths,
+    setStrategy,
+    setLoadingScreen,
+    setBattery_data,
+    setBatteryDistanceData,
+    setBattery_warning_open,
+    setIsStatisticsOpen,
+    isStatisticsOpen,
+    setChargingStationsInPath,
+    setTotalBatteryConsumed
 
-    }) {
+}) {
 
     const [startAddress, setStartAddress] = useState('');
     const [destinationAddress, setDestinationAddress] = useState('');
@@ -95,6 +95,20 @@ export default function Search_Box({
             }));
         }
     };
+    function resetData() {
+        setExploredPaths([]); // Clear old explored paths first
+        setPath(null); // Clear old path first
+        setTotalBatteryConsumed(0); // Reset total battery consumed
+        setBattery_data([]); // Clear old battery data
+        setChargingStationsInPath([]); // Clear old charging stations data
+        setBatteryDistanceData([]); // Clear old battery distance data
+    }
+    function resetForm() {
+        setBattery_level(null)
+        setStartAddress(' ');
+        setDestinationAddress('');
+        setActiveSearch(null);
+    }
 
     async function handleSearch(e) {
         e.preventDefault();
@@ -114,6 +128,8 @@ export default function Search_Box({
         console.log('API URL:', API_URL + '/api/route');
         try {
 
+            resetData(); // Clear old data before fetching new results
+            setStrategy(activeSearch);
             const response = await fetch(`${API_URL}/api/route`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -124,12 +140,8 @@ export default function Search_Box({
                 setLoadingScreen(false);
                 return;
             }
-
             const data = await response.json();
             console.log(data)
-            setStrategy(activeSearch);
-            setExploredPaths([]); // Clear old explored paths first
-            setPath([]); // Clear old path first
             setTimeout(() => {
                 // Set new data after a brief delay to ensure cleanup
                 setExploredPaths(data.explored_paths || []);
@@ -141,7 +153,7 @@ export default function Search_Box({
                 console.log("Charging Stations in Path:", data.Charging_stations || []);
                 setChargingStationsInPath(data.Charging_stations || [])
                 console.log("Total Battery Consumed (kWh):", data.total_battery_consumed_kwh || 0);
-                setTotalBatteryConsumed(data.total_kwh_used|| 0);
+                setTotalBatteryConsumed(data.total_kwh_used || 0);
 
             }, 100);
             setLoadingScreen(false);
@@ -155,122 +167,133 @@ export default function Search_Box({
     }
 
     return (
-        <div className="search-box-container">
-            <div className="button-controls">
-                <button
-                    type="button"
-                    className='stats-button'
-                    title='View Statistics'
-                    onClick={() => {
-                        searchmenuOpen ? setSearchmenuOpen(false) : "";
-                        setIsStatisticsOpen(prev => !prev);
-                    }}
-                >
-                    {isStatisticsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faChartLine} />}
+        <>
+            <div className="search-box-container">
+                <div style={{ position: "relative" }}>
+                    <div className="button-controls">
+                        <button
+                            type="button"
+                            className='stats-button'
+                            title='View Statistics'
+                            onClick={() => {
+                                searchmenuOpen ? setSearchmenuOpen(false) : "";
+                                setIsStatisticsOpen(prev => !prev);
+                            }}
+                        >
+                            {isStatisticsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faChartLine} />}
 
-                </button>
-                <button title='Search Menu' className='stats-button' onClick={() => {
-                    isStatisticsOpen ? setIsStatisticsOpen(false) : "";
-                    setSearchmenuOpen(prev => !prev)
-                }}>
-                    {searchmenuOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
-                </button>
+                        </button>
+                        <button type='"button"' title='Search Menu' className='stats-button' onClick={() => {
+                            isStatisticsOpen ? setIsStatisticsOpen(false) : "";
+                            setSearchmenuOpen(prev => !prev)
+                        }}>
+                            {searchmenuOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
+                        </button>
+                        <button type='"button"' title='Reset' className='stats-button' onClick={() => {
+                            resetData();
+                            resetForm();
+                        }}>
+                            <FontAwesomeIcon icon={faEraser} />
 
-            </div>
-            <form onSubmit={handleSearch}>
-                <div className='search-box' style={searchmenuOpen ? {} : { padding: '0px', display: 'none' }}>
-                    <p className='search_title'>Where To:</p>
-                    <div className="input-group">
-                        <label htmlFor="start-address" className="input-label">
-                            <FontAwesomeIcon icon={faLocationCrosshairs} color='red' fontSize={18}></FontAwesomeIcon>
-                        </label>
-                        <div className="input-wrapper">
-                            <AddressAutocomplete
-                                id="startAddress"
-                                onSelect={(place) => setStartAddress(place.display_name)}
-                                onChange={(value) => handleInputChange('startAddress', value)}
-                                countrycodes='DZ'
-                                errors={errors}
-                                setErrors={setErrors}
-                            />
-                            {errors.startAddress && <span className="error-message">{errors.startAddress}</span>}
-                        </div>
+                        </button>
+
                     </div>
-
-                    <div className="input-group">
-                        <label htmlFor="destination-address" className="input-label">
-                            <FontAwesomeIcon icon={faLocationDot} color='white' fontSize={18}></FontAwesomeIcon>
-                        </label>
-                        <div className="input-wrapper">
-                            <AddressAutocomplete
-                                id="destinationAddress"
-                                onSelect={(place) => setDestinationAddress(place.display_name)}
-                                onChange={(value) => handleInputChange('destinationAddress', value)}
-                                countrycodes='DZ'
-                                errors={errors}
-                                setErrors={setErrors}
-                            />
-                            {errors.destinationAddress && <span className="error-message">{errors.destinationAddress}</span>}
-                        </div>
-                    </div>
-                    <hr style={{ border: '1px solid #ccc', }} />
-                    <div>
-
-                        <p className='search_title'>Battery Level:</p>
-                        <div className="input-group" style={{ alignItems: "center", padding: "1rem 0" }}>
-                            <label htmlFor="battery_level">
-                                {/* <FontAwesomeIcon icon={faBattery} color='green' fontSize={18}></FontAwesomeIcon> */}
-                                <BatteryIcon width={battery_level} />
-                            </label>
-                            <div className="input-wrapper">
-                                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                                    <input
-                                        id="battery_level"
-                                        type="range"
-                                        min="0"
-                                        max="100"
-                                        className={` battery_slider ${errors.battery_level ? 'input-error' : ''}`}
-                                        value={battery_level ? battery_level : 0}
-                                        onChange={(e) => handleInputChange('battery_level', e.target.value)}
-                                        style={
-                                            battery_level < 20 ? { accentColor: 'red' } :
-                                                battery_level < 50 ? { accentColor: 'orange' } :
-                                                    {}
-                                        }
+                    <form onSubmit={handleSearch}>
+                        <div className='search-box' style={isStatisticsOpen ? { visibility: "hidden" } : searchmenuOpen ? {} : { padding: '0px', display: 'none' }}>
+                            <p className='search_title'>Where To:</p>
+                            <div className="input-group">
+                                <label htmlFor="start-address" className="input-label">
+                                    <FontAwesomeIcon icon={faLocationCrosshairs} color='red' fontSize={18}></FontAwesomeIcon>
+                                </label>
+                                <div className="input-wrapper">
+                                    <AddressAutocomplete
+                                        id="startAddress"
+                                        onSelect={(place) => setStartAddress(place.display_name)}
+                                        onChange={(value) => handleInputChange('startAddress', value)}
+                                        countrycodes='DZ'
+                                        errors={errors}
+                                        setErrors={setErrors}
                                     />
-                                    <p className='battery_level'>{battery_level ? battery_level : 0}% </p>
+                                    {errors.startAddress && <span className="error-message">{errors.startAddress}</span>}
                                 </div>
-                                {errors.battery_level && <span className="error-message">{errors.battery_level}</span>}
                             </div>
+
+                            <div className="input-group">
+                                <label htmlFor="destination-address" className="input-label">
+                                    <FontAwesomeIcon icon={faLocationDot} color='white' fontSize={18}></FontAwesomeIcon>
+                                </label>
+                                <div className="input-wrapper">
+                                    <AddressAutocomplete
+                                        id="destinationAddress"
+                                        onSelect={(place) => setDestinationAddress(place.display_name)}
+                                        onChange={(value) => handleInputChange('destinationAddress', value)}
+                                        countrycodes='DZ'
+                                        errors={errors}
+                                        placeholder='Search for an destination...'
+                                        setErrors={setErrors}
+                                    />
+                                    {errors.destinationAddress && <span className="error-message">{errors.destinationAddress}</span>}
+                                </div>
+                            </div>
+                            <hr style={{ border: '1px solid #ccc', }} />
+                            <div>
+
+                                <p className='search_title'>Battery Level:</p>
+                                <div className="input-group" style={{ alignItems: "center", padding: "1rem 0" }}>
+                                    <label htmlFor="battery_level">
+                                        {/* <FontAwesomeIcon icon={faBattery} color='green' fontSize={18}></FontAwesomeIcon> */}
+                                        <BatteryIcon width={battery_level} />
+                                    </label>
+                                    <div className="input-wrapper">
+                                        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                                            <input
+                                                id="battery_level"
+                                                type="range"
+                                                min="0"
+                                                max="100"
+                                                className={` battery_slider ${errors.battery_level ? 'input-error' : ''}`}
+                                                value={battery_level ? battery_level : 0}
+                                                onChange={(e) => handleInputChange('battery_level', e.target.value)}
+                                                style={
+                                                    battery_level < 20 ? { accentColor: 'red' } :
+                                                        battery_level < 50 ? { accentColor: 'orange' } :
+                                                            {}
+                                                }
+                                            />
+                                            <p className='battery_level'>{battery_level ? battery_level : 0}% </p>
+                                        </div>
+                                        {errors.battery_level && <span className="error-message">{errors.battery_level}</span>}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style={{ border: '1px solid #ccc', }} />
+
+                            <div>
+                                <p className='search_title'>Search Algorithm:</p>
+                                <br></br>
+                                <Nav_Bar activeSearch={activeSearch} setActiveSearch={setActiveSearch} />
+                                <br></br>
+                                {errors.activeSearch && <span className="error-message" style={{ marginTop: '-0.5rem' }}>{errors.activeSearch}</span>}
+                            </div>
+                            <hr style={{ border: '1px solid #ccc', }} />
+
+                            <Car_Selection />
+
+                            <button type="submit" className="search-button" onClick={() => {
+                                if (validateForm()) {
+                                    !isStatisticsOpen ? setIsStatisticsOpen(true) : ""
+                                    setSearchmenuOpen(false)
+                                }
+                            }
+                            }>
+                                Search Route
+                            </button>
                         </div>
-                    </div>
-                    <hr style={{ border: '1px solid #ccc', }} />
 
-                    <div>
-                        <p className='search_title'>Search Algorithm:</p>
-                        <br></br>
-                        <Nav_Bar activeSearch={activeSearch} setActiveSearch={setActiveSearch} />
-                        <br></br>
-                        {errors.activeSearch && <span className="error-message" style={{ marginTop: '-0.5rem' }}>{errors.activeSearch}</span>}
-                    </div>
-                    <hr style={{ border: '1px solid #ccc', }} />
+                    </form>
 
-                    <Car_Selection />
-
-                    <button type="submit" className="search-button" onClick={() => {
-                        if (validateForm()) {
-                            !isStatisticsOpen ? setIsStatisticsOpen(true) : ""
-                            setSearchmenuOpen(false)
-                        }
-                    }
-                    }>
-                        Search Route
-                    </button>
                 </div>
-
-            </form>
-
-
-        </div>
+            </div>
+        </>
     );
 }
