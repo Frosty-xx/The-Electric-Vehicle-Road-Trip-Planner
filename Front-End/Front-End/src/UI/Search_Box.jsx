@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faBattery, faEnvelope, faHamburger, faLocationCrosshairs, faLocationDot, faX } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBattery, faEnvelope, faHamburger, faLocationCrosshairs, faLocationDot, faX, faChartLine, faMagic, faMagnet, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import Nav_Bar from './Search_Selection_Bar';
 import './Search_Box.css';
 import AddressAutocomplete from './autocomplete';
 import Car_Selection from './Car_Selection/Car_Selection';
-import Battery_Graph from './Battery_Graph';
 
 
 const BatteryIcon = ({ width }) =>
@@ -23,15 +22,30 @@ const BatteryIcon = ({ width }) =>
 
 
 
-export default function Search_Box({ mapCenter, setMapCenter, setPath, setExploredPaths, setStrategy, setDistance, setLoadingScreen, setBattery_data,setBattery_warning_open}) {
+export default function Search_Box({
+     mapCenter,
+     setMapCenter, 
+     setPath, 
+     setExploredPaths, 
+     setStrategy, 
+     setLoadingScreen, 
+     setBattery_data,
+     setBatteryDistanceData,
+      setBattery_warning_open, 
+      setIsStatisticsOpen, 
+      isStatisticsOpen ,
+     setChargingStationsInPath,
+     setTotalBatteryConsumed
+
+    }) {
 
     const [startAddress, setStartAddress] = useState('');
     const [destinationAddress, setDestinationAddress] = useState('');
     const [battery_level, setBattery_level] = useState('');
     const [activeSearch, setActiveSearch] = useState(null);
     const [errors, setErrors] = useState({});
-    
-    const [sidemenuOpen, setSidemenuOpen] = useState(true);
+
+    const [searchmenuOpen, setSearchmenuOpen] = useState(true);
 
 
     const validateForm = () => {
@@ -121,10 +135,13 @@ export default function Search_Box({ mapCenter, setMapCenter, setPath, setExplor
                 setExploredPaths(data.explored_paths || []);
                 setMapCenter(data.path[0]);
                 setPath(data.path.filter(coord => !isNaN(coord[0]) && !isNaN(coord[1])));
-                if (data.distance) {
-                    setDistance(data.distance);
-                }
-                setBattery_data(data.Battery_Distance_Graph)
+
+                setBattery_data(data.Battery_Time_Graph || [])
+                setBatteryDistanceData(data.Battery_Distance_Graph || [])
+                console.log("Charging Stations in Path:", data.Charging_stations || []);
+                setChargingStationsInPath(data.Charging_stations || [])
+                console.log("Total Battery Consumed (kWh):", data.total_battery_consumed_kwh || 0);
+                setTotalBatteryConsumed(data.total_kwh_used|| 0);
 
             }, 100);
             setLoadingScreen(false);
@@ -139,8 +156,29 @@ export default function Search_Box({ mapCenter, setMapCenter, setPath, setExplor
 
     return (
         <div className="search-box-container">
+            <div className="button-controls">
+                <button
+                    type="button"
+                    className='stats-button'
+                    title='View Statistics'
+                    onClick={() => {
+                        searchmenuOpen ? setSearchmenuOpen(false) : "";
+                        setIsStatisticsOpen(prev => !prev);
+                    }}
+                >
+                    {isStatisticsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faChartLine} />}
+
+                </button>
+                <button title='Search Menu' className='stats-button' onClick={() => {
+                    isStatisticsOpen ? setIsStatisticsOpen(false) : "";
+                    setSearchmenuOpen(prev => !prev)
+                }}>
+                    {searchmenuOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
+                </button>
+
+            </div>
             <form onSubmit={handleSearch}>
-                <div className='search-box' style={sidemenuOpen ? {} : { padding: '0px',display:'none' }}>
+                <div className='search-box' style={searchmenuOpen ? {} : { padding: '0px', display: 'none' }}>
                     <p className='search_title'>Where To:</p>
                     <div className="input-group">
                         <label htmlFor="start-address" className="input-label">
@@ -219,16 +257,20 @@ export default function Search_Box({ mapCenter, setMapCenter, setPath, setExplor
 
                     <Car_Selection />
 
-                    <button type="submit" className="search-button">
+                    <button type="submit" className="search-button" onClick={() => {
+                        if (validateForm()) {
+                            !isStatisticsOpen ? setIsStatisticsOpen(true) : ""
+                            setSearchmenuOpen(false)
+                        }
+                    }
+                    }>
                         Search Route
                     </button>
                 </div>
 
             </form>
-            <button title='Search Menu' className='toggle-button' onClick={() => setSidemenuOpen(prev => !prev)}>
-                   {sidemenuOpen? <FontAwesomeIcon icon={faX}/>:<FontAwesomeIcon icon={faBars}/>} 
-            </button>
-            
+
+
         </div>
     );
 }

@@ -4,8 +4,23 @@
     z-index: 1000;
     animation: slideInRight 0.6s ease-out;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
+    gap: 0;
 
+}
+
+.button-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0;
+    z-index: 1001;
+    align-self: flex-start;
+    padding: 10px;
+    position: absolute;
+    right:0;
+    translate: 120%;
 }
 
 @keyframes slideInRight {
@@ -21,9 +36,9 @@
 }
 
 .search-box {
-    background: #111111ee;
+    background: #02306d;
 
-    padding: 1rem 1.5rem;
+    padding: 1rem 2.4rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 
     height: 100vh;
@@ -33,6 +48,7 @@
     flex-direction: column;
     overflow-y: scroll;
     gap: 1rem;
+    animation: slideInRight 0.6s ease-out;
 }
 
 .search-box:hover {
@@ -45,7 +61,7 @@
     display: flex;
     gap: 0.7rem;
     align-items: flex-start;
-    animation: fadeIn 0.5s ease-out;
+
     color: rgb(255, 255, 255);
 }
 
@@ -58,6 +74,20 @@
         opacity: 1;
     }
 }
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 
 .input-group:nth-child(2) {
     animation-delay: 0.1s;
@@ -89,8 +119,8 @@
 .search-input {
     width: 100%;
     padding: 12px 14px;
-    color: white;
-    background-color: #282828;
+    color: black;
+    background-color: #e2e4e7;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     font-size: 14px;
@@ -108,6 +138,7 @@
 
 
 }
+
 .battery_slider:hover {
     cursor: grab
 }
@@ -126,6 +157,7 @@
 
 .search-input:focus {
     outline: none;
+    color: white;
     border-color: #4a90e2;
     box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
     background-color: #3a3b3d;
@@ -138,9 +170,9 @@
 .search-button {
     width: 100%;
     padding: 12px 16px;
-    background: #ffffff;
-    color: black;
-    border: 1px solid gray;
+    background: #0077b6;
+    color: white;
+    border: none;
     border-radius: 15px;
     font-size: 14px;
     font-weight: 600;
@@ -149,14 +181,14 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 8px;
-    box-shadow: 0 0px 25px rgba(84, 86, 88, 0.4);
+    box-shadow: 0px 5px rgba(0, 0, 0, 0.4);
 
 }
 
 .search-button:hover {
-    background: rgb(245, 243, 243);
+    background: #105ec4;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 0 black;
 }
 
 .search-button:active {
@@ -179,6 +211,55 @@
     letter-spacing: 0.3px;
 
 
+}
+
+.stats-button {
+    background: #105ec4;
+    color: white;
+    border-radius: 6px;
+    padding: 0.5rem 0.7rem;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 1.3em;
+    border: none;
+    box-shadow: 5px 5px black;
+}
+
+.stats-button:hover {
+
+    box-shadow: 0 0 black;
+}
+
+.stats-button:active {
+    transform: scale(0.95);
+}
+
+.toggle-button {
+    font-size: 1.3em;
+    font-weight: 500;
+    border: none;
+    border-radius: 0.8rem;
+    padding: 7px 10px;
+    background-color: #1b1e1f;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-button:hover {
+    background-color: rgb(49, 48, 48);
 }
 
 /* Form Validation Styles */
@@ -223,11 +304,12 @@
     border-radius: 1.5px;
     width: 100%;
     height: 100%;
-    transition: background-color  0.3s;
-    transition: width  0.3s;
+    transition: background-color 0.3s;
+    transition: width 0.3s;
 
 }
-.battery_icon .battery_cap{
+
+.battery_icon .battery_cap {
     width: 4px;
     height: 8px;
     background-color: white;
@@ -240,17 +322,18 @@
 
 
 
-.toggle-button{
+.toggle-button {
     font-size: 1.3em;
     font-weight: 500;
-    margin:10px;
-    border:none;
+    margin: 10px;
+    border: none;
     border-radius: 0.8rem;
     padding: 7px 10px;
     background-color: #1b1e1f;
     color: white;
 }
-.toggle-button:hover{
+
+.toggle-button:hover {
     background-color: rgb(49, 48, 48);
     cursor: pointer;
 }
@@ -287,5 +370,3 @@
         font-size: 16px;
     }
 }
-
-

@@ -58,6 +58,11 @@ def get_edge_distance_km(G: nx.MultiDiGraph, u: int, v: int) -> float:
     """Shortest edge distance in km between u and v (min over parallel edges)."""
     return min(d.get("length", 0) for d in G[u][v].values()) / 1000.0
 
+def get_edge_trvel_time(G:nx.MultiDiGraph,u:int,v:int)->float:
+    """Shortest edge travel time in seconds between u and v (min over parallel edges).
+    """
+    return min(d.get("travel_time", 0) for d in G[u][v].values()) 
+
 
 def get_edge_kwh_cost(G: nx.MultiDiGraph, u: int, v: int) -> float:
     """Energy cost (kWh) of the cheapest parallel edge u→v."""
@@ -78,26 +83,4 @@ def is_charging_station(G, node_id):
     return bool(val)
 
 
-def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    """
-    Straight-line distance in km between two (lat, lon) points.
-    Used as the heuristic h(n) in A*.
-    """
-    R = 6371.0
-    phi1, phi2 = math.radians(lat1), math.radians(lat2)
-    a = (
-        math.sin(math.radians(lat2 - lat1) / 2) ** 2
-        + math.cos(phi1) * math.cos(phi2) * math.sin(math.radians(lon2 - lon1) / 2) ** 2
-    )
-    return R * 2 * math.asin(math.sqrt(a))
 
-
-
-
-# ---------------------------------------------------------------------------
-# 5. Quick smoke-test
-# ---------------------------------------------------------------------------
-
-if __name__ == "__main__":
-    d = haversine_km(36.8065, 10.1616, 34.7406, 10.7603)
-    print(f"\nHaversine Tunis→Sfax: {d:.1f} km  (expect ~250 km)")

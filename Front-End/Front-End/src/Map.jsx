@@ -10,7 +10,7 @@ import trafic_electiric_charge_station from './assets/bolt-circle.svg';
 import { Icon, DivIcon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import Search_Box from './UI/Search_Box';
-import Battery_Graph from './UI/Battery_Graph';
+import Statistics from './UI/Statistics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic, faMoon, faSatellite, faSun } from '@fortawesome/free-solid-svg-icons';
 //Soundes
@@ -133,10 +133,12 @@ export default function Map() {
   const [loading_screen, setLoadingScreen] = useState(false);
   //Battery Graph============================================================================================================
   const [batteryData, setBatteryData] = useState([]);
+  const [batteryDistanceData, setBatteryDistanceData] = useState([]);
   // State variables============================================================================================================
   const [mapCenter, setMapCenter] = useState(algeriaCord)
   const [path, setPath] = useState(null); // State to hold the path data from the backend
   const [exploredPaths, setExploredPaths] = useState([]); // State to hold explored paths
+  const [totalBatteryConsumed, setTotalBatteryConsumed] = useState(0); // State to hold total battery consumed
   const [showFinalPath, setShowFinalPath] = useState(false); // State to show final path after explored paths are done
   const [strategy, setStrategy] = useState(null); // State to hold the selected strategy
   const [allAnimationsComplete, setAllAnimationsComplete] = useState(false); // Track when all animations complete
@@ -158,7 +160,9 @@ export default function Map() {
   const [loading, setLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isBatteryWarningOpen, setIsBatteryWarningOpen] = useState(false);
+  const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
   const [zoom, setZoom] = useState(5);
+  const [chargingStationsInPath, setChargingStationsInPath] = useState([]);
 
 
   useEffect(() => {
@@ -273,13 +277,65 @@ export default function Map() {
     }
   })
 
+
+  // Custom cluster icon styling
+  const createClusterCustomIcon = (cluster) => {
+    const count = cluster.getChildCount();
+    let size = 'large';
+    let color = '#4a90e2';
+
+    if (count < 10) {
+      size = 'small';
+      color = '#4a90e2';
+    } else if (count < 50) {
+      size = 'medium';
+      color = '#ff9800';
+    } else {
+      size = 'large';
+      color = '#e74c3c';
+    }
+
+    return new DivIcon({
+      html: `
+        <div class="custom-cluster-icon ${size}" style="background: ${color}; border-color: ${color};">
+          <span>${count}</span>
+        </div>
+      `,
+      className: 'custom-cluster',
+      iconSize: size === 'small' ? [40, 40] : size === 'medium' ? [50, 50] : [60, 60],
+      iconAnchor: size === 'small' ? [20, 20] : size === 'medium' ? [25, 25] : [30, 30]
+    });
+  };
+
   return (
 
     <div className='Container'>
       <Battery_warning isOpen={isBatteryWarningOpen} setIsOpen={setIsBatteryWarningOpen} />
       <LoadingScreen isLoading={loading_screen} />
-      <Search_Box  mapCenter={mapCenter} setBattery_warning_open={setIsBatteryWarningOpen} setMapCenter={setMapCenter} setPath={setPath} setExploredPaths={setExploredPaths} setStrategy={setStrategy} setLoadingScreen={setLoadingScreen} setBattery_data={setBatteryData} />
-      <Battery_Graph data={batteryData} />
+      <Search_Box  
+        mapCenter={mapCenter} 
+        setBattery_warning_open={setIsBatteryWarningOpen} 
+        setMapCenter={setMapCenter} 
+        setPath={setPath} 
+        setExploredPaths={setExploredPaths} 
+        setStrategy={setStrategy} 
+        setLoadingScreen={setLoadingScreen} 
+        setBattery_data={setBatteryData}
+        setBatteryDistanceData={setBatteryDistanceData}
+        setIsStatisticsOpen={setIsStatisticsOpen}
+        isStatisticsOpen={isStatisticsOpen}
+        setChargingStationsInPath={setChargingStationsInPath}
+        setTotalBatteryConsumed={setTotalBatteryConsumed}
+
+      />
+      <Statistics
+        batteryData={batteryData}
+        batteryDistanceData={batteryDistanceData}
+        pathDistance={pathDistance}
+        strategy={strategy}
+        totalBatteryConsumed = {totalBatteryConsumed}
+        isOpen={isStatisticsOpen}
+      />
       <div className='views_container'>
         <button
           onClick={() => {
@@ -309,21 +365,25 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={tileLayerUrl === satteliteTiles ? satteliteTiles : (isDarkMode ? darkTiles : lightTiles)}
         />
-
-          {markers.map((marker, index) => (
-            <Marker
-              key={index}
-              position={[marker.position.lat, marker.position.long]}
-              icon={customIcon(getIconSize(zoom))}
-            >
-              <Popup>
-                <h3>{marker.name}</h3>
-                <p>Charging Speed: {marker.charging_speed} kW</p>
-              </Popup>
-            </Marker>
-          ))}
-
-
+        {!path && markers && markers.length > 0 && (
+          <MarkerClusterGroup 
+            iconCreateFunction={createClusterCustomIcon}
+            maxClusterRadius={80}
+            disableClusteringAtZoom={15}
+          >
+            {markers.map((marker, index) => (
+              <Marker
+                key={index}
+                position={[marker.position.lat, marker.position.long]}
+                icon={customIcon(getIconSize(zoom))}
+              >
+                <Popup>
+                  <h3>{marker.name}</h3>
+                  <p>Charging Speed: {marker.charging_speed} kW</p>
+                </Popup>
+              </Marker>
+            ))}
+        </MarkerClusterGroup>)}
 
 
         {path && path.length > 0 && (
@@ -357,13 +417,23 @@ export default function Map() {
               }
               label="Goal"
             />
+            {chargingStationsInPath.map((station, index) => (
+              <Marker
+                key={`station-${index}`}
+                position={[station.lat, station.lon]}
+                icon={customIcon(getIconSize(zoom))}>
+                <Popup>
+                  <p>Charging Speed: {station.power_kw} kW</p>
+                </Popup>
+              </Marker>))}
           </>
+
         )}
 
         {path && !loading && showFinalPath && ( // Only render the path after explored paths finish
           <>
-            <SnakeLine positions={path} color="#1022caa2" weight={8} speed={200 + pathDistance} opacity={0.5} zIndex={999999} /> {/* Add a second line with different style for the explored path */}
-            <SnakeLine positions={path} color='#4a90e2' weight={5} speed={200 + pathDistance} zIndex={999999} />
+            <SnakeLine positions={path} color="#1022caa2" weight={8} speed={200 + pathDistance} opacity={0.5} zIndex={999999999999999} /> {/* Add a second line with different style for the explored path */}
+            <SnakeLine positions={path} color='#4a90e2' weight={5} speed={200 + pathDistance} zIndex={9999999999999} />
           </>
         )}
 

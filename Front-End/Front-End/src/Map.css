@@ -61,3 +61,62 @@
   left: -10px;
 }
 
+/* Custom Cluster Styling */
+.custom-cluster {
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
+}
+
+.custom-cluster-icon {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  border: 3px solid white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 
+              inset 0 0 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  font-size: 14px;
+  cursor: pointer;
+  animation: clusterPulse 2s ease-in-out infinite;
+}
+
+.custom-cluster-icon.small {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.custom-cluster-icon.medium {
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+}
+
+.custom-cluster-icon.large {
+  width: 45px;
+  height: 45px;
+  font-size: 16px;
+}
+
+@keyframes clusterPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 
+                inset 0 0 8px rgba(0, 0, 0, 0.2),
+                0 0 0 0 rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 
+                inset 0 0 8px rgba(0, 0, 0, 0.2),
+                0 0 0 4px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Hover effect for clusters */
+.custom-cluster:hover .custom-cluster-icon {
+  transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5), 
+              inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
