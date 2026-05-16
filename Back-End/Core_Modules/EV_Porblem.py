@@ -119,7 +119,7 @@ class EV_Problem:
         self,
         lat1: float, lon1: float,
         lat2: float, lon2: float,
-        speed: float = AVG_SPEED_KPH,
+        speed: float = AVG_SPEED,
     ) -> float:
         """Estimate remaining travel time (seconds) via Haversine + average speed."""
         dist_km = haversine_km(lat1, lon1, lat2, lon2)
