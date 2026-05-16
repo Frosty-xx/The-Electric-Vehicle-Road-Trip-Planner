@@ -18,6 +18,8 @@ from Core_Modules.Node import Node
 
 LOW_BATTERY_THRESHOLD_KWH = 14.8  # tune to your use case (for 20% of 74 kWh capacity)
 AVG_SPEED = 90  # average speed in haighways and routes
+DEFAULT_KWH_PER_KM= 0.16125
+FAST_CHARGER_KW_THRESHOLD = 50
 # State is a node_id in the city graph
 
 
