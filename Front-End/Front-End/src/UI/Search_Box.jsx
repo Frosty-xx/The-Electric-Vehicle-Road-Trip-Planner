@@ -47,7 +47,7 @@ export default function Search_Box({
     const [activeSearch, setActiveSearch] = useState(null);
     const [errors, setErrors] = useState({});
 
-    const [searchmenuOpen, setSearchmenuOpen] = useState(true);
+    const [searchmenuOpen, setSearchmenuOpen] = useState(false);
 
 
     const validateForm = () => {
@@ -284,7 +284,6 @@ export default function Search_Box({
 
                             <button type="submit" className="search-button" onClick={() => {
                                 if (validateForm()) {
-                                    !isStatisticsOpen ? setIsStatisticsOpen(true) : ""
                                     setSearchmenuOpen(false)
                                 }
                             }

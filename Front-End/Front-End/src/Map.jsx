@@ -110,10 +110,10 @@ export default function Map() {
   const lightTiles = "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}";
   const darkTiles = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png";
   const satteliteTiles = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
-  
+
   // delay Function============================================================================================================
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-  
+
   // Calculate distance between coordinates for animation timing
   const getPathDistance = (positions) => {
     if (!positions || positions.length < 2) return 0;
@@ -125,19 +125,19 @@ export default function Map() {
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLng = (lng2 - lng1) * Math.PI / 180;
       const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       distance += R * c;
     }
     return distance;
   };
-  
+
   // Audio refs=======================================================================================================================================
   const searchAudioRef = useRef(new Audio(searchSound));
   const successAudioRef = useRef(new Audio(successSound));
   const animationCompletionCountRef = useRef(0);
-  
+
   // Control States:=======================================================================================================================================
   const [tileLayerUrl, setTileLayerUrl] = useState(lightTiles);
   const [loading, setLoading] = useState(false);
@@ -146,7 +146,7 @@ export default function Map() {
   const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
   const [zoom, setZoom] = useState(5);
   const [chargingStationsInPath, setChargingStationsInPath] = useState([]);
-  
+
   // Scratch animtion:
   const [showFinalPath, setShowFinalPath] = useState(false); // State to show final path after explored paths are done
   const [startExploring, setStartExploring] = useState(false)
@@ -155,9 +155,9 @@ export default function Map() {
   const [count, setCount] = useState(0);// Count the explored paths displayed
   const [path, setPath] = useState(null); // State to hold the path data from the backend
   const [pathDistance, setPathDistance] = useState(0); // Distance of the current path in km
-  
+
   // TIMING CONFIGURATION
-  const EXPLORED_PATH_DISPLAY_TIME = 30; 
+  const EXPLORED_PATH_DISPLAY_TIME = 30;
   const EXPLORED_PATH_ANIMATION_SPEED = 300; // Slower speed so animation is visible (lower = slower drawing)
 
 
@@ -295,7 +295,10 @@ export default function Map() {
       iconAnchor: size === 'small' ? [20, 20] : size === 'medium' ? [25, 25] : [30, 30]
     });
   };
-
+  const worldBounds = [
+    [-90, -180], // South Pole / International Date Line West
+    [90, 180]    // North Pole / International Date Line East
+  ];
   return (
 
     <div className='Container'>
@@ -315,7 +318,7 @@ export default function Map() {
         isStatisticsOpen={isStatisticsOpen}
         setChargingStationsInPath={setChargingStationsInPath}
         setTotalBatteryConsumed={setTotalBatteryConsumed}
-        setPathDistance = {setPathDistance}
+        setPathDistance={setPathDistance}
         setCount={setCount}
       />
       <Statistics
@@ -346,6 +349,9 @@ export default function Map() {
       <MapContainer
         center={mapCenter}
         zoom={zoom}
+        maxZoom={8}
+        maxBounds={worldBounds}
+        maxBoundsViscosity={1.0}
         style={{ height: '100%', width: '100%' }}
         zoomControl={false}
       >
@@ -354,6 +360,8 @@ export default function Map() {
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={tileLayerUrl === satteliteTiles ? satteliteTiles : (isDarkMode ? darkTiles : lightTiles)}
+          noWrap={true}
+          maxZoom={8}
         />
         {!path && (
           <MarkerClusterGroup
