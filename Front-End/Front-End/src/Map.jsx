@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap,useMapEvents} from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import 'leaflet.polyline.snakeanim';
@@ -6,13 +6,13 @@ import DZ_Charging_Stations from './Data/Algeria_charging_stations.json'
 import { useState, useEffect, useRef } from 'react';
 import './Map.css'
 import goal_marker from './assets/goal_marker.svg';
-import trafic_electiric_charge_station from './assets/bolt-circle.svg';
+import trafic_electiric_charge_station from './assets/charging.png';
 import { Icon, DivIcon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import Search_Box from './UI/Search_Box';
 import Statistics from './UI/Statistics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagic, faMoon, faSatellite, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faL, faMagic, faMoon, faSatellite, faSun } from '@fortawesome/free-solid-svg-icons';
 //Soundes
 import searchSound from './assets/Audio/serach_sound.mp3'
 import successSound from './assets/Audio/success.mp3'
@@ -34,30 +34,8 @@ function MapUpdater({ path }) {
 
   return null;
 }
-//Calculate distance between two coordinates (haversine formula)
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-  const R = 6371; // Earth's radius in km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-};
-
-//Calculate total distance of path
-const getPathDistance = (positions) => {
-  if (!positions || positions.length < 2) return 0;
-  let totalDistance = 0;
-  for (let i = 0; i < positions.length - 1; i++) {
-    totalDistance += calculateDistance(positions[i][0], positions[i][1], positions[i + 1][0], positions[i + 1][1]);
-  }
-  return totalDistance;
-};
-
 //Snake line component to animate the path drawing
-const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 300, delay = 0, onAnimationComplete, zIndex = 9999 }) => {
+const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 300, dashArray, zIndex = 9999 }) => {
   const map = useMap();
 
   useEffect(() => {
@@ -65,24 +43,14 @@ const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 
 
     let line = null;
     const timer = setTimeout(() => {
-      line = L.polyline(positions, { opacity: opacity, color: color, weight: weight, snakingSpeed: speed });
+      line = L.polyline(positions, { opacity: opacity, color: color, weight: weight, snakingSpeed: speed, dashArray: dashArray });
       line.addTo(map).snakeIn();
 
       // Set z-index on the SVG element
       if (line && line._path) {
         line._path.style.zIndex = zIndex;
       }
-      // Calculate animation duration and call onAnimationComplete when done
-      if (onAnimationComplete) {
-        const pathLength = getPathDistance(positions);
-        const animationDuration = (pathLength * 100) / speed;
-        const completeTimer = setTimeout(() => {
-          onAnimationComplete();
-        }, animationDuration);
-
-        return () => clearTimeout(completeTimer);
-      }
-    }, delay);
+    });
 
     return () => {
       clearTimeout(timer);
@@ -90,7 +58,7 @@ const SnakeLine = ({ positions, opacity, color = "#4a90e2", weight = 6, speed = 
         map.removeLayer(line);
       }
     };
-  }, [map, positions, color, weight, speed, opacity, delay, onAnimationComplete, zIndex]);
+  }, [map, positions, color, weight, speed, opacity, zIndex]);
 
   return null;
 };
@@ -136,25 +104,40 @@ export default function Map() {
   const [batteryDistanceData, setBatteryDistanceData] = useState([]);
   // State variables============================================================================================================
   const [mapCenter, setMapCenter] = useState(algeriaCord)
-  const [path, setPath] = useState(null); // State to hold the path data from the backend
-  const [exploredPaths, setExploredPaths] = useState([]); // State to hold explored paths
   const [totalBatteryConsumed, setTotalBatteryConsumed] = useState(0); // State to hold total battery consumed
-  const [showFinalPath, setShowFinalPath] = useState(false); // State to show final path after explored paths are done
   const [strategy, setStrategy] = useState(null); // State to hold the selected strategy
-  const [allAnimationsComplete, setAllAnimationsComplete] = useState(false); // Track when all animations complete
-  const [pathDistance, setPathDistance] = useState(0); // Distance of the current path in km
   // Map tile URLs===================================================================================================
-  const lightTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+  const lightTiles = "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}";
   const darkTiles = "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png";
   const satteliteTiles = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+  
   // delay Function============================================================================================================
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-  const STAGGER_DELAY = 2; // 50ms delay between each explored path animation
+  
+  // Calculate distance between coordinates for animation timing
+  const getPathDistance = (positions) => {
+    if (!positions || positions.length < 2) return 0;
+    let distance = 0;
+    for (let i = 0; i < positions.length - 1; i++) {
+      const [lat1, lng1] = positions[i];
+      const [lat2, lng2] = positions[i + 1];
+      const R = 6371; // Earth's radius in km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      distance += R * c;
+    }
+    return distance;
+  };
+  
   // Audio refs=======================================================================================================================================
   const searchAudioRef = useRef(new Audio(searchSound));
   const successAudioRef = useRef(new Audio(successSound));
   const animationCompletionCountRef = useRef(0);
-
+  
   // Control States:=======================================================================================================================================
   const [tileLayerUrl, setTileLayerUrl] = useState(lightTiles);
   const [loading, setLoading] = useState(false);
@@ -163,40 +146,49 @@ export default function Map() {
   const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
   const [zoom, setZoom] = useState(5);
   const [chargingStationsInPath, setChargingStationsInPath] = useState([]);
+  
+  // Scratch animtion:
+  const [showFinalPath, setShowFinalPath] = useState(false); // State to show final path after explored paths are done
+  const [startExploring, setStartExploring] = useState(false)
+  const [allAnimationsComplete, setAllAnimationsComplete] = useState(false); // Track when all animations complete
+  const [exploredPaths, setExploredPaths] = useState([]); // State to hold explored paths
+  const [count, setCount] = useState(0);// Count the explored paths displayed
+  const [path, setPath] = useState(null); // State to hold the path data from the backend
+  const [pathDistance, setPathDistance] = useState(0); // Distance of the current path in km
+  
+  // TIMING CONFIGURATION
+  const EXPLORED_PATH_DISPLAY_TIME = 30; 
+  const EXPLORED_PATH_ANIMATION_SPEED = 300; // Slower speed so animation is visible (lower = slower drawing)
 
 
+  // Handle explored paths animation timing
   useEffect(() => {
+    if (count < exploredPaths.length && !loading && !showFinalPath) {
+      const timer = setTimeout(() => setCount(count + 1), EXPLORED_PATH_DISPLAY_TIME);
+      return () => clearTimeout(timer);
+    } else if (count >= exploredPaths.length && exploredPaths.length > 0) {
+      // All explored paths shown, now show final path
+      setShowFinalPath(true);
 
+    }
+  }, [count, exploredPaths.length, loading]);
+
+  // Handle loading state
+  useEffect(() => {
     // Simulate loading delay when path changes
     if (path && path.length > 0) {
       setLoading(true);
-      setShowFinalPath(false); // Reset final path flag for new search
-      // Calculate the distance of the main path
-      const dist = getPathDistance(path);
-      setPathDistance(dist);
-      delay(1500).then(() => setLoading(false)); // Simulate a 1.5-second loading time
+      setCount(0)
+      setShowFinalPath(false)
+      delay(1500).then(() => setLoading(false));
     }
-
   }, [path]);
-  // Show final path after all explored paths finish animating
-  useEffect(() => {
-    if (exploredPaths.length > 0) {
-      setShowFinalPath(false);
-      // Calculate total animation time: last path delay + animation time
-      const totalAnimationTime = (exploredPaths.length - 1) * (strategy == "BFS" ? STAGGER_DELAY / 10 : STAGGER_DELAY) + 1500; //  stagger delay + 1.5s for animation
-      const timer = setTimeout(() => {
-        setShowFinalPath(true);
-      }, totalAnimationTime);
-      return () => clearTimeout(timer);
-    } else {
-      setShowFinalPath(true); // Show immediately if no explored paths
-    }
-  }, [exploredPaths]);
+
   // Play search sound while explored paths are active
   useEffect(() => {
     const searchAudio = searchAudioRef.current;
 
-    if (exploredPaths.length > 0 && !showFinalPath && !loading) {
+    if (count < exploredPaths.length && exploredPaths.length > 0 && !loading && !showFinalPath) {
       // Start playing search sound on loop
       searchAudio.currentTime = 0;
       searchAudio.loop = true;
@@ -211,7 +203,8 @@ export default function Map() {
       searchAudio.pause();
       searchAudio.currentTime = 0;
     };
-  }, [exploredPaths, showFinalPath, loading]);
+  }, [exploredPaths, count, showFinalPath, loading]);
+
   // Play success sound when final path is shown
   useEffect(() => {
     const successAudio = successAudioRef.current;
@@ -233,13 +226,13 @@ export default function Map() {
     };
   }, [showFinalPath, path]);
 
-// ====================================== UI ICONS =======================================================
+  // ====================================== UI ICONS =======================================================
   // Custom icon for charging stations with dynamic size based on zoom level
-  const customIcon =(size)=>  new Icon({
+  const customIcon = (size) => new Icon({
     iconUrl: trafic_electiric_charge_station,
     iconSize: [size, size]
   })
-  const getIconSize = (zoom) => Math.max(15, zoom * 3);
+  const getIconSize = (zoom) => Math.max(30, zoom * 3);
   // Create a glowing blue dot for the start point
   const startPointIcon = new DivIcon({
     html: `<div style="
@@ -261,10 +254,7 @@ export default function Map() {
     iconAnchor: [26, 50],
     popupAnchor: [0, -15]
   })
-// ======================================================================================================
-
-
-
+  // ======================================================================================================
 
   const markers = DZ_Charging_Stations.charging_stations.map((station) => {
     return {
@@ -276,7 +266,6 @@ export default function Map() {
       }
     }
   })
-
 
   // Custom cluster icon styling
   const createClusterCustomIcon = (cluster) => {
@@ -312,28 +301,29 @@ export default function Map() {
     <div className='Container'>
       <Battery_warning isOpen={isBatteryWarningOpen} setIsOpen={setIsBatteryWarningOpen} />
       <LoadingScreen isLoading={loading_screen} />
-      <Search_Box  
-        mapCenter={mapCenter} 
-        setBattery_warning_open={setIsBatteryWarningOpen} 
-        setMapCenter={setMapCenter} 
-        setPath={setPath} 
-        setExploredPaths={setExploredPaths} 
-        setStrategy={setStrategy} 
-        setLoadingScreen={setLoadingScreen} 
+      <Search_Box
+        mapCenter={mapCenter}
+        setBattery_warning_open={setIsBatteryWarningOpen}
+        setMapCenter={setMapCenter}
+        setPath={setPath}
+        setExploredPaths={setExploredPaths}
+        setStrategy={setStrategy}
+        setLoadingScreen={setLoadingScreen}
         setBattery_data={setBatteryData}
         setBatteryDistanceData={setBatteryDistanceData}
         setIsStatisticsOpen={setIsStatisticsOpen}
         isStatisticsOpen={isStatisticsOpen}
         setChargingStationsInPath={setChargingStationsInPath}
         setTotalBatteryConsumed={setTotalBatteryConsumed}
-
+        setPathDistance = {setPathDistance}
+        setCount={setCount}
       />
       <Statistics
         batteryData={batteryData}
         batteryDistanceData={batteryDistanceData}
         pathDistance={pathDistance}
         strategy={strategy}
-        totalBatteryConsumed = {totalBatteryConsumed}
+        totalBatteryConsumed={totalBatteryConsumed}
         isOpen={isStatisticsOpen}
       />
       <div className='views_container'>
@@ -366,7 +356,7 @@ export default function Map() {
           url={tileLayerUrl === satteliteTiles ? satteliteTiles : (isDarkMode ? darkTiles : lightTiles)}
         />
         {!path && (
-          <MarkerClusterGroup 
+          <MarkerClusterGroup
             iconCreateFunction={createClusterCustomIcon}
             maxClusterRadius={80}
             disableClusteringAtZoom={15}
@@ -383,8 +373,7 @@ export default function Map() {
                 </Popup>
               </Marker>
             ))}
-        </MarkerClusterGroup>)}
-
+          </MarkerClusterGroup>)}
 
         {path && path.length > 0 && (
           <>
@@ -392,7 +381,7 @@ export default function Map() {
             <ZoomableMarker
               position={path[0]}
               icon={startPointIcon}
-              style={{ zIndex: 999 }}
+              style={{ zIndex: 999999999999 }}
               popupContent={
                 <>
                   <h4>Start Point</h4>
@@ -427,35 +416,26 @@ export default function Map() {
                 </Popup>
               </Marker>))}
           </>
-
         )}
 
-        {path && !loading && showFinalPath && ( // Only render the path after explored paths finish
+        {path && showFinalPath && ( // Only render the path after explored paths finish
           <>
-            <SnakeLine positions={path} color="#1022caa2" weight={8} speed={200 + pathDistance} opacity={0.5} zIndex={999999999999999} /> {/* Add a second line with different style for the explored path */}
-            <SnakeLine positions={path} color='#4a90e2' weight={5} speed={200 + pathDistance} zIndex={9999999999999} />
+            <SnakeLine positions={path} color='#285ed3' weight={5} speed={500} zIndex={9999999999999} />
           </>
         )}
 
         {exploredPaths && exploredPaths.length > 0 && !loading && (
           <>
-            {exploredPaths.map((exploredPath, index) => {
-              // Filter out invalid paths
-              if (!exploredPath || !Array.isArray(exploredPath) || exploredPath.length === 0) {
-                return null;
-              }
-
-              const delayTime = index * (strategy == "BFS" ? STAGGER_DELAY / 10 : STAGGER_DELAY); // Stagger animations by 300ms each
+            {exploredPaths.slice(0, count).map((exploredPath, index) => {
               return (
                 <SnakeLine
                   key={`explored-${index}`}
                   positions={exploredPath}
                   color={"#d61717"}
                   weight={3}
-                  speed={400 + pathDistance}
-                  opacity={0.6}
-                  zIndex={10}
-                  delay={delayTime}
+                  speed={EXPLORED_PATH_ANIMATION_SPEED}
+                  opacity={0.5}
+                  zIndex={1}
                 />
               );
             })}

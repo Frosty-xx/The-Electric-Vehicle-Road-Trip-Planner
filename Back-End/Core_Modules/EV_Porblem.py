@@ -298,8 +298,8 @@ class EV_Problem:
                     f"move_to_{child_id}",
                     cumulative_cost,
                     f_score,
+                    charged_here=did_charge
                 )
-            child_node.charged_here = did_charge
             children.append(child_node)
 
         return children

@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import queue
 from Core_Modules.Node import Node
 from Core_Modules.EV_Porblem import EV_Problem
-from Core_Modules.EVGraph import is_charging_station, get_edge_distance_km
+from Core_Modules.EVGraph import  get_edge_distance_km
 
 DEFAULT_BATTERY_CAPACITY_KWH = 77.4
 
@@ -131,7 +131,11 @@ class GeneralSearch:
 
             # Expand current node and add unvisited neighbors to frontier
             for neighbour in self.problem.expand_node(
-                current, self.use_cost, self.use_heuristic, self.use_constraints, self.is_greedy
+                current,
+                self.use_cost,
+                self.use_heuristic,
+                self.use_constraints,
+                self.is_greedy,
             ):
                 if neighbour not in explored:
                     frontier.put(neighbour)
@@ -156,8 +160,8 @@ class GeneralSearch:
         cumulative_distance_km = 0.0
         total_battery_consumed_kwh = 0.0
         current = solution_node
-        
-        distances= []
+
+        distances = []
         batteries = []
         while current is not None:
             nodes.append(current.state_id)
@@ -170,16 +174,14 @@ class GeneralSearch:
             )
             cumulative_distance_km += edge_distance
             distances.append(cumulative_distance_km)
-            
-            if is_charging_station(G, current.state_id):
+
+            if current.charged_here:
                 chargers_in_path.append(
                     (
                         {
                             "lat": G.nodes[current.state_id].get("y", 0),
                             "lon": G.nodes[current.state_id].get("x", 0),
-                            "power_kw": G.nodes[current.state_id].get(
-                                "charger_kw", 0
-                            ),
+                            "power_kw": G.nodes[current.state_id].get("charger_kw", 0),
                         }
                     )
                 )
@@ -187,22 +189,24 @@ class GeneralSearch:
                 current.battery_kwh / DEFAULT_BATTERY_CAPACITY_KWH * 100
             )
             batteries.append(battery_percentage)
-            battery_time_graph.append((current.g / 60, battery_percentage)) # / 60 to convert seconds back to minutes for more intuitive graphing
-            
+            battery_time_graph.append(
+                (current.g / 60, battery_percentage)
+            )  # / 60 to convert seconds back to minutes for more intuitive graphing
+
             # calculate battery consumed for this edge
             if current.parent and current.battery_kwh < current.parent.battery_kwh:
                 parent_battery = current.parent.battery_kwh
                 battery_consumed = max(0, parent_battery - current.battery_kwh)
                 total_battery_consumed_kwh += battery_consumed
             current = current.parent
-            
-            
-            
+
         nodes.reverse()  # now start → goal
         battery_time_graph.reverse()
-        
+
         distances.reverse()
-        battery_distance_graph = list(zip(distances, batteries))  # Pair distances with battery levels
+        battery_distance_graph = list(
+            zip(distances, batteries)
+        )  # Pair distances with battery levels
         battery_distance_graph.reverse()  # Ensure it goes from start to goal
         # Build coordinate list using edge geometry
         solution_path = []
@@ -227,9 +231,8 @@ class GeneralSearch:
 
             solution_path.extend(points)
 
-        # Calculate total distance from the collected battery_distance_graph
-        total_distance_km = battery_distance_graph[-1][0] if battery_distance_graph else 0.0
-
+        total_distance_km = distances[0]
+        print(total_distance_km)
         return {
             "solution_path": solution_path,
             "battery_time_graph": battery_time_graph,

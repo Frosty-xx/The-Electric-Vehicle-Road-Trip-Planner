@@ -1,7 +1,8 @@
 class Node:
-    def __init__(self, state_id,battery_kwh, parent=None, action=None, g=0, f=0, distance_km=0):
+    def __init__(self, state_id,battery_kwh, parent=None, action=None, g=0, f=0, distance_km=0,charged_here=False):
         self.state_id = state_id
         self.battery_kwh=battery_kwh 
+        self.charged_here=charged_here
 
         self.parent = parent
         self.action = action

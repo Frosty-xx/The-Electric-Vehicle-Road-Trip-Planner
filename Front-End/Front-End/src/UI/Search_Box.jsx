@@ -35,7 +35,9 @@ export default function Search_Box({
     setIsStatisticsOpen,
     isStatisticsOpen,
     setChargingStationsInPath,
-    setTotalBatteryConsumed
+    setTotalBatteryConsumed,
+    setPathDistance,
+    setCount
 
 }) {
 
@@ -99,9 +101,11 @@ export default function Search_Box({
         setExploredPaths([]); // Clear old explored paths first
         setPath(null); // Clear old path first
         setTotalBatteryConsumed(0); // Reset total battery consumed
+        setPathDistance(0)
         setBattery_data([]); // Clear old battery data
         setChargingStationsInPath([]); // Clear old charging stations data
         setBatteryDistanceData([]); // Clear old battery distance data
+        setCount(0);
     }
     function resetForm() {
         setBattery_level(null)
@@ -147,13 +151,12 @@ export default function Search_Box({
                 setExploredPaths(data.explored_paths || []);
                 setMapCenter(data.path[0]);
                 setPath(data.path.filter(coord => !isNaN(coord[0]) && !isNaN(coord[1])));
-
                 setBattery_data(data.Battery_Time_Graph || [])
                 setBatteryDistanceData(data.Battery_Distance_Graph || [])
                 console.log("Charging Stations in Path:", data.Charging_stations || []);
                 setChargingStationsInPath(data.Charging_stations || [])
-                console.log("Total Battery Consumed (kWh):", data.total_battery_consumed_kwh || 0);
                 setTotalBatteryConsumed(data.total_kwh_used || 0);
+                setPathDistance(data.total_ditance_km)
 
             }, 100);
             setLoadingScreen(false);
